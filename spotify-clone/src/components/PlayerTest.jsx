@@ -1,9 +1,9 @@
 import React from "react";
 import { assets } from "../assets/assets/assets";
 
-const Player = ({ artist }) => {
+const PlayerTest = ({ artist }) => {
   // Choose the first image as the display image
-  const artistImage = artist.images?.[2]?.url || "";
+  const artistImage = artist.images?.[0]?.url || "";
   // Join genres array into a comma-separated string. If empty, display a fallback.
   const artistGenres =
     artist.genres && artist.genres.length > 0
@@ -53,4 +53,4 @@ const Player = ({ artist }) => {
   );
 };
 
-export default Player;
+export default PlayerTest;
