@@ -8,12 +8,11 @@ import AlbumData from "./backend/AlbumData";
 
 const App = () => {
   return (
-    <div className="bg-amber-200 h-screen">
+    <div className=" h-screen bg-gradient-to-r from-amber-200 to-pink-400 w-screen">
       <div className="h-[90%] flex">
         <Sidebar />
         <AlbumData />
       </div>
-
       <ArtistPlayer />
     </div>
   );

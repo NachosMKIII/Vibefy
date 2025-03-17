@@ -11,7 +11,7 @@ const PlayerTest = ({ artist }) => {
       : "Genre not available";
 
   return (
-    <div className="h-[10%] bg-amber-300 flex justify-between items-center text-white px-4">
+    <div className="h-[10%] bg-gradient-to-t from-amber-300 to-pink-400 w-screen flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={artistImage} alt={`${artist.name} image`} />
         <div>
