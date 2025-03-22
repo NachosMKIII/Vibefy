@@ -25,7 +25,7 @@ const AlbumData = () => {
           {
             headers: {
               Authorization:
-                "Bearer BQAig6szS4Xv9u27L1uyuQHJ-34V7dFsYCnVNZ4Txg8dV54TqwsxWTw3vm7OpbznnKt-H5VNhzbSTWZk7zjrxPgzrrmoEqCaOGa8BeDGiiGyfVKjFFT1uTAerKT-4Hp4ZlwSmqL6_j0",
+                "Bearer BQAsoqoHFkohC2O5EV6WKNwV9aLG4Y4c5YJHNAFtRrzp8y6c2pc0OFKQd9D-Dpj7tyqwre2lUz9HvKBZSpJpQVmOsjGbrvrEjGUUANsVXFqGQbS2o2IemdvSiLOGBieWu6gInen_sbQ",
             },
           }
         );

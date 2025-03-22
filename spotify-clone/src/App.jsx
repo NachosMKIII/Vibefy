@@ -5,6 +5,7 @@ import Player from "./components/Player";
 import PlayerTest from "./components/PlayerTest";
 import ArtistPlayer from "./backend/ArtistData";
 import AlbumData from "./backend/AlbumData";
+import ArtistData from "./backend/ArtistData";
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
         <Sidebar />
         <AlbumData />
       </div>
-      <ArtistPlayer />
+      <ArtistData />
     </div>
   );
 };

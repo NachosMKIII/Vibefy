@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Player from "../components/PlayerTest";
 
-const ArtistPlayer = () => {
+const ArtistData = () => {
   const [artist, setArtist] = useState(null);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const ArtistPlayer = () => {
   return <Player artist={artist} />;
 };
 
-export default ArtistPlayer;
+export default ArtistData;
