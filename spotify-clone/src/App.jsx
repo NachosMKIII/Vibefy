@@ -6,6 +6,7 @@ import PlayerTest from "./components/PlayerTest";
 import ArtistPlayer from "./backend/ArtistData";
 import AlbumData from "./backend/AlbumData";
 import ArtistData from "./backend/ArtistData";
+import LoginButton from "./components/LoginButton";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Sidebar />
         <AlbumData />
       </div>
+      <LoginButton />
       <ArtistData />
     </div>
   );

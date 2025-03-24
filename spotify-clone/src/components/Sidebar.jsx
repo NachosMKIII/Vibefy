@@ -1,5 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets/assets";
+import authUtils from "../backend/code-challenge";
 
 const Sidebar = () => {
   return (
@@ -29,8 +30,8 @@ const Sidebar = () => {
           <h1>Create a playlist with your desired songs</h1>
           <button
             className="p-4 cursor-pointer bg-black text-white"
-            href="https://accounts.spotify.com/authorize?client_id=4a5d0df8f02649c9a121fe843b20824a&response_type=code&redirect_uri=http://localhost:5173/
-        &scope=user-read-private%20user-read-email%20streaming%20user-modify-playback-state%20user-read-playback-state&code_challenge_method=S256&code_challenge=YOUR_CODE_CHALLENGE"
+            href="https://accounts.spotify.com/authorize?client_id=4a5d0df8f02649c9a121fe843b20824a&response_type=code&redirect_uri=http://localhost:5175/
+        &scope=user-read-private%20user-read-email%20streaming%20user-modify-playback-state%20user-read-playback-state&code_challenge_method=S256&code_challenge=theCodeChallenge"
           >
             Authorization
           </button>
@@ -38,7 +39,10 @@ const Sidebar = () => {
         <div className="p-4 bg-amber-300 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4 ">
           <h1>Get a random song from the experimental vibe</h1>
 
-          <button className="px-4 py-1.5 bg-blue-400 text-[15px] rounded-full mt-4">
+          <button
+            onclick={authUtils.generateAndStoreCode()}
+            className="px-4 py-1.5 bg-blue-400 text-[15px] rounded-full mt-4 token cursor-pointer"
+          >
             token
           </button>
         </div>
