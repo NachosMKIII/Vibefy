@@ -39,11 +39,8 @@ const Sidebar = () => {
         <div className="p-4 bg-amber-300 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4 ">
           <h1>Get a random song from the experimental vibe</h1>
 
-          <button
-            onclick={authUtils.generateAndStoreCode()}
-            className="px-4 py-1.5 bg-blue-400 text-[15px] rounded-full mt-4 token cursor-pointer"
-          >
-            token
+          <button className="px-4 py-1.5 bg-blue-400 text-[15px] rounded-full mt-4 token cursor-pointer">
+            nothing
           </button>
         </div>
       </div>

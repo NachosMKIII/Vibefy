@@ -28,9 +28,9 @@ const sha256 = async (string) => {
 
 // Spotify app credentials (replace with your own)
 const clientId = "4a5d0df8f02649c9a121fe843b20824a"; // From Spotify Developer Dashboard
-const redirectUri = "http://localhost:5173/";
+const redirectUri = "http://localhost:5173/callback";
 const scope =
-  "user-read-email%20user-read-private%20user-read-playback-state%20user-modify-playback-state%20streaming"; // Adjust scopes as needed
+  "user-read-email user-read-private user-read-playback-state user-modify-playback-state streaming"; // Adjust scopes as needed
 
 const LoginButton = () => {
   const authorizeSpotify = async () => {

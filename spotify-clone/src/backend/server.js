@@ -5,7 +5,7 @@
 
  clientSecret = "c55a5dd7920441aa843a4af6afae8225";
 
- redirectURI = "http://localhost:8888/callback";
+ redirectURI = "http://localhost:5173/callback";
 
  makePostRequest =
    curl.exe -X POST "https://accounts.spotify.com/api/token"  `
