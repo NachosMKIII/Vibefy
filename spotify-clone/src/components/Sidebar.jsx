@@ -1,6 +1,5 @@
 import React from "react";
 import { assets } from "../assets/assets/assets";
-import authUtils from "../backend/code-challenge";
 
 const Sidebar = () => {
   return (

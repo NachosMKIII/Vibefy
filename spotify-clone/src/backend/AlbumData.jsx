@@ -1,8 +1,12 @@
+//AlbumData.jsx
 import React, { useEffect, useState } from "react";
 import AlbumRow from "../components/AlbumRow";
+import { useSpotifyApi } from "./Auth";
 
 const AlbumData = () => {
   const [albums, setAlbums] = useState([]);
+  const [error, setError] = useState(null);
+  const makeApiCall = useSpotifyApi();
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -20,36 +24,29 @@ const AlbumData = () => {
       ].join(",");
 
       try {
-        const response = await fetch(
-          `https://api.spotify.com/v1/albums?ids=${albumIds}`,
-          {
-            headers: {
-              Authorization:
-                "Bearer BQAsoqoHFkohC2O5EV6WKNwV9aLG4Y4c5YJHNAFtRrzp8y6c2pc0OFKQd9D-Dpj7tyqwre2lUz9HvKBZSpJpQVmOsjGbrvrEjGUUANsVXFqGQbS2o2IemdvSiLOGBieWu6gInen_sbQ",
-            },
-          }
+        const data = await makeApiCall(
+          `https://api.spotify.com/v1/albums?ids=${albumIds}`
         );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
         setAlbums(data.albums);
       } catch (error) {
+        setError(error.message);
         console.error("Error fetching albums:", error);
       }
     };
 
     fetchAlbums();
-  }, []);
+  }, [makeApiCall]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   if (albums.length === 0) {
     return <div>Loading album data...</div>;
   }
 
   return (
-    <div className="flex flex-row gap-x-7 overflow-hidden">
+    <div className="flex flex-row gap-x-7">
       {albums.map((album) => (
         <AlbumRow key={album.id} album={album} />
       ))}

@@ -7,24 +7,30 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Callback from "./backend/Callback";
 
 const App = () => {
+  const accessToken = localStorage.getItem("access_token");
+
   return (
     <Router>
       <Routes>
-        {/* Main Route */}
         <Route
           path="/"
           element={
             <div className="h-screen bg-gradient-to-r from-amber-200 to-pink-400 w-screen">
               <div className="h-[90%] flex">
                 <Sidebar />
-                <AlbumData />
+                {accessToken ? (
+                  <div className="flex">
+                    <AlbumData />
+                  </div>
+                ) : (
+                  <div>Please log in to see albums.</div>
+                )}
               </div>
               <LoginButton />
-              <ArtistData />
+              {accessToken && <ArtistData />}
             </div>
           }
         />
-        {/* Callback Route for Spotify Login */}
         <Route path="/callback" element={<Callback />} />
       </Routes>
     </Router>
