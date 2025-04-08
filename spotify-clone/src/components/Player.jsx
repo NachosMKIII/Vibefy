@@ -1,22 +1,73 @@
 import React from "react";
-import { assets } from "../assets/assets/assets";
+import { assets } from "../assets/assets/assets"; // Ensure this path is correct
+import { useSpotifyApi } from "../backend/Auth"; // Adjust path as needed
 
-const Player = ({ artist }) => {
-  // Choose the first image as the display image
-  const artistImage = artist.images?.[2]?.url || "";
-  // Join genres array into a comma-separated string. If empty, display a fallback.
-  const artistGenres =
-    artist.genres && artist.genres.length > 0
-      ? artist.genres.join(", ")
-      : "Genre not available";
+const Player = ({ playbackState }) => {
+  const makeApiCall = useSpotifyApi();
+
+  // Check if there's no active playback or track
+  if (!playbackState || !playbackState.item) {
+    return (
+      <div className="h-[10%] bg-pink-300 flex justify-between items-center text-white px-4">
+        <div>No track is currently playing</div>
+      </div>
+    );
+  }
+
+  // Extract track details from playbackState
+  const currentTrack = playbackState.item;
+  const albumImage = currentTrack.album.images[0]?.url || ""; // Use first image from album
+  const trackName = currentTrack.name;
+  const artistName = currentTrack.artists
+    .map((artist) => artist.name)
+    .join(", ");
+
+  // Toggle play/pause
+  const togglePlayPause = async () => {
+    try {
+      if (playbackState.is_playing) {
+        await makeApiCall("https://api.spotify.com/v1/me/player/pause", {
+          method: "PUT",
+        });
+      } else {
+        await makeApiCall("https://api.spotify.com/v1/me/player/play", {
+          method: "PUT",
+        });
+      }
+    } catch (error) {
+      console.error("Error toggling play/pause:", error);
+    }
+  };
+
+  // Skip to next track
+  const nextTrack = async () => {
+    try {
+      await makeApiCall("https://api.spotify.com/v1/me/player/next", {
+        method: "POST",
+      });
+    } catch (error) {
+      console.error("Error skipping to next track:", error);
+    }
+  };
+
+  // Go to previous track
+  const prevTrack = async () => {
+    try {
+      await makeApiCall("https://api.spotify.com/v1/me/player/previous", {
+        method: "POST",
+      });
+    } catch (error) {
+      console.error("Error going to previous track:", error);
+    }
+  };
 
   return (
     <div className="h-[10%] bg-pink-300 flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4">
-        <img className="w-12" src={artistImage} alt={`${artist.name} image`} />
+        <img className="w-12" src={albumImage} alt="Album cover" />
         <div>
-          <p className="font-bold">{artist.name}</p>
-          <p className="font-bold">{artistGenres}</p>
+          <p className="font-bold">{trackName}</p>
+          <p>{artistName}</p>
         </div>
       </div>
       <div className="flex flex-col items-center gap-1 m-auto">
@@ -30,16 +81,21 @@ const Player = ({ artist }) => {
             className="w-4 cursor-pointer"
             src={assets.prev_icon}
             alt="Previous"
+            onClick={prevTrack}
           />
           <img
             className="w-4 cursor-pointer"
-            src={assets.play_icon}
-            alt="Play"
+            src={
+              playbackState.is_playing ? assets.pause_icon : assets.play_icon
+            }
+            alt={playbackState.is_playing ? "Pause" : "Play"}
+            onClick={togglePlayPause}
           />
           <img
             className="w-4 cursor-pointer"
             src={assets.next_icon}
             alt="Next"
+            onClick={nextTrack}
           />
           <img
             className="w-4 cursor-pointer"
@@ -47,7 +103,6 @@ const Player = ({ artist }) => {
             alt="Loop"
           />
         </div>
-        <div className="flex items-center gap-5"></div>
       </div>
     </div>
   );

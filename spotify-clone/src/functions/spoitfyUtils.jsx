@@ -1,5 +1,5 @@
 // spotifyUtils.js
-const clientId = "your-client-id-here";
+const clientId = "4a5d0df8f02649c9a121fe843b20824a";
 
 export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
