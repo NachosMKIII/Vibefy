@@ -1,4 +1,4 @@
-// spotifyUtils.js
+// spotifyUtils.jsx
 const clientId = "4a5d0df8f02649c9a121fe843b20824a";
 
 export const refreshAccessToken = async () => {

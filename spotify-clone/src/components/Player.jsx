@@ -2,6 +2,8 @@ import React from "react";
 import { assets } from "../assets/assets/assets"; // Ensure this path is correct
 import { useSpotifyApi } from "../backend/Auth"; // Adjust path as needed
 
+const accessToken = localStorage.getItem("access_token");
+
 const Player = ({ playbackState }) => {
   const makeApiCall = useSpotifyApi();
 

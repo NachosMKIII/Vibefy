@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const accessToken = localStorage.getItem("access_token");
+
 const Callback = () => {
   const location = useLocation();
 

@@ -1,4 +1,4 @@
-// auth.js
+// Auth.jsx
 import { useCallback } from "react";
 import { refreshAccessToken } from "../functions/spoitfyUtils";
 
