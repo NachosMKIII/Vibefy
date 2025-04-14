@@ -5,7 +5,7 @@
 }
 
 .sidebar1 {
-  background-color: var(--color1);
+  background: linear-gradient(to right, var(--color1), var(--color2));
 }
 .sidebar2 {
   background-color: var(--color2);
@@ -15,4 +15,10 @@
 }
 .login-button {
   background-color: var(--color2);
+}
+.album-title {
+  color: rgb(28, 15, 9);
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

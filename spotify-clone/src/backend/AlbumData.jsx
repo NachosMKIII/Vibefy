@@ -1,6 +1,6 @@
 //AlbumData.jsx
 import React, { useEffect, useState } from "react";
-import AlbumRow from "../components/AlbumRow";
+import AlbumRow from "../components/AlbumRow"; // Adjust path as needed
 import { useSpotifyApi } from "./Auth";
 
 const AlbumData = () => {
@@ -45,13 +45,7 @@ const AlbumData = () => {
     return <div>Loading album data...</div>;
   }
 
-  return (
-    <div className="flex flex-row gap-x-7">
-      {albums.map((album) => (
-        <AlbumRow key={album.id} album={album} />
-      ))}
-    </div>
-  );
+  return <AlbumRow title="Featured Albums" albums={albums} />;
 };
 
 export default AlbumData;
