@@ -14,7 +14,7 @@ const AlbumRow = ({ album }) => {
   };
 
   return (
-    <div className="w-40 h-40 relative mt-4 bg-blue-200 mb-10">
+    <div className="w-40 h-40 relative mt-4 mb-10">
       <img
         className="w-full h-full object-cover rounded cursor-pointer"
         src={albumImage}

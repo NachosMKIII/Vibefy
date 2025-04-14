@@ -10,7 +10,7 @@ const Player = ({ playbackState }) => {
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.item) {
     return (
-      <div className="h-[10%] bg-pink-300 flex justify-between items-center text-white px-4">
+      <div className="h-[10%] player flex justify-between items-center text-white px-4">
         <div>No track is currently playing</div>
       </div>
     );
@@ -64,7 +64,7 @@ const Player = ({ playbackState }) => {
   };
 
   return (
-    <div className="h-[10%] bg-pink-300 flex justify-between items-center text-white px-4">
+    <div className="h-[10%] player flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={albumImage} alt="Album cover" />
         <div>

@@ -48,7 +48,7 @@ const App = () => {
           <Route
             path="/"
             element={
-              <div className="h-screen bg-gradient-to-r from-amber-200 to-pink-400 w-screen overflow-hidden">
+              <div className="h-screen bg-[url('./assets/images/theme-cozy.jpg')] bg-center bg-cover bg-no-repeat w-screen overflow-hidden">
                 <div className="h-[90%] flex">
                   <Sidebar />
                   {accessToken ? (
