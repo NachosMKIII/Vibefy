@@ -28,13 +28,7 @@ const Sidebar = () => {
         </div>
         <div className="p-4  sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4">
           <h1>Create a playlist with your desired songs</h1>
-          <button
-            className="p-4 cursor-pointer  text-white"
-            href="https://accounts.spotify.com/authorize?client_id=4a5d0df8f02649c9a121fe843b20824a&response_type=code&redirect_uri=http://localhost:5175/
-        &scope=user-read-private%20user-read-email%20streaming%20user-modify-playback-state%20user-read-playback-state&code_challenge_method=S256&code_challenge=theCodeChallenge"
-          >
-            Button
-          </button>
+          <button className="p-4 cursor-pointer  text-white">Button</button>
         </div>
         <div className="p-4  sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4 ">
           <h1>Get a random song from the cozy vibe</h1>
@@ -48,4 +42,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar; //end of Sidebar.jsx

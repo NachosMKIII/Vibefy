@@ -90,16 +90,19 @@ function AlbumCard({ album }) {
   };
 
   return (
-    <div className="flex-shrink-0 w-40 transition-transform">
-      <div className="w-40 h-40 relative mb-2 hover:scale-105 transition-transform">
+    <div
+      className="flex-shrink-0 w-40 h-54 transition-transform"
+      style={{ backgroundColor: "var(--color2t)" }}
+    >
+      <div className=" relative mb-2 hover:scale-105 transition-transform">
         <img
-          className="w-full h-full object-cover rounded cursor-pointer"
+          className=" object-cover rounded cursor-pointer w-40 h-40"
           src={albumImage}
           alt={`${album.name} cover`}
           onClick={handlePlay}
         />
       </div>
-      <p className="w-[18ch] line-clamp-2 album-title font-medium">
+      <p className="w-[18ch] ml-0.5 line-clamp-2 album-title font-medium">
         {album.name}
       </p>
     </div>

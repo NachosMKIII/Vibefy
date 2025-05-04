@@ -2,6 +2,7 @@
 :root {
   --color1: rgb(120, 80, 61);
   --color2: rgb(102, 65, 47);
+  --color2t: rgba(102, 65, 47, 0.499);
 }
 
 .sidebar1 {
@@ -14,7 +15,7 @@
   background-color: var(--color1);
 }
 .login-button {
-  background-color: var(--color2);
+  color: black;
 }
 .album-title {
   color: rgb(28, 15, 9);

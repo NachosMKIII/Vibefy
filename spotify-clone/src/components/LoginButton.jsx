@@ -62,9 +62,9 @@ const LoginButton = () => {
   };
 
   return (
-    <div>
+    <div className="items-center justify-center">
       <button
-        className="cursor-pointer login-button"
+        className="cursor-pointer login-button bg-purple-500"
         onClick={authorizeSpotify}
       >
         Login with Spotify

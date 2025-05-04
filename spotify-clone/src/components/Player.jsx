@@ -9,11 +9,7 @@ const Player = ({ playbackState }) => {
 
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.item) {
-    return (
-      <div className="h-[10%] player flex justify-between items-center text-white px-4">
-        <div>No track is currently playing</div>
-      </div>
-    );
+    return;
   }
 
   // Extract track details from playbackState
