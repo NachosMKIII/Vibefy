@@ -1,10 +1,15 @@
+//Player.jsx
 import React from "react";
 import { assets } from "../assets/assets/assets"; // Ensure this path is correct
 import { useSpotifyApi } from "../backend/Auth"; // Adjust path as needed
+import "./cozy-theme/player.css";
+import { useContext } from "react";
+import { SpotifyContext } from "../context/SpotifyContext";
 
 const accessToken = localStorage.getItem("access_token");
 
-const Player = ({ playbackState }) => {
+const Player = ({ playbackState, theme }) => {
+  const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
 
   // Check if there's no active playback or track
@@ -13,12 +18,13 @@ const Player = ({ playbackState }) => {
   }
 
   // Extract track details from playbackState
-  const currentTrack = playbackState.item;
-  const albumImage = currentTrack.album.images[0]?.url || ""; // Use first image from album
-  const trackName = currentTrack.name;
-  const artistName = currentTrack.artists
-    .map((artist) => artist.name)
-    .join(", ");
+  const isPlaying = playbackState?.is_playing || false;
+  const currentTrack = playbackState?.item || null;
+  const albumImage = currentTrack?.album.images[0]?.url || assets.default_image; // Add a default image in assets
+  const trackName = currentTrack?.name || "No track playing";
+  const artistName =
+    currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
+    "No artist";
 
   // Toggle play/pause
   const togglePlayPause = async () => {
@@ -60,7 +66,9 @@ const Player = ({ playbackState }) => {
   };
 
   return (
-    <div className="h-[10%] player flex justify-between items-center text-white px-4">
+    <div
+      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 ${theme}`}
+    >
       <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={albumImage} alt="Album cover" />
         <div>
@@ -106,4 +114,4 @@ const Player = ({ playbackState }) => {
   );
 };
 
-export default Player;
+export default Player; //end of Player.jsx

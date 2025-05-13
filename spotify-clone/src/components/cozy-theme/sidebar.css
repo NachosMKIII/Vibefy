@@ -1,0 +1,21 @@
+.main-sidebar {
+  --color1: rgb(120, 80, 61);
+  --color2: rgb(102, 65, 47);
+  --color2t: rgb(102, 65, 47);
+  --color3: rgb(202, 170, 156);
+  --color4: rgb(32, 19, 12);
+}
+
+.sidebar.cozy {
+  color: white;
+}
+.sidebar.cozy .sidebar1 {
+  background: linear-gradient(to right, var(--color1), var(--color2));
+}
+.sidebar.cozy .sidebar2 {
+  background-color: var(--color2);
+}
+.sidebar.cozy .button {
+  background-color: var(--color3);
+  color: var(--color4);
+}
