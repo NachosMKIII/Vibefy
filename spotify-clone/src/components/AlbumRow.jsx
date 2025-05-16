@@ -1,3 +1,4 @@
+//AlbumRow.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";
@@ -25,6 +26,7 @@ export default function AlbumRow({ title, albumIds, theme }) {
         "1vWOYk3hF5bgVUUUaPvYLh",
         "6EtrZFZ6FMR6fbB82oHUWi",
         "38NEzyo2N5T68j7aFetd4x",
+        "0AL7olZ75pi55q9p1eHaD8",
       ].join(",");
 
       try {
@@ -130,7 +132,7 @@ function AlbumCard({ album, theme }) {
 
   return (
     <div
-      className={`main-album-row album-row flex-shrink-0 w-40 h-54 rounded-2xl transition-transform ${theme}`}
+      className={`main-album-row album-row flex-shrink-0 w-40 h-54 rounded-2xl transition-transform mr-2 ${theme}`}
     >
       <div className="relative mb-2 hover:scale-105 transition-transform">
         <img

@@ -1,26 +1,24 @@
 //Player.jsx
 import React from "react";
-import { assets } from "../assets/assets/assets"; // Ensure this path is correct
-import { useSpotifyApi } from "../backend/Auth"; // Adjust path as needed
-import "./cozy-theme/player.css";
+import { assets } from "../assets/assets/assets";
+import { useSpotifyApi } from "../backend/Auth";
 import { useContext } from "react";
+import "./cozy-theme/player.css";
 import { SpotifyContext } from "../context/SpotifyContext";
-
-const accessToken = localStorage.getItem("access_token");
 
 const Player = ({ playbackState, theme }) => {
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
 
   // Check if there's no active playback or track
-  if (!playbackState || !playbackState.item) {
-    return;
+  if (!playbackState || !playbackState.track_window?.current_track) {
+    return <div className="text-white">No track playing</div>;
   }
 
   // Extract track details from playbackState
-  const isPlaying = playbackState?.is_playing || false;
-  const currentTrack = playbackState?.item || null;
-  const albumImage = currentTrack?.album.images[0]?.url || assets.default_image; // Add a default image in assets
+  const isPlaying = !playbackState.paused;
+  const currentTrack = playbackState?.track_window?.current_track || null;
+  const albumImage = currentTrack?.album.images[0]?.url || assets.default_image;
   const trackName = currentTrack?.name || "No track playing";
   const artistName =
     currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
@@ -29,14 +27,16 @@ const Player = ({ playbackState, theme }) => {
   // Toggle play/pause
   const togglePlayPause = async () => {
     try {
-      if (playbackState.is_playing) {
-        await makeApiCall("https://api.spotify.com/v1/me/player/pause", {
-          method: "PUT",
-        });
+      if (isPlaying) {
+        await makeApiCall(
+          `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+          { method: "PUT" }
+        );
       } else {
-        await makeApiCall("https://api.spotify.com/v1/me/player/play", {
-          method: "PUT",
-        });
+        await makeApiCall(
+          `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+          { method: "PUT" }
+        );
       }
     } catch (error) {
       console.error("Error toggling play/pause:", error);
@@ -46,9 +46,10 @@ const Player = ({ playbackState, theme }) => {
   // Skip to next track
   const nextTrack = async () => {
     try {
-      await makeApiCall("https://api.spotify.com/v1/me/player/next", {
-        method: "POST",
-      });
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`,
+        { method: "POST" }
+      );
     } catch (error) {
       console.error("Error skipping to next track:", error);
     }
@@ -57,17 +58,65 @@ const Player = ({ playbackState, theme }) => {
   // Go to previous track
   const prevTrack = async () => {
     try {
-      await makeApiCall("https://api.spotify.com/v1/me/player/previous", {
-        method: "POST",
-      });
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/previous?device_id=${deviceId}`,
+        { method: "POST" }
+      );
     } catch (error) {
       console.error("Error going to previous track:", error);
     }
   };
 
+  // Toggle shuffle
+  const toggleShuffle = async () => {
+    try {
+      const newState = !playbackState.shuffle;
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/shuffle?state=${newState}&device_id=${deviceId}`,
+        { method: "PUT" }
+      );
+    } catch (error) {
+      console.error("Error toggling shuffle:", error);
+    }
+  };
+
+  // Cycle repeat mode
+  const cycleRepeatMode = async () => {
+    try {
+      const currentMode = playbackState.repeat_mode;
+      let nextMode;
+      if (currentMode === 0) {
+        nextMode = "context";
+      } else if (currentMode === 1) {
+        nextMode = "track";
+      } else {
+        nextMode = "off";
+      }
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/repeat?state=${nextMode}&device_id=${deviceId}`,
+        { method: "PUT" }
+      );
+    } catch (error) {
+      console.error("Error cycling repeat mode:", error);
+    }
+  };
+
+  // Handle volume change
+  const handleVolumeChange = async (event) => {
+    const newVolume = event.target.value;
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
+        { method: "PUT" }
+      );
+    } catch (error) {
+      console.error("Error setting volume:", error);
+    }
+  };
+
   return (
     <div
-      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 ${theme}`}
+      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 mb-10 ${theme}`}
     >
       <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={albumImage} alt="Album cover" />
@@ -80,8 +129,13 @@ const Player = ({ playbackState, theme }) => {
         <div className="flex gap-4">
           <img
             className="w-4 cursor-pointer"
-            src={assets.shuffle_icon}
+            src={
+              playbackState.shuffle
+                ? assets.shuffle_on_icon
+                : assets.shuffle_off_icon
+            }
             alt="Shuffle"
+            onClick={toggleShuffle}
           />
           <img
             className="w-4 cursor-pointer"
@@ -91,10 +145,8 @@ const Player = ({ playbackState, theme }) => {
           />
           <img
             className="w-4 cursor-pointer"
-            src={
-              playbackState.is_playing ? assets.pause_icon : assets.play_icon
-            }
-            alt={playbackState.is_playing ? "Pause" : "Play"}
+            src={isPlaying ? assets.pause_icon : assets.play_icon}
+            alt={isPlaying ? "Pause" : "Play"}
             onClick={togglePlayPause}
           />
           <img
@@ -107,6 +159,18 @@ const Player = ({ playbackState, theme }) => {
             className="w-4 cursor-pointer"
             src={assets.loop_icon}
             alt="Loop"
+            onClick={cycleRepeatMode}
+          />
+        </div>
+        <div className="flex items-center mt-2">
+          <img className="w-4" src={assets.volume_icon} alt="Volume" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={playbackState.volume_percent || 50}
+            onChange={handleVolumeChange}
+            className="w-24 ml-2"
           />
         </div>
       </div>
@@ -114,4 +178,4 @@ const Player = ({ playbackState, theme }) => {
   );
 };
 
-export default Player; //end of Player.jsx
+export default Player;

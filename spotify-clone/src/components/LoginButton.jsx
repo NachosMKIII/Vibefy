@@ -31,7 +31,7 @@ const sha256 = async (string) => {
 const clientId = "4a5d0df8f02649c9a121fe843b20824a"; // From Spotify Developer Dashboard
 const redirectUri = "http://localhost:5173/callback";
 const scope =
-  "user-read-email user-read-playback-state user-modify-playback-state streaming"; // Adjust scopes as needed
+  "user-read-email user-read-playback-state user-read-private user-modify-playback-state user-read-currently-playing streaming"; // Adjust scopes as needed
 
 const LoginButton = () => {
   const authorizeSpotify = async () => {
@@ -62,7 +62,7 @@ const LoginButton = () => {
   };
 
   return (
-    <div className="items-center justify-center">
+    <div className=" flex items-center justify-center ">
       <button
         className="cursor-pointer login-button bg-purple-500 text-black"
         onClick={authorizeSpotify}

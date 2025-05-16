@@ -1,6 +1,6 @@
-// Auth.jsx
+//Auth.jsx
 import { useCallback } from "react";
-import { refreshAccessToken } from "../functions/spoitfyUtils";
+import { refreshAccessToken } from "../functions/spotifyUtils";
 
 export const useSpotifyApi = () => {
   const makeApiCall = useCallback(
@@ -30,10 +30,32 @@ export const useSpotifyApi = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(
+            `Network response was not ok: ${response.status} - ${JSON.stringify(
+              errorData
+            )}`
+          );
+        } else {
+          const text = await response.text();
+          throw new Error(
+            `Network response was not ok: ${response.status} - ${text}`
+          );
+        }
       }
 
-      return response.json();
+      if (response.status === 204) {
+        return null;
+      }
+
+      const contentType = response.headers.get("Content-Type");
+      if (contentType && contentType.includes("application/json")) {
+        return response.json();
+      } else {
+        return response.text();
+      }
     },
     [refreshAccessToken]
   );
