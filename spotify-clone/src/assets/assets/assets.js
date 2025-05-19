@@ -9,7 +9,6 @@ import pause_icon from "./pause.png";
 import plays_icon from "./plays.png";
 import prev_icon from "./prev.png";
 import search_icon from "./search.png";
-import shuffle_icon from "./shuffle.png";
 import speaker_icon from "./speaker.png";
 import stack_icon from "./stack.png";
 import zoom_icon from "./zoom.png";
@@ -22,8 +21,14 @@ import arrow_right from "./right_arrow.png";
 import arrow_left from "./left_arrow.png";
 import spotify_logo from "./spotify_logo.png";
 import clock_icon from "./clock_icon.png";
+import { ShuffleIcon } from "lucide-react";
+import shuffle_on from "./shuffle_on.png";
+import shuffle_off from "./shuffle_off.png";
 
 export const assets = {
+  shuffle_on,
+  shuffle_off,
+  ShuffleIcon,
   bell_icon,
   home_icon,
   like_icon,
@@ -34,7 +39,6 @@ export const assets = {
   plays_icon,
   prev_icon,
   search_icon,
-  shuffle_icon,
   speaker_icon,
   stack_icon,
   zoom_icon,

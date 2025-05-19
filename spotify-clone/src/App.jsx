@@ -8,11 +8,15 @@ import Callback from "./backend/Callback";
 import Player from "./components/Player";
 import { SpotifyContext } from "./context/SpotifyContext";
 import { refreshAccessToken } from "./functions/spotifyUtils"; // Import refreshAccessToken
+import { useContext } from "react";
+import { ThemeContext } from "./context/ThemeContext";
 
 const App = () => {
   const accessToken = localStorage.getItem("access_token");
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
+  const [theme, setTheme] = useState("cozy");
+  const { theme: currentTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     const initializePlayer = () => {
@@ -82,33 +86,40 @@ const App = () => {
   }, []); // Empty dependency array ensures this runs once on mount
 
   return (
-    <SpotifyContext.Provider value={{ deviceId }}>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="h-screen bg-[url('./assets/images/theme-cozy.jpg')] bg-center bg-cover bg-no-repeat w-screen overflow-hidden">
-                <div className="h-[90%] flex">
-                  <Sidebar theme="cozy" />
-                  {accessToken ? (
-                    <div className="flex-1 overflow-x-auto">
-                      <AlbumRow theme="cozy" />
-                      <AlbumRow theme="cozy" />
-                    </div>
-                  ) : (
-                    <div>Please log in to see albums.</div>
-                  )}
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <SpotifyContext.Provider value={{ deviceId }}>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="h-screen w-screen overflow-hidden">
+                  <div
+                    className="h-[90%] bg-center bg-cover bg-no-repeat flex"
+                    style={{
+                      backgroundImage: `url('./assets/images/theme-${theme}.png')`,
+                    }}
+                  >
+                    <Sidebar />
+                    {accessToken ? (
+                      <div className="flex-1 overflow-x-auto">
+                        <AlbumRow />
+                        <AlbumRow />
+                      </div>
+                    ) : (
+                      <div>Please log in to see albums.</div>
+                    )}
+                  </div>
+                  <LoginButton />
+                  <Player playbackState={playbackState} />
                 </div>
-                {!accessToken ? <LoginButton /> : ""}
-                <Player theme="cozy" playbackState={playbackState} />
-              </div>
-            }
-          />
-          <Route path="/callback" element={<Callback />} />
-        </Routes>
-      </Router>
-    </SpotifyContext.Provider>
+              }
+            />
+            <Route path="/callback" element={<Callback />} />
+          </Routes>
+        </Router>
+      </SpotifyContext.Provider>
+    </ThemeContext.Provider>
   );
 };
 

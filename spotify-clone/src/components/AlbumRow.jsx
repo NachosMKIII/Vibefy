@@ -4,8 +4,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";
 import { useSpotifyApi } from "../backend/Auth";
 import "./cozy-theme/album-row.css";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
-export default function AlbumRow({ title, albumIds, theme }) {
+export default function AlbumRow({ title, albumIds }) {
+  const { theme } = useContext(ThemeContext);
   const [albums, setAlbums] = useState([]);
   const [error, setError] = useState(null);
   const makeApiCall = useSpotifyApi();

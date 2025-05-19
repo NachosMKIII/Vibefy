@@ -1,3 +1,21 @@
+.main-sidebar.metal {
+  --color1: rgb(33, 34, 40);
+  --color2: rgb(20, 20, 24);
+  --color2t: rgba(20, 20, 24, 0.52);
+  --color3: rgb(121, 123, 134);
+  --color4: rgb(17, 23, 53);
+}
+
+.sidebar.metal {
+  color: white;
+}
 .sidebar.metal .sidebar1 {
-  background-color: rgb(33, 34, 40);
+  background: linear-gradient(to right, var(--color1), var(--color2));
+}
+.sidebar.metal .sidebar2 {
+  background-color: var(--color2);
+}
+.sidebar.metal .button {
+  background-color: var(--color3);
+  color: var(--color4);
 }

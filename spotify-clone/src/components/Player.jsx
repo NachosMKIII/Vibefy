@@ -2,11 +2,13 @@
 import React from "react";
 import { assets } from "../assets/assets/assets";
 import { useSpotifyApi } from "../backend/Auth";
-import { useContext } from "react";
 import "./cozy-theme/player.css";
 import { SpotifyContext } from "../context/SpotifyContext";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
-const Player = ({ playbackState, theme }) => {
+const Player = ({ playbackState }) => {
+  const { theme } = useContext(ThemeContext);
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
 
@@ -125,15 +127,11 @@ const Player = ({ playbackState, theme }) => {
           <p>{artistName}</p>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-1 m-auto">
+      <div className=" gap-1 m-auto">
         <div className="flex gap-4">
           <img
-            className="w-4 cursor-pointer"
-            src={
-              playbackState.shuffle
-                ? assets.shuffle_on_icon
-                : assets.shuffle_off_icon
-            }
+            className="w-10 cursor-pointer"
+            src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
             alt="Shuffle"
             onClick={toggleShuffle}
           />
@@ -162,13 +160,13 @@ const Player = ({ playbackState, theme }) => {
             onClick={cycleRepeatMode}
           />
         </div>
-        <div className="flex items-center mt-2">
+        <div className="items-center mt-2">
           <img className="w-4" src={assets.volume_icon} alt="Volume" />
           <input
             type="range"
             min="0"
             max="100"
-            value={playbackState.volume_percent || 50}
+            value={playbackState.volume * 100 || 50}
             onChange={handleVolumeChange}
             className="w-24 ml-2"
           />

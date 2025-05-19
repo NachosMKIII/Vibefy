@@ -2,8 +2,11 @@ import React from "react";
 import { assets } from "../assets/assets/assets";
 import "./cozy-theme/sidebar.css";
 import "./metal-theme/sidebar.css";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
-const Sidebar = ({ theme }) => {
+const Sidebar = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div
       className={`main-sidebar sidebar w-[35%] h-full p-2 flex-col gap-2 hidden lg:flex ${theme}`}
@@ -36,7 +39,7 @@ const Sidebar = ({ theme }) => {
           </button>
         </div>
         <div className="p-4 sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4">
-          <h1>Get a random song from the cozy vibe</h1>
+          <h1>Get a random song from the {theme} vibe</h1>
           <button className="button px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer">
             Button
           </button>
