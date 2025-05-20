@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";
 import { useSpotifyApi } from "../backend/Auth";
 import "./cozy-theme/album-row.css";
+import "./metal-rock-theme/album-row.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -17,8 +18,9 @@ export default function AlbumRow({ title, albumIds }) {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
-    const fetchAlbums = async () => {
-      const albumIds = [
+    let albumIds;
+    if (theme === "cozy") {
+      albumIds = [
         "4LileDrFwEUFB5UPA3AEia",
         "2yAO7HQOfO4t146QLyK26a",
         "7DxmOS2dKJgTfLLRNOP4ch",
@@ -30,11 +32,35 @@ export default function AlbumRow({ title, albumIds }) {
         "6EtrZFZ6FMR6fbB82oHUWi",
         "38NEzyo2N5T68j7aFetd4x",
         "0AL7olZ75pi55q9p1eHaD8",
-      ].join(",");
-
+        "1aFyAtSRxLNzSTGwHMRvWj",
+        "0vhRTvVCv9O5orRMgFjxT1",
+      ];
+    } else if (theme === "rock-metal") {
+      albumIds = [
+        "2kcJ3TxBhSwmki0QWFXUz8",
+        "08pnia1NUFsyIWfhE9sZz1",
+        "1QJmLRcuIMMjZ49elafR3K",
+      ];
+    } else if (theme === "experimental") {
+      albumIds = [
+        "4LileDrFwEUFB5UPA3AEia",
+        "2yAO7HQOfO4t146QLyK26a",
+        "7izZDSBxj6nB2PieJo6U0u",
+        "4T95uimM0PQNgAkcyLTym0",
+        "63TYyeXlBYoYKNvE6rT3hI",
+        "1vWOYk3hF5bgVUUUaPvYLh",
+      ];
+    } else {
+      // Fallback to a default set (e.g., cozy)
+      albumIds = [
+        "4LileDrFwEUFB5UPA3AEia",
+        "2yAO7HQOfO4t146QLyK26a" /* ... default albums */,
+      ];
+    }
+    const fetchAlbums = async () => {
       try {
         const data = await makeApiCall(
-          `https://api.spotify.com/v1/albums?ids=${albumIds}`
+          `https://api.spotify.com/v1/albums?ids=${albumIds.join(",")}`
         );
         setAlbums(data.albums);
       } catch (error) {

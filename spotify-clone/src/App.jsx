@@ -15,8 +15,7 @@ const App = () => {
   const accessToken = localStorage.getItem("access_token");
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
-  const [theme, setTheme] = useState("cozy");
-  const { theme: currentTheme } = useContext(ThemeContext);
+  const [theme, setTheme] = useState("rock-metal");
 
   useEffect(() => {
     const initializePlayer = () => {
@@ -93,13 +92,13 @@ const App = () => {
             <Route
               path="/"
               element={
-                <div className="h-screen w-screen overflow-hidden">
-                  <div
-                    className="h-[90%] bg-center bg-cover bg-no-repeat flex"
-                    style={{
-                      backgroundImage: `url('./assets/images/theme-${theme}.png')`,
-                    }}
-                  >
+                <div
+                  className="h-screen w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
+                  style={{
+                    backgroundImage: `url('/assets/images/theme-${theme}.png')`,
+                  }}
+                >
+                  <div className="h-[90%] flex">
                     <Sidebar />
                     {accessToken ? (
                       <div className="flex-1 overflow-x-auto">
@@ -110,8 +109,11 @@ const App = () => {
                       <div>Please log in to see albums.</div>
                     )}
                   </div>
-                  <LoginButton />
-                  <Player playbackState={playbackState} />
+                  {!accessToken ? (
+                    <LoginButton />
+                  ) : (
+                    <Player playbackState={playbackState} />
+                  )}
                 </div>
               }
             />

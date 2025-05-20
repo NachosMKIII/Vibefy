@@ -1,7 +1,7 @@
 import React from "react";
 import { assets } from "../assets/assets/assets";
 import "./cozy-theme/sidebar.css";
-import "./metal-theme/sidebar.css";
+import "./metal-rock-theme/sidebar.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 

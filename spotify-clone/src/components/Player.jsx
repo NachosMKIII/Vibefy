@@ -6,6 +6,7 @@ import "./cozy-theme/player.css";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import "./metal-rock-theme/player.css";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -105,7 +106,7 @@ const Player = ({ playbackState }) => {
 
   // Handle volume change
   const handleVolumeChange = async (event) => {
-    const newVolume = event.target.value;
+    const newVolume = parseInt(event.target.value, 10);
     try {
       await makeApiCall(
         `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
@@ -120,57 +121,57 @@ const Player = ({ playbackState }) => {
     <div
       className={`main-player h-[10%] player flex justify-between items-center text-white px-4 mb-10 ${theme}`}
     >
-      <div className="hidden lg:flex items-center gap-4">
-        <img className="w-12" src={albumImage} alt="Album cover" />
+      <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
+        <img className="w-16" src={albumImage} alt="Album cover" />
         <div>
-          <p className="font-bold">{trackName}</p>
-          <p>{artistName}</p>
+          <p className="font-bold whitespace-nowrap">{trackName}</p>
+          <p className="whitespace-nowrap">{artistName}</p>
         </div>
       </div>
-      <div className=" gap-1 m-auto">
+      <div className="gap-1 relative right-18 m-auto">
         <div className="flex gap-4">
           <img
-            className="w-10 cursor-pointer"
+            className="w-12 h-12 relative  cursor-pointer"
             src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
             alt="Shuffle"
             onClick={toggleShuffle}
           />
           <img
-            className="w-4 cursor-pointer"
+            className="w-6 h-6  relative top-3 cursor-pointer"
             src={assets.prev_icon}
             alt="Previous"
             onClick={prevTrack}
           />
           <img
-            className="w-4 cursor-pointer"
+            className="w-6 h-6  relative top-3 cursor-pointer"
             src={isPlaying ? assets.pause_icon : assets.play_icon}
             alt={isPlaying ? "Pause" : "Play"}
             onClick={togglePlayPause}
           />
           <img
-            className="w-4 cursor-pointer"
+            className="w-6 h-6 top-3   relative cursor-pointer"
             src={assets.next_icon}
             alt="Next"
             onClick={nextTrack}
           />
           <img
-            className="w-4 cursor-pointer"
+            className="w-6 h-6 top-3 left-1   relative cursor-pointer"
             src={assets.loop_icon}
             alt="Loop"
             onClick={cycleRepeatMode}
           />
         </div>
-        <div className="items-center mt-2">
-          <img className="w-4" src={assets.volume_icon} alt="Volume" />
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={playbackState.volume * 100 || 50}
-            onChange={handleVolumeChange}
-            className="w-24 ml-2"
-          />
-        </div>
+      </div>
+      <div className="items-center  relative mt-2">
+        <img className="w-4" src={assets.volume_icon} alt="Volume" />
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={Math.round((playbackState.volume || 0.5) * 100)}
+          onChange={handleVolumeChange}
+          className="w-24 ml-2"
+        />
       </div>
     </div>
   );

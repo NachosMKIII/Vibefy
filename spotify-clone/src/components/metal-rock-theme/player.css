@@ -1,0 +1,11 @@
+.main-player.rock-metal {
+  --color1: rgb(33, 34, 40);
+  --color2: rgb(20, 20, 24);
+  --color2t: rgba(20, 20, 24, 0.52);
+  --color3: rgb(121, 123, 134);
+  --color4: rgb(17, 23, 53);
+}
+
+.player.rock-metal {
+  background-color: var(--color1);
+}
