@@ -4,9 +4,10 @@ import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import "./experimental-theme/sidebar.css";
 
 const Sidebar = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
     <div
       className={`main-sidebar sidebar w-[35%] h-full p-2 flex-col gap-2 hidden lg:flex ${theme}`}
@@ -32,7 +33,7 @@ const Sidebar = () => {
             <img className="w-5" src={assets.plus_icon} alt="" />
           </div>
         </div>
-        <div className="p-4 sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4">
+        <div className="p-4 z-50 sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4">
           <h1>Create a playlist with your desired songs</h1>
           <button className="button p-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer">
             Button
@@ -42,6 +43,27 @@ const Sidebar = () => {
           <h1>Get a random song from the {theme} vibe</h1>
           <button className="button px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer">
             Button
+          </button>
+        </div>
+        <div className="p-4 sidebar2 m-2 rounded font-semibold flex flex-row items-start justify-start gap-1 pl-4 mt-4">
+          <h1>Change the vibe</h1>
+          <button
+            onClick={() => setTheme("cozy")}
+            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
+          >
+            Cozy
+          </button>
+          <button
+            onClick={() => setTheme("rock-metal")}
+            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
+          >
+            Rock-Metal
+          </button>
+          <button
+            onClick={() => setTheme("experimental")}
+            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
+          >
+            Experimental
           </button>
         </div>
       </div>

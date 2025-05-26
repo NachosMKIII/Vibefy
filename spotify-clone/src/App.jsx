@@ -15,7 +15,7 @@ const App = () => {
   const accessToken = localStorage.getItem("access_token");
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
-  const [theme, setTheme] = useState("rock-metal");
+  const [theme, setTheme] = useState("cozy");
 
   useEffect(() => {
     const initializePlayer = () => {

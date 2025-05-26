@@ -1,0 +1,22 @@
+.main-sidebar.experimental {
+  --color1: rgb(255, 0, 136);
+  --color2: rgb(255, 215, 16);
+  --color2t: rgba(255, 213, 0, 0.551);
+  --color3: rgb(255, 0, 72);
+  --color4: rgb(255, 255, 255);
+  --color5: rgb(255, 89, 0);
+}
+
+.sidebar.experimental {
+  color: white;
+}
+.sidebar.experimental .sidebar1 {
+  background: linear-gradient(to right, var(--color1), var(--color2));
+}
+.sidebar.experimental .sidebar2 {
+  background: linear-gradient(to right, var(--color5), var(--color2));
+}
+.sidebar.experimental .button {
+  background-color: var(--color3);
+  color: var(--color4);
+}

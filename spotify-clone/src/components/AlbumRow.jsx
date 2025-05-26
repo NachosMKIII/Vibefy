@@ -5,6 +5,7 @@ import { usePlayback } from "../hooks/usePlayback";
 import { useSpotifyApi } from "../backend/Auth";
 import "./cozy-theme/album-row.css";
 import "./metal-rock-theme/album-row.css";
+import "./experimental-theme/album-row.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -21,25 +22,32 @@ export default function AlbumRow({ title, albumIds }) {
     let albumIds;
     if (theme === "cozy") {
       albumIds = [
-        "4LileDrFwEUFB5UPA3AEia",
-        "2yAO7HQOfO4t146QLyK26a",
         "7DxmOS2dKJgTfLLRNOP4ch",
-        "7izZDSBxj6nB2PieJo6U0u",
-        "4T95uimM0PQNgAkcyLTym0",
         "1K6TvnkvmnLKPhifmPb6N7",
-        "63TYyeXlBYoYKNvE6rT3hI",
-        "1vWOYk3hF5bgVUUUaPvYLh",
         "6EtrZFZ6FMR6fbB82oHUWi",
         "38NEzyo2N5T68j7aFetd4x",
         "0AL7olZ75pi55q9p1eHaD8",
         "1aFyAtSRxLNzSTGwHMRvWj",
         "0vhRTvVCv9O5orRMgFjxT1",
+        "02UhY4AQiAry5S2ZpgEKIt",
+        "4E5N0mYyYFf0QZs3XDeSIj",
+        "2kz6FGzMkZUyGZPywlkcOu",
       ];
     } else if (theme === "rock-metal") {
       albumIds = [
         "2kcJ3TxBhSwmki0QWFXUz8",
         "08pnia1NUFsyIWfhE9sZz1",
         "1QJmLRcuIMMjZ49elafR3K",
+        "1XkGORuUX2QGOEIL4EbJKm",
+        "1gsoIHeBan6QywhysNgApK",
+        "5sMSJ6uAozdrqFELMwl3NU",
+        "1j57Q5ntVi7crpibb0h4sv",
+        "6a5n1Frj3nxGcyTqT1xfrg",
+        "5XgUtV3205kTcgoSLNf8ix",
+        "6DJwvB2iCquvxxrXRW0cFz",
+        "3HFbH1loOUbqCyPsLuHLLh",
+        "7izZDSBxj6nB2PieJo6U0u",
+        "7rSZXXHHvIhF4yUFdaOCy9",
       ];
     } else if (theme === "experimental") {
       albumIds = [
@@ -49,12 +57,24 @@ export default function AlbumRow({ title, albumIds }) {
         "4T95uimM0PQNgAkcyLTym0",
         "63TYyeXlBYoYKNvE6rT3hI",
         "1vWOYk3hF5bgVUUUaPvYLh",
+        "2TN3NIEBmAOGWmvP96DFs5",
+        "6wRDKCpKw3ap6dhkpdXNIN",
+        "0VDB8LxXpOS8qQeiab3LqG",
+        "7GjVWG39IOj4viyWplJV4H",
+        "3ddMQ2PZjiD8Zxm0lu92rb",
+        "1WwiyWxa40PKucRxIKlEVM",
       ];
     } else {
       // Fallback to a default set (e.g., cozy)
       albumIds = [
-        "4LileDrFwEUFB5UPA3AEia",
-        "2yAO7HQOfO4t146QLyK26a" /* ... default albums */,
+        "7DxmOS2dKJgTfLLRNOP4ch",
+        "1K6TvnkvmnLKPhifmPb6N7",
+        "6EtrZFZ6FMR6fbB82oHUWi",
+        "38NEzyo2N5T68j7aFetd4x",
+        "0AL7olZ75pi55q9p1eHaD8",
+        "1aFyAtSRxLNzSTGwHMRvWj",
+        "0vhRTvVCv9O5orRMgFjxT1",
+        "02UhY4AQiAry5S2ZpgEKIt",
       ];
     }
     const fetchAlbums = async () => {

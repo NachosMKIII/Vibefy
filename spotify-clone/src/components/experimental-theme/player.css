@@ -1,0 +1,11 @@
+.main-player.cozy {
+  --color1: rgb(120, 80, 61);
+  --color2: rgb(102, 65, 47);
+  --color2t: rgba(102, 65, 47, 0.622);
+  --color3: rgb(202, 170, 156);
+  --color4: rgb(32, 19, 12);
+}
+
+.player.cozy {
+  background-color: var(--color1);
+}

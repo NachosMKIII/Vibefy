@@ -1,0 +1,15 @@
+.main-album-row.experimental {
+  --color1: rgb(255, 0, 136);
+  --color2: rgb(255, 215, 16);
+  --color2t: rgba(255, 213, 0, 0.814);
+  --color3: rgb(255, 0, 72);
+  --color4: rgb(255, 255, 255);
+  --color5: rgb(255, 89, 0);
+}
+
+.album-row.experimental {
+  color: var(--color4);
+}
+.album-row.experimental .description {
+  background-color: var(--color2t);
+}

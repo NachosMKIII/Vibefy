@@ -1,5 +1,5 @@
 //Player.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets/assets";
 import { useSpotifyApi } from "../backend/Auth";
 import "./cozy-theme/player.css";
@@ -7,11 +7,22 @@ import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
+import "./experimental-theme/player.css";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
+
+  // Local state for slider value, default to 50%
+  const [sliderValue, setSliderValue] = useState(50);
+
+  // Update slider value when playbackState changes
+  useEffect(() => {
+    if (playbackState) {
+      setSliderValue(Math.round((playbackState.volume || 0.5) * 100));
+    }
+  }, [playbackState]);
 
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
@@ -107,6 +118,7 @@ const Player = ({ playbackState }) => {
   // Handle volume change
   const handleVolumeChange = async (event) => {
     const newVolume = parseInt(event.target.value, 10);
+    setSliderValue(newVolume); // Update local state immediately
     try {
       await makeApiCall(
         `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
@@ -131,44 +143,44 @@ const Player = ({ playbackState }) => {
       <div className="gap-1 relative right-18 m-auto">
         <div className="flex gap-4">
           <img
-            className="w-12 h-12 relative  cursor-pointer"
+            className="w-12 h-12 relative cursor-pointer"
             src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
             alt="Shuffle"
             onClick={toggleShuffle}
           />
           <img
-            className="w-6 h-6  relative top-3 cursor-pointer"
+            className="w-6 h-6 relative top-3 cursor-pointer"
             src={assets.prev_icon}
             alt="Previous"
             onClick={prevTrack}
           />
           <img
-            className="w-6 h-6  relative top-3 cursor-pointer"
+            className="w-6 h-6 relative top-3 cursor-pointer"
             src={isPlaying ? assets.pause_icon : assets.play_icon}
             alt={isPlaying ? "Pause" : "Play"}
             onClick={togglePlayPause}
           />
           <img
-            className="w-6 h-6 top-3   relative cursor-pointer"
+            className="w-6 h-6 top-3 relative cursor-pointer"
             src={assets.next_icon}
             alt="Next"
             onClick={nextTrack}
           />
           <img
-            className="w-6 h-6 top-3 left-1   relative cursor-pointer"
+            className="w-6 h-6 top-3 left-1 relative cursor-pointer"
             src={assets.loop_icon}
             alt="Loop"
             onClick={cycleRepeatMode}
           />
         </div>
       </div>
-      <div className="items-center  relative mt-2">
+      <div className="items-center flex relative mt-2">
         <img className="w-4" src={assets.volume_icon} alt="Volume" />
         <input
           type="range"
           min="0"
           max="100"
-          value={Math.round((playbackState.volume || 0.5) * 100)}
+          value={sliderValue}
           onChange={handleVolumeChange}
           className="w-24 ml-2"
         />
