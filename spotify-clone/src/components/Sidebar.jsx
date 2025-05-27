@@ -45,26 +45,28 @@ const Sidebar = () => {
             Button
           </button>
         </div>
-        <div className="p-4 sidebar2 m-2 rounded font-semibold flex flex-row items-start justify-start gap-1 pl-4 mt-4">
+        <div className="p-4 sidebar2 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4">
           <h1>Change the vibe</h1>
-          <button
-            onClick={() => setTheme("cozy")}
-            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
-          >
-            Cozy
-          </button>
-          <button
-            onClick={() => setTheme("rock-metal")}
-            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
-          >
-            Rock-Metal
-          </button>
-          <button
-            onClick={() => setTheme("experimental")}
-            className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
-          >
-            Experimental
-          </button>
+          <div className="">
+            <button
+              onClick={() => setTheme("cozy")}
+              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2"
+            >
+              Cozy
+            </button>
+            <button
+              onClick={() => setTheme("rock-metal")}
+              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2"
+            >
+              Rock-Metal
+            </button>
+            <button
+              onClick={() => setTheme("experimental")}
+              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer"
+            >
+              Experimental
+            </button>
+          </div>
         </div>
       </div>
     </div>

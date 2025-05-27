@@ -30,8 +30,8 @@ export default function AlbumRow({ title, albumIds }) {
         "1aFyAtSRxLNzSTGwHMRvWj",
         "0vhRTvVCv9O5orRMgFjxT1",
         "02UhY4AQiAry5S2ZpgEKIt",
-        "4E5N0mYyYFf0QZs3XDeSIj",
         "2kz6FGzMkZUyGZPywlkcOu",
+        "60EzsIzS77S9MWHT0Tm37s",
       ];
     } else if (theme === "rock-metal") {
       albumIds = [
@@ -67,14 +67,8 @@ export default function AlbumRow({ title, albumIds }) {
     } else {
       // Fallback to a default set (e.g., cozy)
       albumIds = [
-        "7DxmOS2dKJgTfLLRNOP4ch",
-        "1K6TvnkvmnLKPhifmPb6N7",
-        "6EtrZFZ6FMR6fbB82oHUWi",
-        "38NEzyo2N5T68j7aFetd4x",
-        "0AL7olZ75pi55q9p1eHaD8",
-        "1aFyAtSRxLNzSTGwHMRvWj",
-        "0vhRTvVCv9O5orRMgFjxT1",
-        "02UhY4AQiAry5S2ZpgEKIt",
+        "4LileDrFwEUFB5UPA3AEia",
+        "2yAO7HQOfO4t146QLyK26a" /* ... default albums */,
       ];
     }
     const fetchAlbums = async () => {
@@ -90,7 +84,7 @@ export default function AlbumRow({ title, albumIds }) {
     };
 
     fetchAlbums();
-  }, [albumIds, makeApiCall]);
+  }, [theme, makeApiCall]);
 
   const checkScrollButtons = () => {
     if (!scrollContainerRef.current) return;

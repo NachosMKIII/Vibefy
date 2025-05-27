@@ -1,4 +1,3 @@
-///App.jsx
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
@@ -7,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Callback from "./backend/Callback";
 import Player from "./components/Player";
 import { SpotifyContext } from "./context/SpotifyContext";
-import { refreshAccessToken } from "./functions/spotifyUtils"; // Import refreshAccessToken
+import { refreshAccessToken } from "./functions/spotifyUtils";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
 
@@ -15,7 +14,14 @@ const App = () => {
   const accessToken = localStorage.getItem("access_token");
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
-  const [theme, setTheme] = useState("cozy");
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme || "experimental";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const initializePlayer = () => {
@@ -31,26 +37,22 @@ const App = () => {
               accessToken = await refreshAccessToken();
             } catch (error) {
               console.error("Failed to refresh access token:", error);
-              // Optionally redirect to login or handle the error
             }
           }
           callback(accessToken);
         },
       });
 
-      // Capture device ID when player is ready
       player.addListener("ready", ({ device_id }) => {
         console.log("Player is ready with device ID:", device_id);
         setDeviceId(device_id);
       });
 
-      // Update playback state when it changes
       player.addListener("player_state_changed", (state) => {
         console.log("Playback state changed:", state);
         setPlaybackState(state);
       });
 
-      // Add error listeners for better debugging
       player.addListener("initialization_error", ({ message }) => {
         console.error("Initialization Error:", message);
       });
@@ -58,31 +60,25 @@ const App = () => {
         console.error("Authentication Error:", message);
       });
 
-      // Connect the player
       player.connect();
 
-      // Clean up on unmount
       return () => {
         player.disconnect();
       };
     };
 
-    // Set the callback before loading the script
     window.onSpotifyWebPlaybackSDKReady = initializePlayer;
 
-    // Load the SDK script dynamically
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
     script.async = true;
     document.body.appendChild(script);
 
-    // Clean up the script when the component unmounts
     return () => {
       document.body.removeChild(script);
-      // Clear the callback to prevent memory leaks
       delete window.onSpotifyWebPlaybackSDKReady;
     };
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
