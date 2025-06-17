@@ -14,10 +14,10 @@ const Player = ({ playbackState }) => {
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
 
-  // Local state for slider value, default to 50%
+  // Local state for volume slider
   const [sliderValue, setSliderValue] = useState(50);
 
-  // Update slider value when playbackState changes
+  // Update volume slider when playbackState changes
   useEffect(() => {
     if (playbackState) {
       setSliderValue(Math.round((playbackState.volume || 0.5) * 100));
@@ -37,6 +37,28 @@ const Player = ({ playbackState }) => {
   const artistName =
     currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
     "No artist";
+
+  // Helper function to format time (e.g., 123000 ms -> "2:03")
+  const formatTime = (ms) => {
+    if (!ms) return "0:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  // Function to handle seeking
+  const handleSeek = async (event) => {
+    const newPosition = parseInt(event.target.value, 10);
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/seek?position_ms=${newPosition}&device_id=${deviceId}`,
+        { method: "PUT" }
+      );
+    } catch (error) {
+      console.error("Error seeking:", error);
+    }
+  };
 
   // Toggle play/pause
   const togglePlayPause = async () => {
@@ -118,7 +140,7 @@ const Player = ({ playbackState }) => {
   // Handle volume change
   const handleVolumeChange = async (event) => {
     const newVolume = parseInt(event.target.value, 10);
-    setSliderValue(newVolume); // Update local state immediately
+    setSliderValue(newVolume);
     try {
       await makeApiCall(
         `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
@@ -131,17 +153,32 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 mb-10 ${theme}`}
+      className={`main-player h-[10%] player flex flex-col justify-between text-white px-4 mb-10 ${theme}`}
     >
-      <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
-        <img className="w-16" src={albumImage} alt="Album cover" />
-        <div>
-          <p className="font-bold whitespace-nowrap">{trackName}</p>
-          <p className="whitespace-nowrap">{artistName}</p>
-        </div>
+      {/* Progress Bar */}
+      <div className="w-full mb-2 flex items-center">
+        <span className="text-sm">{formatTime(playbackState.position)}</span>
+        <input
+          type="range"
+          min="0"
+          max={playbackState.duration}
+          value={playbackState.position}
+          onChange={handleSeek}
+          className="w-full mx-2"
+        />
+        <span className="text-sm">{formatTime(playbackState.duration)}</span>
       </div>
-      <div className="gap-1 relative right-18 m-auto">
-        <div className="flex gap-4">
+
+      {/* Existing Controls */}
+      <div className="flex justify-between items-center flex-1">
+        <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
+          <img className="w-16" src={albumImage} alt="Album cover" />
+          <div>
+            <p className="font-bold whitespace-nowrap">{trackName}</p>
+            <p className="whitespace-nowrap">{artistName}</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-center">
           <img
             className="w-12 h-12 relative cursor-pointer"
             src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
@@ -173,17 +210,17 @@ const Player = ({ playbackState }) => {
             onClick={cycleRepeatMode}
           />
         </div>
-      </div>
-      <div className="items-center flex relative mt-2">
-        <img className="w-4" src={assets.volume_icon} alt="Volume" />
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={sliderValue}
-          onChange={handleVolumeChange}
-          className="w-24 ml-2"
-        />
+        <div className="flex items-center">
+          <img className="w-4" src={assets.volume_icon} alt="Volume" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={sliderValue}
+            onChange={handleVolumeChange}
+            className="w-24 ml-2"
+          />
+        </div>
       </div>
     </div>
   );

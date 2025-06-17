@@ -6,9 +6,13 @@ export const useSpotifyApi = () => {
   const makeApiCall = useCallback(
     async (url, options = {}) => {
       let accessToken = localStorage.getItem("access_token");
-      const expirationTime = localStorage.getItem("expiration_time");
-      if (!accessToken || !expirationTime) {
-        throw new Error("No access token or expiration time found");
+      const expirationTimeStr = localStorage.getItem("expiration_time");
+      const expirationTime = expirationTimeStr
+        ? parseInt(expirationTimeStr, 10)
+        : null;
+
+      if (!accessToken || !expirationTime || isNaN(expirationTime)) {
+        throw new Error("Invalid access token or expiration time");
       }
 
       const currentTime = Date.now();
