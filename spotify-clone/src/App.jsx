@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+//App.jsx
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
 import LoginButton from "./components/LoginButton";
@@ -18,6 +19,8 @@ const App = () => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "experimental";
   });
+  const playerRef = useRef(null);
+  const pollIntervalRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -43,13 +46,24 @@ const App = () => {
         },
       });
 
+      playerRef.current = player;
+
       player.addListener("ready", ({ device_id }) => {
         console.log("Player is ready with device ID:", device_id);
         setDeviceId(device_id);
+        pollIntervalRef.current = setInterval(async () => {
+          const state = await player.getCurrentState();
+          if (state) {
+            console.log("Polled state position:", state.position);
+            setPlaybackState(state);
+          } else {
+            console.log("Polled state is null");
+          }
+        }, 100);
       });
 
       player.addListener("player_state_changed", (state) => {
-        console.log("Playback state changed:", state);
+        console.log("Playback state changed:", state?.position);
         setPlaybackState(state);
       });
 
@@ -61,10 +75,6 @@ const App = () => {
       });
 
       player.connect();
-
-      return () => {
-        player.disconnect();
-      };
     };
 
     window.onSpotifyWebPlaybackSDKReady = initializePlayer;
@@ -77,6 +87,12 @@ const App = () => {
     return () => {
       document.body.removeChild(script);
       delete window.onSpotifyWebPlaybackSDKReady;
+      if (playerRef.current) {
+        playerRef.current.disconnect();
+      }
+      if (pollIntervalRef.current) {
+        clearInterval(pollIntervalRef.current);
+      }
     };
   }, []);
 
@@ -94,7 +110,7 @@ const App = () => {
                     backgroundImage: `url('/assets/images/theme-${theme}.png')`,
                   }}
                 >
-                  <div className="h-[90%] flex">
+                  <div className="h-[77%] flex">
                     <Sidebar />
                     {accessToken ? (
                       <div className="flex-1 overflow-x-auto">
