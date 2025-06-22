@@ -105,15 +105,15 @@ const App = () => {
               path="/"
               element={
                 <div
-                  className="h-screen w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
+                  className="h-screen z-50 w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
                   style={{
                     backgroundImage: `url('/assets/images/theme-${theme}.png')`,
                   }}
                 >
-                  <div className="h-[77%] flex">
+                  <div className="h-[100%] flex">
                     <Sidebar />
                     {accessToken ? (
-                      <div className="flex-1 overflow-x-auto">
+                      <div className="flex-1 h-[75%] overflow-x-auto ml-5">
                         <AlbumRow />
                         <AlbumRow />
                       </div>
@@ -124,7 +124,9 @@ const App = () => {
                   {!accessToken ? (
                     <LoginButton />
                   ) : (
-                    <Player playbackState={playbackState} />
+                    <div className=" w-[67.5%] fixed bottom-0 left-117 ml-5">
+                      <Player playbackState={playbackState} />
+                    </div>
                   )}
                 </div>
               }

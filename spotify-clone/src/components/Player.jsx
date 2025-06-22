@@ -159,7 +159,7 @@ const Player = ({ playbackState }) => {
       className={`relative z-10 ${
         theme === "cozy"
           ? "bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 p-6 rounded-2xl shadow-2xl border border-amber-800/30 backdrop-blur-sm w-[101%] relative right-2"
-          : `main-player  player px-4 mb-10 ${theme}`
+          : `main-player  player px-4 mb-10  ${theme}`
       }`}
     >
       {theme === "cozy" && (
@@ -213,7 +213,7 @@ const Player = ({ playbackState }) => {
           <div className="flex gap-4 items-center mx-8">
             <button
               onClick={toggleShuffle}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative right-107"
+              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
             >
               <Shuffle
                 className={`w-5 h-5 transition-colors duration-200 ${
@@ -225,13 +225,13 @@ const Player = ({ playbackState }) => {
             </button>
             <button
               onClick={prevTrack}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative right-107"
+              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
             >
               <SkipBack className="w-6 h-6 text-amber-300 opacity-80 hover:opacity-100 transition-opacity duration-200" />
             </button>
             <button
               onClick={togglePlayPause}
-              className="p-3 relative right-107 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              className="p-3 relative rounded-full bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
             >
               {isPlaying ? (
                 <Pause className="w-6 h-6 text-amber-950" />
@@ -241,13 +241,13 @@ const Player = ({ playbackState }) => {
             </button>
             <button
               onClick={nextTrack}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative right-107"
+              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
             >
               <SkipForward className="w-6 h-6 text-amber-300 opacity-80 hover:opacity-100 transition-opacity duration-200" />
             </button>
             <button
               onClick={cycleRepeatMode}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative right-107"
+              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
             >
               <Repeat
                 className={`w-5 h-5 transition-colors duration-200 ${
