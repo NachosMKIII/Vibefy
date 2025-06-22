@@ -1,5 +1,5 @@
 //App.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
 import LoginButton from "./components/LoginButton";
@@ -15,12 +15,11 @@ const App = () => {
   const accessToken = localStorage.getItem("access_token");
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
+  const [player, setPlayer] = useState(null);
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "experimental";
+    return savedTheme || "cozy";
   });
-  const playerRef = useRef(null);
-  const pollIntervalRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -46,24 +45,13 @@ const App = () => {
         },
       });
 
-      playerRef.current = player;
-
       player.addListener("ready", ({ device_id }) => {
         console.log("Player is ready with device ID:", device_id);
         setDeviceId(device_id);
-        pollIntervalRef.current = setInterval(async () => {
-          const state = await player.getCurrentState();
-          if (state) {
-            console.log("Polled state position:", state.position);
-            setPlaybackState(state);
-          } else {
-            console.log("Polled state is null");
-          }
-        }, 100);
       });
 
       player.addListener("player_state_changed", (state) => {
-        console.log("Playback state changed:", state?.position);
+        console.log("Playback state changed:", state);
         setPlaybackState(state);
       });
 
@@ -74,7 +62,14 @@ const App = () => {
         console.error("Authentication Error:", message);
       });
 
+      Player.connect();
+      setPlayer(Player);
+
       player.connect();
+
+      return () => {
+        player.disconnect();
+      };
     };
 
     window.onSpotifyWebPlaybackSDKReady = initializePlayer;
@@ -87,12 +82,6 @@ const App = () => {
     return () => {
       document.body.removeChild(script);
       delete window.onSpotifyWebPlaybackSDKReady;
-      if (playerRef.current) {
-        playerRef.current.disconnect();
-      }
-      if (pollIntervalRef.current) {
-        clearInterval(pollIntervalRef.current);
-      }
     };
   }, []);
 
@@ -105,15 +94,15 @@ const App = () => {
               path="/"
               element={
                 <div
-                  className="h-screen z-50 w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
+                  className="h-screen w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
                   style={{
                     backgroundImage: `url('/assets/images/theme-${theme}.png')`,
                   }}
                 >
-                  <div className="h-[100%] flex">
+                  <div className="h-[90%] flex">
                     <Sidebar />
                     {accessToken ? (
-                      <div className="flex-1 h-[75%] overflow-x-auto ml-5">
+                      <div className="flex-1 overflow-x-auto">
                         <AlbumRow />
                         <AlbumRow />
                       </div>
@@ -124,9 +113,7 @@ const App = () => {
                   {!accessToken ? (
                     <LoginButton />
                   ) : (
-                    <div className=" w-[67.5%] fixed bottom-0 left-117 ml-5">
-                      <Player playbackState={playbackState} />
-                    </div>
+                    <Player playbackState={playbackState} />
                   )}
                 </div>
               }

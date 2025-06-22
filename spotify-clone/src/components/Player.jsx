@@ -1,74 +1,45 @@
 //Player.jsx
 import React, { useState, useEffect } from "react";
+import { assets } from "../assets/assets/assets";
 import { useSpotifyApi } from "../backend/Auth";
+import "./cozy-theme/player.css";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import CozySlider from "./cozySlider";
-import {
-  Shuffle,
-  SkipBack,
-  Play,
-  Pause,
-  SkipForward,
-  Repeat,
-  Volume2,
-} from "lucide-react";
-import "./cozy-theme/player.css";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
+const { player } = useContext(SpotifyContext);
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
-  const [estimatedPosition, setEstimatedPosition] = useState(0);
+
+  // Local state for slider value, default to 50%
   const [sliderValue, setSliderValue] = useState(50);
 
+  // Update slider value when playbackState changes
   useEffect(() => {
     if (playbackState) {
       setSliderValue(Math.round((playbackState.volume || 0.5) * 100));
-      setEstimatedPosition(playbackState.position);
     }
   }, [playbackState]);
 
+  // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
-    return (
-      <div className="flex items-center justify-center h-32 bg-gradient-to-r from-amber-900/20 to-green-900/20 rounded-lg border border-amber-800/30">
-        <span className="text-amber-200">No track playing</span>
-      </div>
-    );
+    return <div className="text-white">No track playing</div>;
   }
 
+  // Extract track details from playbackState
   const isPlaying = !playbackState.paused;
-  const currentTrack = playbackState.track_window.current_track;
-  const albumImage =
-    currentTrack.album.images[0]?.url || "/placeholder.svg?height=64&width=64";
-  const trackName = currentTrack.name || "No track playing";
+  const currentTrack = playbackState?.track_window?.current_track || null;
+  const albumImage = currentTrack?.album.images[0]?.url || assets.default_image;
+  const trackName = currentTrack?.name || "No track playing";
   const artistName =
-    currentTrack.artists?.map((artist) => artist.name).join(", ") ||
+    currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
     "No artist";
 
-  const formatTime = (ms) => {
-    if (!ms) return "0:00";
-    const totalSeconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
-
-  const handleSeek = async (event) => {
-    const newPosition = parseInt(event.target.value, 10);
-    try {
-      await makeApiCall(
-        `https://api.spotify.com/v1/me/player/seek?position_ms=${newPosition}&device_id=${deviceId}`,
-        { method: "PUT" }
-      );
-    } catch (error) {
-      console.error("Error seeking:", error);
-    }
-  };
-
+  // Toggle play/pause
   const togglePlayPause = async () => {
     try {
       if (isPlaying) {
@@ -87,6 +58,7 @@ const Player = ({ playbackState }) => {
     }
   };
 
+  // Skip to next track
   const nextTrack = async () => {
     try {
       await makeApiCall(
@@ -98,6 +70,7 @@ const Player = ({ playbackState }) => {
     }
   };
 
+  // Go to previous track
   const prevTrack = async () => {
     try {
       await makeApiCall(
@@ -109,6 +82,7 @@ const Player = ({ playbackState }) => {
     }
   };
 
+  // Toggle shuffle
   const toggleShuffle = async () => {
     try {
       const newState = !playbackState.shuffle;
@@ -121,6 +95,7 @@ const Player = ({ playbackState }) => {
     }
   };
 
+  // Cycle repeat mode
   const cycleRepeatMode = async () => {
     try {
       const currentMode = playbackState.repeat_mode;
@@ -141,9 +116,10 @@ const Player = ({ playbackState }) => {
     }
   };
 
+  // Handle volume change
   const handleVolumeChange = async (event) => {
     const newVolume = parseInt(event.target.value, 10);
-    setSliderValue(newVolume);
+    setSliderValue(newVolume); // Update local state immediately
     try {
       await makeApiCall(
         `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
@@ -153,128 +129,85 @@ const Player = ({ playbackState }) => {
       console.error("Error setting volume:", error);
     }
   };
+  const formatTime = (ms) => {
+    if (!ms) return "0:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
 
   return (
     <div
-      className={`relative z-10 ${
-        theme === "cozy"
-          ? "bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 p-6 rounded-2xl shadow-2xl border border-amber-800/30 backdrop-blur-sm w-[101%] relative right-2"
-          : `main-player  player px-4 mb-10  ${theme}`
-      }`}
+      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 mb-10 ${theme}`}
     >
-      {theme === "cozy" && (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-green-900/10 rounded-2xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(217,119,6,0.1),transparent_50%)] rounded-2xl" />
-        </>
-      )}
-      <div className="relative z-10 flex flex-col justify-between">
-        {/* Progress Section */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-amber-200 text-sm font-medium">
-              {formatTime(estimatedPosition)}
-            </span>
-            <span className="text-amber-200 text-sm font-medium">
-              {formatTime(playbackState.duration)}
-            </span>
-          </div>
-          <CozySlider
-            min={0}
-            max={playbackState.duration}
-            value={estimatedPosition}
-            onChange={handleSeek}
-            type="progress"
-            className="mb-1"
+      <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
+        <img className="w-16" src={albumImage} alt="Album cover" />
+        <div>
+          <p className="font-bold whitespace-nowrap">{trackName}</p>
+          <p className="whitespace-nowrap">{artistName}</p>
+        </div>
+      </div>
+      <div className="gap-1 relative right-18 m-auto">
+        <div className="flex gap-4">
+          <img
+            className="w-12 h-12 relative cursor-pointer"
+            src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
+            alt="Shuffle"
+            onClick={toggleShuffle}
+          />
+          <img
+            className="w-6 h-6 relative top-3 cursor-pointer"
+            src={assets.prev_icon}
+            alt="Previous"
+            onClick={prevTrack}
+          />
+          <img
+            className="w-6 h-6 relative top-3 cursor-pointer"
+            src={isPlaying ? assets.pause_icon : assets.play_icon}
+            alt={isPlaying ? "Pause" : "Play"}
+            onClick={togglePlayPause}
+          />
+          <img
+            className="w-6 h-6 top-3 relative cursor-pointer"
+            src={assets.next_icon}
+            alt="Next"
+            onClick={nextTrack}
+          />
+          <img
+            className="w-6 h-6 top-3 left-1 relative cursor-pointer"
+            src={assets.loop_icon}
+            alt="Loop"
+            onClick={cycleRepeatMode}
           />
         </div>
-
-        {/* Main Controls */}
-        <div className="flex justify-between items-center">
-          {/* Track Info */}
-          <div className="hidden lg:flex items-center gap-4 min-w-0 flex-1">
-            <div className="relative">
-              <img
-                className="w-16 h-16 rounded-lg shadow-lg border-2 border-amber-600/50"
-                src={albumImage}
-                alt="Album cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-transparent rounded-lg" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-bold text-amber-100 truncate text-lg">
-                {trackName}
-              </p>
-              <p className="text-amber-300 truncate">{artistName}</p>
-            </div>
-          </div>
-
-          {/* Playback Controls */}
-          <div className="flex gap-4 items-center mx-8">
-            <button
-              onClick={toggleShuffle}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
-            >
-              <Shuffle
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  playbackState.shuffle
-                    ? "text-green-400 opacity-100"
-                    : "text-amber-300 opacity-80 hover:opacity-100"
-                }`}
-              />
-            </button>
-            <button
-              onClick={prevTrack}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
-            >
-              <SkipBack className="w-6 h-6 text-amber-300 opacity-80 hover:opacity-100 transition-opacity duration-200" />
-            </button>
-            <button
-              onClick={togglePlayPause}
-              className="p-3 relative rounded-full bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
-            >
-              {isPlaying ? (
-                <Pause className="w-6 h-6 text-amber-950" />
-              ) : (
-                <Play className="w-6 h-6 text-amber-950" />
-              )}
-            </button>
-            <button
-              onClick={nextTrack}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
-            >
-              <SkipForward className="w-6 h-6 text-amber-300 opacity-80 hover:opacity-100 transition-opacity duration-200" />
-            </button>
-            <button
-              onClick={cycleRepeatMode}
-              className="p-2 rounded-full hover:bg-amber-800/30 transition-colors duration-200 relative"
-            >
-              <Repeat
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  playbackState.repeat_mode > 0
-                    ? "text-green-400 opacity-100"
-                    : "text-amber-300 opacity-80 hover:opacity-100"
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* Volume Control */}
-          <div className="flex items-center gap-3 min-w-0">
-            <Volume2 className="w-4 h-4 text-amber-300 opacity-80" />
-            <CozySlider
-              min={0}
-              max={100}
-              value={sliderValue}
-              onChange={handleVolumeChange}
-              type="volume"
-              className="w-24"
-            />
-            <span className="text-amber-300 text-sm font-medium w-8 text-right">
-              {sliderValue}%
-            </span>
-          </div>
+        <div className="w-full mt-2 flex items-center">
+          <span>{formatTime(playbackState?.position)}</span>
+          <input
+            type="range"
+            min="0"
+            max={playbackState?.duration || 0}
+            value={playbackState?.position || 0}
+            onChange={(e) => {
+              if (player) {
+                player.seek(parseInt(e.target.value, 10));
+              }
+            }}
+            className="w-full mx-2"
+          />
+          <span>{formatTime(playbackState?.duration)}</span>
         </div>
+      </div>
+      <div className="items-center flex relative mt-2">
+        <img className="w-4" src={assets.volume_icon} alt="Volume" />
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderValue}
+          onChange={handleVolumeChange}
+          className="w-24 ml-2"
+        />
       </div>
     </div>
   );
