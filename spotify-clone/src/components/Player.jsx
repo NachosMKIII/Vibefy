@@ -8,12 +8,12 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
-const { player } = useContext(SpotifyContext);
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
   const { deviceId } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
+  const { player } = useContext(SpotifyContext);
 
   // Local state for slider value, default to 50%
   const [sliderValue, setSliderValue] = useState(50);
@@ -148,7 +148,24 @@ const Player = ({ playbackState }) => {
           <p className="whitespace-nowrap">{artistName}</p>
         </div>
       </div>
+
       <div className="gap-1 relative right-18 m-auto">
+        <div className="w-full mt-2 flex items-center">
+          <span>{formatTime(playbackState?.position)}</span>
+          <input
+            type="range"
+            min="0"
+            max={playbackState?.duration || 0}
+            value={playbackState?.position || 0}
+            onChange={(e) => {
+              if (player) {
+                player.seek(parseInt(e.target.value, 10));
+              }
+            }}
+            className="w-full mx-2"
+          />
+          <span>{formatTime(playbackState?.duration)}</span>
+        </div>
         <div className="flex gap-4">
           <img
             className="w-12 h-12 relative cursor-pointer"
@@ -180,22 +197,6 @@ const Player = ({ playbackState }) => {
             alt="Loop"
             onClick={cycleRepeatMode}
           />
-        </div>
-        <div className="w-full mt-2 flex items-center">
-          <span>{formatTime(playbackState?.position)}</span>
-          <input
-            type="range"
-            min="0"
-            max={playbackState?.duration || 0}
-            value={playbackState?.position || 0}
-            onChange={(e) => {
-              if (player) {
-                player.seek(parseInt(e.target.value, 10));
-              }
-            }}
-            className="w-full mx-2"
-          />
-          <span>{formatTime(playbackState?.duration)}</span>
         </div>
       </div>
       <div className="items-center flex relative mt-2">

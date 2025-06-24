@@ -26,6 +26,17 @@ const App = () => {
   }, [theme]);
 
   useEffect(() => {
+    if (player) {
+      const interval = setInterval(() => {
+        player.getCurrentState().then((state) => {
+          setPlaybackState(state);
+        });
+      }, 500); // Update every 500ms
+      return () => clearInterval(interval);
+    }
+  }, [player]);
+
+  useEffect(() => {
     const initializePlayer = () => {
       const player = new Spotify.Player({
         name: "My Web Player",
@@ -62,8 +73,8 @@ const App = () => {
         console.error("Authentication Error:", message);
       });
 
-      Player.connect();
-      setPlayer(Player);
+      player.connect();
+      setPlayer(player);
 
       player.connect();
 
@@ -87,7 +98,7 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <SpotifyContext.Provider value={{ deviceId }}>
+      <SpotifyContext.Provider value={{ deviceId, player }}>
         <Router>
           <Routes>
             <Route

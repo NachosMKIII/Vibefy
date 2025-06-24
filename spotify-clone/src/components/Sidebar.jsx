@@ -9,6 +9,7 @@ import "./experimental-theme/sidebar.css";
 
 const Sidebar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+
   return (
     <div
       className={`main-sidebar sidebar w-[35%] h-full p-2 flex-col gap-2 hidden lg:flex ${theme}`}
