@@ -7,5 +7,5 @@
 }
 
 .player.cozy {
-  background-color: var(--color1);
+  background: linear-gradient(to bottom right, #451a03, #78350f, #052e16);
 }

@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
-//import "./cozy-theme/player.css";
+import "./cozy-theme/player.css";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -29,7 +29,6 @@ const Player = ({ playbackState }) => {
   if (!playbackState || !playbackState.track_window?.current_track) {
     return <div className="text-white">No track playing</div>;
   }
-
   // Extract track details from playbackState
   const isPlaying = !playbackState.paused;
   const currentTrack = playbackState?.track_window?.current_track || null;
@@ -139,10 +138,10 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player rounded fixed h-[16%] bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[305px] ${theme}`}
+      className={`main-player player rounded fixed h-[16%] w-[79.5%] flex justify-between items-center text-white px-4 bottom-[0px] left-[315px] ${theme}`}
     >
       <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
-        <img className="w-16" src={albumImage} alt="Album cover" />
+        <img className="w-24" src={albumImage} alt="Album cover" />
         <div>
           <p className="font-bold whitespace-nowrap">{trackName}</p>
           <p className="whitespace-nowrap">{artistName}</p>

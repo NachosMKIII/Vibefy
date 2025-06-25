@@ -9,7 +9,7 @@ import "./experimental-theme/album-row.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
-export default function AlbumRow({ title, albumIds }) {
+export default function AlbumRow({ title, albumIds, playbackState }) {
   const { theme } = useContext(ThemeContext);
   const [albums, setAlbums] = useState([]);
   const [error, setError] = useState(null);
@@ -184,7 +184,7 @@ function AlbumCard({ album, theme }) {
 
   return (
     <div
-      className={`main-album-row album-row flex-shrink-0 w-40 h-54 rounded-2xl transition-transform mr-2 ${theme}`}
+      className={`main-album-row album-row mb-6 flex-shrink-0 w-40 h-54 rounded-2xl transition-transform mr-2 ${theme}`}
     >
       <div className="relative mb-2 hover:scale-105 transition-transform">
         <img
@@ -194,9 +194,15 @@ function AlbumCard({ album, theme }) {
           onClick={handlePlay}
         />
       </div>
-      <div className="description rounded h-14 -mt-3">
-        <p className=" w-[18ch] pl-0.5 pt-2 line-clamp-2 font-medium">
+      <div
+        className="description 
+      bg-gradient-to-br from-amber-900/40 to-amber-800/40 backdrop-blur-sm rounded-lg p-3 border border-amber-700/20"
+      >
+        <h3 className="font-medium text-amber-100 text-sm line-clamp-2 mb-1">
           {album.name}
+        </h3>
+        <p className="text-amber-300  text-xs line-clamp-1">
+          {album.artists.map((artist) => artist.name).join(", ")}
         </p>
       </div>
     </div>
