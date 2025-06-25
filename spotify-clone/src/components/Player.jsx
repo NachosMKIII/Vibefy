@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets/assets";
 import { useSpotifyApi } from "../backend/Auth";
-import "./cozy-theme/player.css";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
+//import "./cozy-theme/player.css";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -139,7 +139,7 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player h-[10%] player flex justify-between items-center text-white px-4 mb-10 ${theme}`}
+      className={`main-player rounded fixed h-[16%] bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[305px] ${theme}`}
     >
       <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
         <img className="w-16" src={albumImage} alt="Album cover" />

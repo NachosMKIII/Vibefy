@@ -1,7 +1,7 @@
 //Sidebar.jsx
 import React from "react";
 import { assets } from "../assets/assets/assets";
-import "./cozy-theme/sidebar.css";
+//import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -9,10 +9,11 @@ import "./experimental-theme/sidebar.css";
 
 const Sidebar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
-
   return (
     <div
-      className={`main-sidebar sidebar w-[35%] h-full p-2 flex-col gap-2 hidden lg:flex ${theme}`}
+      className={`main-sidebar sidebar w-[20%] h-[133%] -mt-[7px] -ml-[7.7px] p-2 flex-col gap-2 hidden lg:flex 
+        bg-gradient-to-b from-amber-950 via-amber-900 to-green-950 text-white 
+        ${theme}`}
     >
       <div className="sidebar1 h-[15%] rounded flex flex-col justify-around">
         <div className="flex items-center gap-3 pl-8 cursor-pointer">
