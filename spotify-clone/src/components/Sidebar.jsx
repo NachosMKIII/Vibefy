@@ -1,7 +1,7 @@
 //Sidebar.jsx
 import React from "react";
 import { assets } from "../assets/assets/assets";
-//import "./cozy-theme/sidebar.css";
+import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -108,14 +108,10 @@ const Sidebar = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex 
-        bg-gradient-to-b from-amber-950 via-amber-900 to-green-950 text-white 
+      className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex    
         ${theme}`}
     >
-      <div
-        className="sidebar1 h-[15%] rounded flex flex-col justify-around 
-      bg-gradient-to-br from-amber-900/60 to-amber-800/60 border-2 border-amber-700/30"
-      >
+      <div className="sidebar1 h-[15%] rounded flex flex-col justify-around">
         <div className="flex items-center gap-3 pl-8 cursor-pointer">
           <img className="w-6" src={assets.home_icon} alt="" />
           <p className="font-bold">Home</p>
@@ -125,10 +121,7 @@ const Sidebar = ({ playbackState }) => {
           <p className="font-bold">Search</p>
         </div>
       </div>
-      <div
-        className="sidebar1 h-[70%] rounded 
-      bg-gradient-to-br from-amber-900/60 to-amber-800/60 border-2 border-amber-700/30 "
-      >
+      <div className="sidebar1 h-[70%] rounded ">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img className="w-8" src={assets.stack_icon} alt="" />
@@ -140,54 +133,54 @@ const Sidebar = ({ playbackState }) => {
         </div>
 
         <div
-          className="p-4 sidebar2 m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-4
-        bg-gradient-to-br from-green-800/40 to-amber-800/40"
+          className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-4
+        "
         >
           <h1>Get a random song from the {theme} vibe</h1>
           <button
             onClick={handleRandomSong}
-            className="button px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
-          bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-green-950"
+            className="button1 px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
+          "
           >
             Random song
           </button>
         </div>
         <div
-          className="p-4 sidebar2 m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-4
-        bg-gradient-to-br from-green-800/40 to-amber-800/40"
+          className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-4
+        "
         >
           <h1>Create a playlist with your desired songs</h1>
           <button
-            className="button px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
-          bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-green-950"
+            className="button1 px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
+          "
           >
             Button
           </button>
         </div>
         <div
-          className="p-4 sidebar2 m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4
-        bg-gradient-to-br from-amber-800/40 to-amber-700/40 border-2 border-amber-700/20"
+          className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4
+        "
         >
           <h1>Change the vibe</h1>
-          <div className="">
+          <div>
             <button
               onClick={() => setTheme("cozy")}
-              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
-              bg-amber-700/30  hover:bg-amber-600/40 hover:text-amber-100"
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
+              "
             >
               Cozy
             </button>
             <button
               onClick={() => setTheme("rock-metal")}
-              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
-              bg-amber-700/30  hover:bg-amber-600/40 hover:text-amber-100"
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
+              "
             >
               Rock-Metal
             </button>
             <button
               onClick={() => setTheme("experimental")}
-              className="button px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer hover:scale-105 shadow-md
-              bg-amber-700/30  hover:bg-amber-600/40 hover:text-amber-100"
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer hover:scale-105 shadow-md
+              "
             >
               Experimental
             </button>

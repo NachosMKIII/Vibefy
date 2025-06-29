@@ -8,14 +8,36 @@
 
 .sidebar.cozy {
   color: white;
+  background: linear-gradient(to bottom, #451a03 0%, #5a2d05 50%, #052414 100%);
 }
 .sidebar.cozy .sidebar1 {
-  background: linear-gradient(to right, var(--color1), var(--color2));
+  background: linear-gradient(to bottom right, #78350f99, #92400e99);
+  border: 2px solid #78350f4d;
 }
-.sidebar.cozy .sidebar2 {
-  background-color: var(--color2);
+
+.sidebar.cozy .sidebar2a {
+  background: linear-gradient(to bottom right, #16653466, #92400e66);
+  border: 2px solid #b4530933;
 }
-.sidebar.cozy .button {
-  background-color: var(--color3);
-  color: var(--color4);
+
+.sidebar.cozy .sidebar2b {
+  background: linear-gradient(to bottom right, #92400e66, #b4530966);
+  border: 2px solid #b4530933;
+}
+
+.sidebar.cozy .button1 {
+  background: linear-gradient(to right, #16a34a, #15803d);
+  color: #052e16;
+}
+.sidebar.cozy .button1:hover {
+  background: linear-gradient(to right, #22c55e, #16a34a);
+}
+
+.sidebar.cozy .button2 {
+  background-color: #b453094d;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar.cozy .button2:hover {
+  background-color: #d9770666;
+  color: #fef3c7;
 }
