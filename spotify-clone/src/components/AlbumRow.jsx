@@ -196,12 +196,13 @@ function AlbumCard({ album, theme }) {
       </div>
       <div
         className="description 
-      bg-gradient-to-br from-amber-900/40 to-amber-800/40 backdrop-blur-sm rounded-lg p-3 border border-amber-700/20"
+      backdrop-blur-sm rounded-lg p-3 border
+      "
       >
-        <h3 className="font-medium text-amber-100 text-sm line-clamp-2 mb-1">
+        <h3 className="album-name font-medium text-sm line-clamp-2 mb-1">
           {album.name}
         </h3>
-        <p className="text-amber-300  text-xs line-clamp-1">
+        <p className="album-artist  text-xs line-clamp-1">
           {album.artists.map((artist) => artist.name).join(", ")}
         </p>
       </div>
