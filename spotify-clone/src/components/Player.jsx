@@ -8,6 +8,8 @@ import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
+import { Shuffle } from "lucide-react";
+import { SquarePlay } from "lucide-react";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -166,10 +168,10 @@ const Player = ({ playbackState }) => {
           <span>{formatTime(playbackState?.duration)}</span>
         </div>
         <div className="flex gap-4">
-          <img
-            className="w-12 h-12 relative cursor-pointer"
-            src={playbackState.shuffle ? assets.shuffle_on : assets.shuffle_off}
-            alt="Shuffle"
+          <Shuffle
+            className={`w-8 h-8 relative top-2 cursor-pointer ${
+              playbackState.shuffle ? "text-emerald-500" : "text-white"
+            }`}
             onClick={toggleShuffle}
           />
           <img
@@ -178,10 +180,10 @@ const Player = ({ playbackState }) => {
             alt="Previous"
             onClick={prevTrack}
           />
-          <img
-            className="w-6 h-6 relative top-3 cursor-pointer"
-            src={isPlaying ? assets.pause_icon : assets.play_icon}
-            alt={isPlaying ? "Pause" : "Play"}
+          <SquarePlay
+            className={`w-8 h-8 relative top-2 cursor-pointer ${
+              isPlaying ? "text-emerald-500" : "text-white"
+            }`}
             onClick={togglePlayPause}
           />
           <img
