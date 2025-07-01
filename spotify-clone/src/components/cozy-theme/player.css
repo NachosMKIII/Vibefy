@@ -1,11 +1,27 @@
-.main-player.cozy {
-  --color1: rgb(120, 80, 61);
-  --color2: rgb(102, 65, 47);
-  --color2t: rgba(102, 65, 47, 0.622);
-  --color3: rgb(202, 170, 156);
-  --color4: rgb(32, 19, 12);
-}
-
 .player.cozy {
   background: linear-gradient(to bottom right, #451a03, #78350f, #052e16);
+}
+
+.player.cozy .playback-control.shuffle-on {
+  color: var(--color-emerald-500);
+}
+.player.cozy .playback-control.shuffle-off {
+  color: white;
+}
+
+.player.cozy .playback-control.play-on {
+  color: var(--color-emerald-500);
+}
+.player.cozy .playback-control.play-off {
+  color: white;
+}
+
+.player.cozy .playback-control.loop-off {
+  color: white;
+}
+.player.cozy .playback-control.loop-context {
+  color: var(--color-emerald-500);
+}
+.player.cozy .playback-control.loop-track {
+  color: var(--color-sky-500);
 }

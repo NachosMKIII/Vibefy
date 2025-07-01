@@ -176,8 +176,8 @@ const Player = ({ playbackState }) => {
         </div>
         <div className="flex gap-2">
           <Shuffle
-            className={`w-8 h-8 relative top-2 cursor-pointer ${
-              playbackState.shuffle ? "text-emerald-500" : "text-white"
+            className={`w-8 h-8 relative top-2 cursor-pointer playback-control ${
+              playbackState.shuffle ? "shuffle-on" : "shuffle-off"
             }`}
             onClick={toggleShuffle}
           />
@@ -186,8 +186,8 @@ const Player = ({ playbackState }) => {
             onClick={prevTrack}
           />
           <SquarePlay
-            className={`w-8 h-8 relative top-2 cursor-pointer ${
-              isPlaying ? "text-emerald-500" : "text-white"
+            className={`w-8 h-8 relative top-2 cursor-pointer playback-control ${
+              isPlaying ? "play-on" : "play-off"
             }`}
             onClick={togglePlayPause}
           />
@@ -196,12 +196,12 @@ const Player = ({ playbackState }) => {
             onClick={nextTrack}
           />
           <Repeat2
-            className={`w-8 h-8 top-2 relative cursor-pointer ${
+            className={`w-8 h-8 top-2 relative cursor-pointer playback-control ${
               playbackState?.repeat_mode === 0
-                ? "text-white"
+                ? "loop-off"
                 : playbackState?.repeat_mode === 1
-                ? "text-emerald-500"
-                : "text-sky-500"
+                ? "loop-context"
+                : "loop-track"
             }`}
             onClick={cycleRepeatMode}
           />
