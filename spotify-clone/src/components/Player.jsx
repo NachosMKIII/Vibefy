@@ -1,6 +1,14 @@
 //Player.jsx
 import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets/assets";
+//lucide-react icons
+import { Shuffle } from "lucide-react";
+import { SquarePlay } from "lucide-react";
+import { StepForward } from "lucide-react";
+import { StepBack } from "lucide-react";
+import { Infinity } from "lucide-react";
+import { Repeat2 } from "lucide-react";
+//end of lucide-react-icons
 import { useSpotifyApi } from "../backend/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
@@ -8,8 +16,6 @@ import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
-import { Shuffle } from "lucide-react";
-import { SquarePlay } from "lucide-react";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -31,6 +37,7 @@ const Player = ({ playbackState }) => {
   if (!playbackState || !playbackState.track_window?.current_track) {
     return <div className="text-white">No track playing</div>;
   }
+
   // Extract track details from playbackState
   const isPlaying = !playbackState.paused;
   const currentTrack = playbackState?.track_window?.current_track || null;
@@ -140,10 +147,10 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player player rounded fixed h-[16%] w-[79.5%] flex justify-between items-center text-white px-4 bottom-[0px] left-[315px] ${theme}`}
+      className={`main-player rounded fixed h-[16%] bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[305px] ${theme}`}
     >
       <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
-        <img className="w-24" src={albumImage} alt="Album cover" />
+        <img className="w-16" src={albumImage} alt="Album cover" />
         <div>
           <p className="font-bold whitespace-nowrap">{trackName}</p>
           <p className="whitespace-nowrap">{artistName}</p>
@@ -167,17 +174,15 @@ const Player = ({ playbackState }) => {
           />
           <span>{formatTime(playbackState?.duration)}</span>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <Shuffle
             className={`w-8 h-8 relative top-2 cursor-pointer ${
               playbackState.shuffle ? "text-emerald-500" : "text-white"
             }`}
             onClick={toggleShuffle}
           />
-          <img
-            className="w-6 h-6 relative top-3 cursor-pointer"
-            src={assets.prev_icon}
-            alt="Previous"
+          <StepBack
+            className="w-8 h-8 top-2 relative cursor-pointer"
             onClick={prevTrack}
           />
           <SquarePlay
@@ -186,16 +191,18 @@ const Player = ({ playbackState }) => {
             }`}
             onClick={togglePlayPause}
           />
-          <img
-            className="w-6 h-6 top-3 relative cursor-pointer"
-            src={assets.next_icon}
-            alt="Next"
+          <StepForward
+            className="w-8 h-8 top-2 relative cursor-pointer"
             onClick={nextTrack}
           />
-          <img
-            className="w-6 h-6 top-3 left-1 relative cursor-pointer"
-            src={assets.loop_icon}
-            alt="Loop"
+          <Repeat2
+            className={`w-8 h-8 top-2 relative cursor-pointer ${
+              playbackState?.repeat_mode === 0
+                ? "text-white"
+                : playbackState?.repeat_mode === 1
+                ? "text-emerald-500"
+                : "text-sky-500"
+            }`}
             onClick={cycleRepeatMode}
           />
         </div>

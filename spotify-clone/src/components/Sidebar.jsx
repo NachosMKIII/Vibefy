@@ -1,13 +1,16 @@
 //Sidebar.jsx
 import React from "react";
 import { assets } from "../assets/assets/assets";
-import "./cozy-theme/sidebar.css";
-import "./metal-rock-theme/sidebar.css";
+//lucide-react icons
+import { BookHeadphones } from "lucide-react";
+//end of lucide-react icons
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
 import "./experimental-theme/sidebar.css";
+import "./cozy-theme/sidebar.css";
+import "./metal-rock-theme/sidebar.css";
 
 const Sidebar = ({ playbackState }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -124,7 +127,7 @@ const Sidebar = ({ playbackState }) => {
       <div className="sidebar1 h-[70%] rounded ">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img className="w-8" src={assets.stack_icon} alt="" />
+            <BookHeadphones className="w-12 h-12 -mb-4" />
           </div>
           <div className="flex items-center gap-3">
             <img className="w-5" src={assets.arrow_icon} alt="" />
