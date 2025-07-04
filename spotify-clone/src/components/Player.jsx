@@ -16,6 +16,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
+import CozySlider from "./sub-components/CozySlider";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -147,22 +148,21 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player rounded fixed h-[16%] bg-gradient-to-br from-amber-950 via-amber-900 to-green-950 player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[305px] ${theme}`}
+      className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}`}
     >
-      <div className="hidden lg:flex relative right-2 w-[22ch] items-center gap-4">
-        <img className="w-16" src={albumImage} alt="Album cover" />
-        <div>
-          <p className="font-bold whitespace-nowrap">{trackName}</p>
-          <p className="whitespace-nowrap">{artistName}</p>
+      <div className="hidden lg:flex relative right-2 items-center gap-4">
+        <img className="w-20" src={albumImage} alt="Album cover" />
+        <div className="max-w-[30ch]">
+          <p className="font-bold truncate">{trackName}</p>
+          <p className="truncate">{artistName}</p>
         </div>
       </div>
 
-      <div className="gap-1 relative right-18 m-auto">
+      <div className="gap-1 absolute left-125 m-auto">
         <div className="w-full mt-2 flex items-center">
           <span>{formatTime(playbackState?.position)}</span>
-          <input
-            type="range"
-            min="0"
+          <CozySlider
+            min={0}
             max={playbackState?.duration || 0}
             value={playbackState?.position || 0}
             onChange={(e) => {
@@ -171,6 +171,8 @@ const Player = ({ playbackState }) => {
               }
             }}
             className="w-full mx-2"
+            type="progress"
+            theme={theme}
           />
           <span>{formatTime(playbackState?.duration)}</span>
         </div>
@@ -209,13 +211,14 @@ const Player = ({ playbackState }) => {
       </div>
       <div className="items-center flex relative mt-2">
         <img className="w-4" src={assets.volume_icon} alt="Volume" />
-        <input
-          type="range"
-          min="0"
-          max="100"
+        <CozySlider
+          min={0}
+          max={100}
           value={sliderValue}
           onChange={handleVolumeChange}
           className="w-24 ml-2"
+          type="volume"
+          theme={theme}
         />
       </div>
     </div>

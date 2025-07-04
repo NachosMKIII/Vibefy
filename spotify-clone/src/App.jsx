@@ -16,6 +16,7 @@ const App = () => {
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
   const [player, setPlayer] = useState(null);
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "cozy";
@@ -59,6 +60,12 @@ const App = () => {
       player.addListener("ready", ({ device_id }) => {
         console.log("Player is ready with device ID:", device_id);
         setDeviceId(device_id);
+      });
+
+      player.addListener("ready", ({ device_id }) => {
+        console.log("Player is ready with device ID:", device_id);
+        setDeviceId(device_id);
+        setIsPlayerReady(true); // Ensure this is set here
       });
 
       player.addListener("player_state_changed", (state) => {
@@ -124,7 +131,7 @@ const App = () => {
                   {!accessToken ? (
                     <LoginButton />
                   ) : (
-                    <Player playbackState={playbackState} />
+                    isPlayerReady && <Player playbackState={playbackState} />
                   )}
                 </div>
               }

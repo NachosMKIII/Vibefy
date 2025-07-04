@@ -3,6 +3,8 @@ import React from "react";
 import { assets } from "../assets/assets/assets";
 //lucide-react icons
 import { BookHeadphones } from "lucide-react";
+import { Search } from "lucide-react";
+import { House } from "lucide-react";
 //end of lucide-react icons
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -115,23 +117,19 @@ const Sidebar = ({ playbackState }) => {
         ${theme}`}
     >
       <div className="sidebar1 h-[15%] rounded flex flex-col justify-around">
-        <div className="flex items-center gap-3 pl-8 cursor-pointer">
-          <img className="w-6" src={assets.home_icon} alt="" />
+        <div className="flex items-center gap-3 ml-4 cursor-pointer">
+          <House className="w-8 h-8 cursor-pointer" />
           <p className="font-bold">Home</p>
         </div>
-        <div className="flex items-center gap-3 pl-8 cursor-pointer">
-          <img className="w-6" src={assets.search_icon} alt="" />
-          <p className="font-bold">Search</p>
+        <div className="flex items-center gap-3 ml-4">
+          <Search className="w-8 h-8 cursor-pointer" />
+          <p className="font-bold cursor-pointer">Search</p>
         </div>
       </div>
       <div className="sidebar1 h-[70%] rounded ">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <BookHeadphones className="w-12 h-12 -mb-4" />
-          </div>
-          <div className="flex items-center gap-3">
-            <img className="w-5" src={assets.arrow_icon} alt="" />
-            <img className="w-5" src={assets.plus_icon} alt="" />
+            <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer" />
           </div>
         </div>
 
