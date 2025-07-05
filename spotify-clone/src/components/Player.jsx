@@ -1,5 +1,5 @@
 //Player.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets/assets";
 //lucide-react icons
 import { Shuffle } from "lucide-react";
@@ -20,19 +20,47 @@ import CozySlider from "./sub-components/CozySlider";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
-  const { deviceId } = useContext(SpotifyContext);
+  const { deviceId, player } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
-  const { player } = useContext(SpotifyContext);
 
-  // Local state for slider value, default to 50%
+  // Local state for slider value and adjustment tracking
   const [sliderValue, setSliderValue] = useState(50);
+  const [isAdjusting, setIsAdjusting] = useState(false);
 
-  // Update slider value when playbackState changes
+  // Use a ref to track isAdjusting for the event listener
+  const isAdjustingRef = useRef(isAdjusting);
+
+  // Update the ref whenever isAdjusting changes
   useEffect(() => {
-    if (playbackState) {
-      setSliderValue(Math.round((playbackState.volume || 0.5) * 100));
+    isAdjustingRef.current = isAdjusting;
+  }, [isAdjusting]);
+
+  // Listen for player state changes and update sliderValue if not adjusting
+  useEffect(() => {
+    if (player) {
+      const handlePlayerStateChange = (state) => {
+        if (state && !isAdjustingRef.current) {
+          console.log("Player state changed, volume:", state.volume);
+          setSliderValue(Math.round((state.volume || 0.5) * 100));
+        }
+      };
+
+      player.addListener("player_state_changed", handlePlayerStateChange);
+
+      // Get initial state when the component mounts
+      player.getCurrentState().then((state) => {
+        if (state && !isAdjustingRef.current) {
+          console.log("Initial state volume:", state.volume);
+          setSliderValue(Math.round((state.volume || 0.5) * 100));
+        }
+      });
+
+      // Cleanup: Remove the listener when the component unmounts
+      return () => {
+        player.removeListener("player_state_changed", handlePlayerStateChange);
+      };
     }
-  }, [playbackState]);
+  }, [player]);
 
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
@@ -128,16 +156,19 @@ const Player = ({ playbackState }) => {
   // Handle volume change
   const handleVolumeChange = async (event) => {
     const newVolume = parseInt(event.target.value, 10);
+    console.log("Setting slider value to:", newVolume);
     setSliderValue(newVolume); // Update local state immediately
     try {
       await makeApiCall(
         `https://api.spotify.com/v1/me/player/volume?volume_percent=${newVolume}&device_id=${deviceId}`,
         { method: "PUT" }
       );
+      console.log("Volume set successfully to:", newVolume);
     } catch (error) {
       console.error("Error setting volume:", error);
     }
   };
+
   const formatTime = (ms) => {
     if (!ms) return "0:00";
     const totalSeconds = Math.floor(ms / 1000);
@@ -216,6 +247,14 @@ const Player = ({ playbackState }) => {
           max={100}
           value={sliderValue}
           onChange={handleVolumeChange}
+          onMouseDown={() => {
+            setIsAdjusting(true);
+            console.log("Started adjusting slider");
+          }}
+          onMouseUp={() => {
+            setIsAdjusting(false);
+            console.log("Stopped adjusting slider");
+          }}
           className="w-24 ml-2"
           type="volume"
           theme={theme}

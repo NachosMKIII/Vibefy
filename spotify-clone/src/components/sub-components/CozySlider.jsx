@@ -1,3 +1,4 @@
+//CozySlider.jsx
 import React from "react";
 
 const CozySlider = ({
@@ -5,6 +6,8 @@ const CozySlider = ({
   max,
   value,
   onChange,
+  onMouseDown,
+  onMouseUp,
   className = "",
   type = "progress",
   theme,
@@ -68,6 +71,8 @@ const CozySlider = ({
           max={max}
           value={value}
           onChange={onChange}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
       </div>
