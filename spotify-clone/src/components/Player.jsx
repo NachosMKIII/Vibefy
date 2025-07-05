@@ -179,7 +179,8 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}`}
+      className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}
+      bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800`}
     >
       <div className="hidden lg:flex relative right-2 items-center gap-4">
         <img className="w-20" src={albumImage} alt="Album cover" />

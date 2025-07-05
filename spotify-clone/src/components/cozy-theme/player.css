@@ -2,7 +2,7 @@
 .player.cozy {
   background: linear-gradient(to bottom right, #451a03, #78350f, #052e16);
   --color-emerald-500: #10b981;
-  --color-sky-500: #0ea5e9;
+  --color-emerald-900: #064e3b;
 }
 
 .player.cozy .playback-control.shuffle-on {
@@ -26,5 +26,5 @@
   color: var(--color-emerald-500);
 }
 .player.cozy .playback-control.loop-track {
-  color: var(--color-sky-500);
+  color: var(--color-emerald-900);
 }

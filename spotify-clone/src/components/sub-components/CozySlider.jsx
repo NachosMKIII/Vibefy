@@ -22,10 +22,10 @@ const CozySlider = ({
     glowBg = "from-amber-300/60 to-green-300/60";
     thumbBg = "from-amber-300 to-green-300";
   } else if (theme === "rock-metal") {
-    trackBg = "from-gray-800/50 to-gray-700/50";
-    progressBg = "from-gray-400 via-blue-500 to-gray-500";
-    glowBg = "from-gray-300/60 to-blue-400/60";
-    thumbBg = "from-gray-300 to-blue-400";
+    trackBg = "from-slate-800/50 to-slate-700/50";
+    progressBg = "from-slate-400 via-cyan-500 to-slate-500";
+    glowBg = "from-slate-300/60 to-cyan-400/60";
+    thumbBg = "from-slate-300 to-cyan-400";
   } else if (theme === "experimental") {
     trackBg = "from-purple-900/50 to-indigo-900/50";
     progressBg = "from-purple-400 via-pink-500 to-indigo-400";

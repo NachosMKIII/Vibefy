@@ -1,11 +1,30 @@
-.main-player.rock-metal {
-  --color1: rgb(33, 34, 40);
-  --color2: rgb(20, 20, 24);
-  --color2t: rgba(20, 20, 24, 0.52);
-  --color3: rgb(121, 123, 134);
-  --color4: rgb(17, 23, 53);
+/*player.css inside rock-metal-theme folder*/
+.player.rock-metal {
+  background: linear-gradient(to bottom right, #020617, #0f172a, #1e293b);
+  --color-cyan-500: #06b6d4;
+  --color-cyan-900: #164e63;
 }
 
-.player.rock-metal {
-  background-color: var(--color1);
+.player.rock-metal .playback-control.shuffle-on {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.shuffle-off {
+  color: white;
+}
+
+.player.rock-metal .playback-control.play-on {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.play-off {
+  color: white;
+}
+
+.player.rock-metal .playback-control.loop-off {
+  color: white;
+}
+.player.rock-metal .playback-control.loop-context {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.loop-track {
+  color: var(--color-cyan-900);
 }
