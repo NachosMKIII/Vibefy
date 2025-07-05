@@ -1,21 +1,36 @@
-.main-sidebar.rock-metal {
-  --color1: rgb(33, 34, 40);
-  --color2: rgb(20, 20, 24);
-  --color2t: rgba(20, 20, 24, 0.52);
-  --color3: rgb(121, 123, 134);
-  --color4: rgb(17, 23, 53);
-}
-
 .sidebar.rock-metal {
-  color: white;
+  background: linear-gradient(to bottom, #020617, #0f172a, #1e293b);
+  color: #ffffff;
 }
 .sidebar.rock-metal .sidebar1 {
-  background: linear-gradient(to right, var(--color1), var(--color2));
+  background: linear-gradient(to bottom right, #1e293bb2, #334155b2);
+  border: 2px solid #47556966;
 }
-.sidebar.rock-metal .sidebar2 {
-  background-color: var(--color2);
+
+.sidebar.rock-metal .sidebar2a {
+  background: linear-gradient(to bottom right, #155e7580, #33415580);
+  border: 2px solid #0891b24d;
 }
-.sidebar.rock-metal .button {
-  background-color: var(--color3);
-  color: var(--color4);
+
+.sidebar.rock-metal .sidebar2b {
+  background-image: linear-gradient(to bottom right, #33415580, #47556980);
+  border: 2px solid #4755694d;
+}
+
+.sidebar.rock-metal .button1 {
+  background: linear-gradient(to right, #64748b, #0891b2);
+  color: #0f172a;
+}
+.sidebar.rock-metal .button1:hover {
+  background: linear-gradient(to right, #94a3b8, #06b6d4);
+}
+
+.sidebar.rock-metal .button2 {
+  background-color: #47556966;
+  color: #e2e8f0;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar.rock-metal .button2:hover {
+  background-color: #64748b80;
+  color: #f1f5f9;
 }

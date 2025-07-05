@@ -126,62 +126,46 @@ const Sidebar = ({ playbackState }) => {
           <p className="font-bold cursor-pointer">Search</p>
         </div>
       </div>
-      <div className="sidebar1 h-[70%] rounded ">
+      <div className="sidebar1 h-[70%] rounded">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer" />
           </div>
         </div>
 
-        <div
-          className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-4
-        "
-        >
+        <div className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-4">
           <h1>Get a random song from the {theme} vibe</h1>
           <button
             onClick={handleRandomSong}
-            className="button1 px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
-          "
+            className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105"
           >
             Random song
           </button>
         </div>
-        <div
-          className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-4
-        "
-        >
+        <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-4">
           <h1>Create a playlist with your desired songs</h1>
-          <button
-            className="button1 px-4 py-1.5 text-[15px] rounded-full mt-4 cursor-pointer 
-          "
-          >
+          <button className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105">
             Button
           </button>
         </div>
-        <div
-          className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4
-        "
-        >
+        <div className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4">
           <h1>Change the vibe</h1>
           <div>
             <button
               onClick={() => setTheme("cozy")}
-              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
-              "
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md"
             >
               Cozy
             </button>
             <button
               onClick={() => setTheme("rock-metal")}
-              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md
-              "
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer mr-2 hover:scale-105 shadow-md"
             >
               Rock-Metal
             </button>
             <button
               onClick={() => setTheme("experimental")}
-              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer hover:scale-105 shadow-md
-              "
+              className="button2 px-4 py-1.5 text-[15px] rounded-full mt-2 cursor-pointer hover:scale-105 shadow-md"
             >
               Experimental
             </button>

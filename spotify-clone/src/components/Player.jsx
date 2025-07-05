@@ -183,7 +183,11 @@ const Player = ({ playbackState }) => {
       bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800`}
     >
       <div className="hidden lg:flex relative right-2 items-center gap-4">
-        <img className="w-20" src={albumImage} alt="Album cover" />
+        <img
+          className="w-20 album-image border-2 border-slate-500/60"
+          src={albumImage}
+          alt="Album cover"
+        />
         <div className="max-w-[30ch]">
           <p className="font-bold truncate">{trackName}</p>
           <p className="truncate">{artistName}</p>
