@@ -1,14 +1,12 @@
-.main-album-row.rock-metal {
-  --color1: rgb(33, 34, 40);
-  --color2: rgb(20, 20, 24);
-  --color2t: rgba(20, 20, 24, 0.52);
-  --color3: rgb(121, 123, 134);
-  --color4: rgb(17, 23, 53);
+.album-row.rock-metal .album-name {
+  color: #f1f5f9;
 }
 
-.album-row.rock-metal {
-  color: white;
+.album-row.rock-metal .album-artist {
+  color: #cbd5e1;
 }
+
 .album-row.rock-metal .description {
-  background-color: var(--color2);
+  background: linear-gradient(to right, #1e293b80, #33415580);
+  border-color: #4755694d;
 }

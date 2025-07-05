@@ -7,10 +7,6 @@
 }
 
 .album-row.cozy .description {
-  background-image: linear-gradient(
-    to bottom right,
-    rgba(120, 53, 15, 0.4),
-    rgba(146, 64, 14, 0.4)
-  );
-  border-color: rgba(124, 45, 18, 0.2);
+  background: linear-gradient(to bottom right, #78350f66, #92400e66);
+  border-color: #7c2d1233;
 }

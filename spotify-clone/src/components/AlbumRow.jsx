@@ -196,8 +196,7 @@ function AlbumCard({ album, theme }) {
       </div>
       <div
         className="description 
-      backdrop-blur-sm rounded-lg p-3 border
-      "
+      backdrop-blur-sm rounded-lg p-3 border"
       >
         <h3 className="album-name font-medium text-sm line-clamp-2 mb-1">
           {album.name}
