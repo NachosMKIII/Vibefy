@@ -27,10 +27,10 @@ const CozySlider = ({
     glowBg = "from-slate-300/60 to-cyan-400/60";
     thumbBg = "from-slate-300 to-cyan-400";
   } else if (theme === "experimental") {
-    trackBg = "from-purple-900/50 to-indigo-900/50";
-    progressBg = "from-purple-400 via-pink-500 to-indigo-400";
-    glowBg = "from-purple-300/60 to-pink-300/60";
-    thumbBg = "from-purple-300 to-pink-300";
+    trackBg = "from-yellow-900/50 to-orange-800/50 border border-yellow-700/30";
+    progressBg = "from-yellow-400 via-orange-500 to-yellow-600";
+    glowBg = "from-yellow-300/70 to-orange-400/70";
+    thumbBg = "from-yellow-300 to-orange-500";
   } else {
     trackBg = "from-amber-900/50 to-green-900/50";
     progressBg = "from-amber-400 via-green-500 to-green-400";
@@ -43,7 +43,7 @@ const CozySlider = ({
       <div className="relative w-full h-2 group">
         {/* Track background */}
         <div
-          className={`absolute inset-0 bg-gradient-to-r ${trackBg} rounded-full shadow-inner border border-slate-600/30`}
+          className={`absolute inset-0 bg-gradient-to-r ${trackBg} rounded-full shadow-inner`}
         />
 
         {/* Progress fill */}
