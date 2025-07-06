@@ -1,6 +1,7 @@
 /*player.css inside cozy-theme folder*/
 .player.cozy {
   background: linear-gradient(to bottom right, #451a03, #78350f, #052e16);
+  border: 1px solid #92400e4d;
   --color-emerald-500: #10b981;
   --color-emerald-900: #064e3b;
 }
@@ -27,4 +28,14 @@
 }
 .player.cozy .playback-control.loop-track {
   color: var(--color-emerald-900);
+}
+.player.cozy .album-image {
+  border: 2px solid #451a03;
+}
+.player.cozy .track {
+  color: #fef3c7;
+}
+
+.player.cozy .artist {
+  color: #fcd34d;
 }

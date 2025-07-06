@@ -6,7 +6,6 @@ import { Shuffle } from "lucide-react";
 import { SquarePlay } from "lucide-react";
 import { StepForward } from "lucide-react";
 import { StepBack } from "lucide-react";
-import { Infinity } from "lucide-react";
 import { Repeat2 } from "lucide-react";
 //end of lucide-react-icons
 import { useSpotifyApi } from "../backend/Auth";
@@ -179,18 +178,23 @@ const Player = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}
-      bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800`}
+      className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}`}
     >
       <div className="hidden lg:flex relative right-2 items-center gap-4">
-        <img
-          className="w-20 album-image border-2 border-slate-500/60"
-          src={albumImage}
-          alt="Album cover"
-        />
+        <img className="w-20 album-image" src={albumImage} alt="Album cover" />
         <div className="max-w-[30ch]">
-          <p className="font-bold truncate">{trackName}</p>
-          <p className="truncate">{artistName}</p>
+          <p
+            className="font-bold truncate track
+          "
+          >
+            {trackName}
+          </p>
+          <p
+            className="truncate artist
+          "
+          >
+            {artistName}
+          </p>
         </div>
       </div>
 

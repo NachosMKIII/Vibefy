@@ -1,12 +1,41 @@
-.main-player.experimental {
-  --color1: rgb(255, 0, 136);
-  --color2: rgb(255, 215, 16);
-  --color2t: rgba(255, 213, 0, 0.688);
-  --color3: rgb(255, 0, 72);
-  --color4: rgb(255, 255, 255);
-  --color5: rgb(255, 89, 0);
+/*player.css inside experimental-theme folder*/
+.player.experimental {
+  background: linear-gradient(to bottom right, #2e1065, #4c1d95, #7e22ce);
+  border: 1px solid #9333ea66;
+  --color-yellow-400: #facc15;
+  --color-rose-600: #dc2626;
 }
 
-.player.experimental {
-  background-color: var(--color1);
+.player.experimental .playback-control.shuffle-on {
+  color: var(--color-yellow-400);
+}
+.player.experimental .playback-control.shuffle-off {
+  color: white;
+}
+
+.player.experimental .playback-control.play-on {
+  color: var(--color-yellow-400);
+}
+.player.experimental .playback-control.play-off {
+  color: white;
+}
+
+.player.experimental .playback-control.loop-off {
+  color: white;
+}
+.player.experimental .playback-control.loop-context {
+  color: var(--color-yellow-400);
+}
+.player.experimental .playback-control.loop-track {
+  color: var(--color-rose-600);
+}
+.player.experimental .album-image {
+  border: 2px solid #a855f799;
+}
+.player.rock-metal .track {
+  color: #f3e8ff;
+}
+
+.player.rock-metal .artist {
+  color: #d8b4fe;
 }
