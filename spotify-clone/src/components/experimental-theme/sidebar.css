@@ -1,22 +1,39 @@
-.main-sidebar.experimental {
-  --color1: rgb(255, 0, 136);
-  --color2: rgb(255, 215, 16);
-  --color2t: rgba(255, 213, 0, 0.551);
-  --color3: rgb(255, 0, 72);
-  --color4: rgb(255, 255, 255);
-  --color5: rgb(255, 89, 0);
-}
-
 .sidebar.experimental {
-  color: white;
+  background: linear-gradient(to bottom, #2e1065, #4c1d95, #7e22ce);
+  color: #ffffff;
 }
 .sidebar.experimental .sidebar1 {
-  background: linear-gradient(to right, var(--color1), var(--color2));
+  background: linear-gradient(to bottom right, #7e22ceb3, #6d28d9b3);
+  border: 2px solid #eab30833;
 }
-.sidebar.experimental .sidebar2 {
-  background: linear-gradient(to right, var(--color5), var(--color2));
+
+.sidebar.experimental .sidebar2a {
+  background: linear-gradient(to bottom right, #854d0e4d, #c2410c4d);
+  border: 2px solid #ca8a044d;
 }
-.sidebar.experimental .button {
-  background-color: var(--color3);
-  color: var(--color4);
+
+.sidebar.experimental .sidebar2b {
+  background: linear-gradient(to bottom right, #854d0e4d, #c2410c4d);
+  border: 2px solid #ca8a044d;
+}
+
+.sidebar.experimental .button1 {
+  background: linear-gradient(to right, #eab308, #ea580c);
+  color: #713f12;
+}
+
+.sidebar.experimental .button1:hover {
+  background: linear-gradient(to right, #facc15, #f97316);
+}
+
+.sidebar.experimental .button2 {
+  background: #9333ea66;
+  color: #e9d5ff;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar.experimental .button2:hover {
+  background: #ca8a044d;
+}
+.sidebar.experimental .icon {
+  color: #fde047;
 }

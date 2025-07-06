@@ -113,23 +113,26 @@ const Sidebar = ({ playbackState }) => {
 
   return (
     <div
-      className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex    
-        ${theme}`}
+      className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
       <div className="sidebar1 h-[15%] rounded flex flex-col justify-around">
         <div className="flex items-center gap-3 ml-4 cursor-pointer">
-          <House className="w-8 h-8 cursor-pointer" />
+          <House className="w-8 h-8 cursor-pointer icon" />
           <p className="font-bold">Home</p>
         </div>
         <div className="flex items-center gap-3 ml-4">
-          <Search className="w-8 h-8 cursor-pointer" />
+          <Search className="w-8 h-8 cursor-pointer icon" />
           <p className="font-bold cursor-pointer">Search</p>
         </div>
       </div>
-      <div className="sidebar1 h-[70%] rounded">
+      <div
+        className="sidebar1 h-[70%] rounded
+      bg-gradient-to-br from-purple-800/70 to-violet-700/70
+      border-2 border-yellow-500/20"
+      >
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer" />
+            <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer icon" />
           </div>
         </div>
 
