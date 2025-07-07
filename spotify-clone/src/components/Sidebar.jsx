@@ -1,10 +1,7 @@
 //Sidebar.jsx
 import React from "react";
-import { assets } from "../assets/assets/assets";
 //lucide-react icons
 import { BookHeadphones } from "lucide-react";
-import { Search } from "lucide-react";
-import { House } from "lucide-react";
 //end of lucide-react icons
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -115,28 +112,14 @@ const Sidebar = ({ playbackState }) => {
     <div
       className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
-      <div className="sidebar1 h-[15%] rounded flex flex-col justify-around">
-        <div className="flex items-center gap-3 ml-4 cursor-pointer">
-          <House className="w-8 h-8 cursor-pointer icon" />
-          <p className="font-bold">Home</p>
-        </div>
-        <div className="flex items-center gap-3 ml-4">
-          <Search className="w-8 h-8 cursor-pointer icon" />
-          <p className="font-bold cursor-pointer">Search</p>
-        </div>
-      </div>
-      <div
-        className="sidebar1 h-[70%] rounded
-      bg-gradient-to-br from-purple-800/70 to-violet-700/70
-      border-2 border-yellow-500/20"
-      >
+      <div className="sidebar1 h-[80%] rounded mt-10">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer icon" />
           </div>
         </div>
 
-        <div className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-4">
+        <div className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-10">
           <h1>Get a random song from the {theme} vibe</h1>
           <button
             onClick={handleRandomSong}
@@ -145,13 +128,13 @@ const Sidebar = ({ playbackState }) => {
             Random song
           </button>
         </div>
-        <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-4">
+        <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Create a playlist with your desired songs</h1>
           <button className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105">
-            Button
+            Create playList
           </button>
         </div>
-        <div className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4">
+        <div className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Change the vibe</h1>
           <div>
             <button
