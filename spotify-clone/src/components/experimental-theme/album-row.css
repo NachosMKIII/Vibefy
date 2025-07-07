@@ -1,16 +1,12 @@
-.main-album-row.experimental {
-  --color1: rgb(255, 0, 136);
-  --color2: rgb(255, 215, 16);
-  --color2t: rgba(255, 213, 0, 0.814);
-  --color3: rgb(255, 0, 72);
-  --color4: rgb(255, 255, 255);
-  --color5: rgb(255, 89, 0);
-  --color5t: rgba(255, 89, 0, 0.738);
+.album-row.experimental .album-name {
+  color: #f3e8ff;
 }
 
-.album-row.experimental {
-  color: var(--color4);
+.album-row.experimental .album-artist {
+  color: #d8b4fe;
 }
+
 .album-row.experimental .description {
-  background-color: var(--color5t);
+  background: linear-gradient(to bottom right, #7e22ce80, #6d28d980);
+  border-color: #9333ea4d;
 }
