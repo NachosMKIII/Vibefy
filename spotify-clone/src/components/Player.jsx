@@ -15,7 +15,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
-import CozySlider from "./sub-components/CozySlider";
+import Slider from "./sub-components/Slider";
 
 const Player = ({ playbackState }) => {
   const { theme } = useContext(ThemeContext);
@@ -201,7 +201,7 @@ const Player = ({ playbackState }) => {
       <div className="gap-1 absolute left-125 m-auto">
         <div className="w-full mt-2 flex items-center">
           <span>{formatTime(playbackState?.position)}</span>
-          <CozySlider
+          <Slider
             min={0}
             max={playbackState?.duration || 0}
             value={playbackState?.position || 0}
@@ -251,7 +251,7 @@ const Player = ({ playbackState }) => {
       </div>
       <div className="items-center flex relative mt-2">
         <img className="w-4" src={assets.volume_icon} alt="Volume" />
-        <CozySlider
+        <Slider
           min={0}
           max={100}
           value={sliderValue}

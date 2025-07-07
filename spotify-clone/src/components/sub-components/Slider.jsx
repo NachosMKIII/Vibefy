@@ -1,7 +1,7 @@
-//CozySlider.jsx
+//Slider.jsx
 import React from "react";
 
-const CozySlider = ({
+const Slider = ({
   min,
   max,
   value,
@@ -80,4 +80,4 @@ const CozySlider = ({
   );
 };
 
-export default CozySlider;
+export default Slider;
