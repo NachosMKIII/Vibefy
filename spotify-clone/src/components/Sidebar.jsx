@@ -1,8 +1,7 @@
 //Sidebar.jsx
 import React from "react";
-//lucide-react icons
-import { BookHeadphones } from "lucide-react";
-//end of lucide-react icons
+import { assets } from "../assets/assets/assets";
+import { BookHeadphones, Search, House } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { SpotifyContext } from "../context/SpotifyContext";
@@ -11,7 +10,7 @@ import "./experimental-theme/sidebar.css";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 
-const Sidebar = ({ playbackState }) => {
+const Sidebar = ({ playbackState, setCurrentView }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const makeApiCall = useSpotifyApi();
   const { deviceId } = useContext(SpotifyContext);
@@ -128,13 +127,16 @@ const Sidebar = ({ playbackState }) => {
             Random song
           </button>
         </div>
-        <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px]  flex flex-col items-start justify-start gap-1 pl-4 mt-10">
+        <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px] flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Create a playlist with your desired songs</h1>
-          <button className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105">
-            Create playList
+          <button
+            onClick={() => setCurrentView("playlist")}
+            className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105"
+          >
+            Create playlist
           </button>
         </div>
-        <div className="p-4 sidebar2b m-2 rounded h-[160px]  font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-10">
+        <div className="p-4 sidebar2b m-2 rounded h-[160px] font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Change the vibe</h1>
           <div>
             <button
