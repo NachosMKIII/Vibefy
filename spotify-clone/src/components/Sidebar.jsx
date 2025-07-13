@@ -10,7 +10,7 @@ import "./experimental-theme/sidebar.css";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 
-const Sidebar = ({ playbackState, setCurrentView }) => {
+const Sidebar = ({ setSidebarView }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const makeApiCall = useSpotifyApi();
   const { deviceId } = useContext(SpotifyContext);
@@ -130,7 +130,7 @@ const Sidebar = ({ playbackState, setCurrentView }) => {
         <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px] flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Create a playlist with your desired songs</h1>
           <button
-            onClick={() => setCurrentView("playlist")}
+            onClick={() => setSidebarView("playlist")}
             className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105"
           >
             Create playlist

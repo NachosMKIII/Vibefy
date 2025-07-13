@@ -22,8 +22,11 @@ const App = () => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "cozy";
   });
-  const [currentView, setCurrentView] = useState("albums");
-  const [playlist, setPlaylist] = useState([]);
+  const [sidebarView, setSidebarView] = useState("default"); // New state for sidebar content
+  const [playlist, setPlaylist] = useState(() => {
+    const savedPlaylist = localStorage.getItem("playlist");
+    return savedPlaylist ? JSON.parse(savedPlaylist) : [];
+  });
 
   const addTrack = (track) => {
     setPlaylist((prev) => [...prev, track]);
@@ -36,6 +39,10 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("playlist", JSON.stringify(playlist));
+  }, [playlist]);
 
   useEffect(() => {
     if (player) {
@@ -123,17 +130,15 @@ const App = () => {
                     }}
                   >
                     <div className="h-[90%] flex">
-                      <Sidebar setCurrentView={setCurrentView} />
+                      {sidebarView === "default" ? (
+                        <Sidebar setSidebarView={setSidebarView} />
+                      ) : (
+                        <PlaylistManager setSidebarView={setSidebarView} />
+                      )}
                       {accessToken ? (
                         <div className="flex-1 overflow-x-auto">
-                          {currentView === "albums" ? (
-                            <>
-                              <AlbumRow />
-                              <AlbumRow />
-                            </>
-                          ) : (
-                            <PlaylistManager />
-                          )}
+                          <AlbumRow />
+                          <AlbumRow />
                         </div>
                       ) : (
                         <div>Please log in to see albums.</div>

@@ -1,10 +1,11 @@
+//PlaylistManager.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 
-const PlaylistManager = () => {
+const PlaylistManager = ({ setSidebarView }) => {
   const { theme } = useContext(ThemeContext);
   const { playlist, addTrack, removeTrack } = useContext(PlaylistContext);
   const { deviceId, isPlayerReady } = useContext(SpotifyContext);
@@ -155,16 +156,24 @@ const PlaylistManager = () => {
   }
 
   return (
-    <div className={`playlist-manager p-4 flex flex-col ${theme}`}>
+    <div
+      className={`playlist-manager p-4 flex flex-col w-[20%] h-[110%] bg-white ${theme}`}
+    >
+      <button
+        onClick={() => setSidebarView("default")}
+        className="mb-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+      >
+        Back to Sidebar
+      </button>
       <h2 className="text-2xl font-bold mb-4">Manage Your Playlist</h2>
-      <div className="gap-4">
-        <div className="w-1/2">
+      <div className="flex flex-col gap-4">
+        <div>
           <h3 className="text-xl font-semibold mb-2">Available Albums</h3>
-          <div className="overflow-y-auto max-h-[60vh]">
+          <div className="overflow-y-auto max-h-[300px]">
             {albums.map((album) => (
               <div
                 key={album.id}
-                className="items-center gap-2 p-2 hover:bg-gray-700/50 cursor-pointer rounded"
+                className="flex items-center gap-2 p-2 hover:bg-gray-700/50 cursor-pointer rounded"
                 onClick={() => fetchTracks(album.id)}
               >
                 <img
@@ -181,49 +190,47 @@ const PlaylistManager = () => {
               </div>
             ))}
           </div>
-          {selectedAlbum && (
-            <div className="mt-4">
-              <h3 className="text-xl font-semibold mb-2">Tracks</h3>
-              {isLoadingTracks ? (
-                <p>Loading tracks...</p>
-              ) : (
-                <div className="overflow-y-auto max-h-[40vh]">
-                  {tracks.map((track) => (
-                    <div
-                      key={track.id}
-                      className="items-center justify-between p-2 hover:bg-gray-700/50 rounded"
-                    >
-                      <div>
-                        <p className="font-medium">{track.name}</p>
-                        <p className="text-sm text-gray-400">
-                          {track.artists
-                            .map((artist) => artist.name)
-                            .join(", ")}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => handleAddTrack(track)}
-                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                      >
-                        Add to Playlist
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
-        <div className="w-1/2">
+        {selectedAlbum && (
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Tracks</h3>
+            {isLoadingTracks ? (
+              <p>Loading tracks...</p>
+            ) : (
+              <div className="overflow-y-auto max-h-[300px]">
+                {tracks.map((track) => (
+                  <div
+                    key={track.id}
+                    className="flex items-center justify-between p-2 hover:bg-gray-700/50 rounded"
+                  >
+                    <div>
+                      <p className="font-medium">{track.name}</p>
+                      <p className="text-sm text-gray-400">
+                        {track.artists.map((artist) => artist.name).join(", ")}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleAddTrack(track)}
+                      className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                      Add to Playlist
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        <div>
           <h3 className="text-xl font-semibold mb-2">Your Playlist</h3>
-          <div className="overflow-y-auto max-h-[60vh]">
+          <div className="overflow-y-auto max-h-[300px]">
             {playlist.length === 0 ? (
               <p>No tracks in playlist</p>
             ) : (
               playlist.map((track) => (
                 <div
                   key={track.id}
-                  className="items-center justify-between p-2 hover:bg-gray-700/50 rounded"
+                  className="flex items-center justify-between p-2 hover:bg-gray-700/50 rounded"
                 >
                   <div>
                     <p className="font-medium">{track.name}</p>
