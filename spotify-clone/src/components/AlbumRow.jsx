@@ -32,6 +32,7 @@ export default function AlbumRow({ title, albumIds, playbackState }) {
         "02UhY4AQiAry5S2ZpgEKIt",
         "2kz6FGzMkZUyGZPywlkcOu",
         "60EzsIzS77S9MWHT0Tm37s",
+        "02gFZUaqAcQNtV6rmVIsN0",
       ];
     } else if (theme === "rock-metal") {
       albumIds = [
@@ -76,7 +77,9 @@ export default function AlbumRow({ title, albumIds, playbackState }) {
         "0vhRTvVCv9O5orRMgFjxT1",
         "02UhY4AQiAry5S2ZpgEKIt",
         "2kz6FGzMkZUyGZPywlkcOu",
-        "60EzsIzS77S9MWHT0Tm37s" /* ... default albums */,
+        "60EzsIzS77S9MWHT0Tm37s",
+        "02gFZUaqAcQNtV6rmVIsN0" /* ... default albums */,
+        ,
         ,
       ];
     }

@@ -1,74 +1,19 @@
 //Sidebar.jsx
 import React from "react";
-import { assets } from "../assets/assets/assets";
-import { BookHeadphones, Search, House } from "lucide-react";
+import { BookHeadphones, CirclePlus } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
+import { themeAlbums } from "./Data/themeAlbums";
 import "./experimental-theme/sidebar.css";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 
-const Sidebar = ({ setSidebarView }) => {
+const Sidebar = ({ setSidebarView, startNewPlaylist }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const makeApiCall = useSpotifyApi();
   const { deviceId } = useContext(SpotifyContext);
-  const themeAlbums = {
-    cozy: [
-      "7DxmOS2dKJgTfLLRNOP4ch",
-      "1K6TvnkvmnLKPhifmPb6N7",
-      "6EtrZFZ6FMR6fbB82oHUWi",
-      "38NEzyo2N5T68j7aFetd4x",
-      "0AL7olZ75pi55q9p1eHaD8",
-      "1aFyAtSRxLNzSTGwHMRvWj",
-      "0vhRTvVCv9O5orRMgFjxT1",
-      "02UhY4AQiAry5S2ZpgEKIt",
-      "2kz6FGzMkZUyGZPywlkcOu",
-      "60EzsIzS77S9MWHT0Tm37s",
-    ],
-    "rock-metal": [
-      "2kcJ3TxBhSwmki0QWFXUz8",
-      "08pnia1NUFsyIWfhE9sZz1",
-      "1QJmLRcuIMMjZ49elafR3K",
-      "1XkGORuUX2QGOEIL4EbJKm",
-      "1gsoIHeBan6QywhysNgApK",
-      "5sMSJ6uAozdrqFELMwl3NU",
-      "1j57Q5ntVi7crpibb0h4sv",
-      "6a5n1Frj3nxGcyTqT1xfrg",
-      "5XgUtV3205kTcgoSLNf8ix",
-      "6DJwvB2iCquvxxrXRW0cFz",
-      "3HFbH1loOUbqCyPsLuHLLh",
-      "7izZDSBxj6nB2PieJo6U0u",
-      "7rSZXXHHvIhF4yUFdaOCy9",
-    ],
-    experimental: [
-      "4LileDrFwEUFB5UPA3AEia",
-      "2yAO7HQOfO4t146QLyK26a",
-      "7izZDSBxj6nB2PieJo6U0u",
-      "4T95uimM0PQNgAkcyLTym0",
-      "63TYyeXlBYoYKNvE6rT3hI",
-      "1vWOYk3hF5bgVUUUaPvYLh",
-      "2TN3NIEBmAOGWmvP96DFs5",
-      "6wRDKCpKw3ap6dhkpdXNIN",
-      "0VDB8LxXpOS8qQeiab3LqG",
-      "7GjVWG39IOj4viyWplJV4H",
-      "3ddMQ2PZjiD8Zxm0lu92rb",
-      "1WwiyWxa40PKucRxIKlEVM",
-    ],
-    null: [
-      "7DxmOS2dKJgTfLLRNOP4ch",
-      "1K6TvnkvmnLKPhifmPb6N7",
-      "6EtrZFZ6FMR6fbB82oHUWi",
-      "38NEzyo2N5T68j7aFetd4x",
-      "0AL7olZ75pi55q9p1eHaD8",
-      "1aFyAtSRxLNzSTGwHMRvWj",
-      "0vhRTvVCv9O5orRMgFjxT1",
-      "02UhY4AQiAry5S2ZpgEKIt",
-      "2kz6FGzMkZUyGZPywlkcOu",
-      "60EzsIzS77S9MWHT0Tm37s",
-    ],
-  };
 
   const handleRandomSong = async () => {
     const albums = themeAlbums[theme];
@@ -114,10 +59,12 @@ const Sidebar = ({ setSidebarView }) => {
       <div className="sidebar1 h-[80%] rounded mt-10">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <BookHeadphones className="w-12 h-12 -ml-1 -mb-4 cursor-pointer icon" />
+            <BookHeadphones
+              className="w-12 h-12 -ml-1 -mb-4 cursor-pointer icon"
+              onClick={() => setSidebarView("playlistList")}
+            />
           </div>
         </div>
-
         <div className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-10">
           <h1>Get a random song from the {theme} vibe</h1>
           <button
@@ -130,7 +77,7 @@ const Sidebar = ({ setSidebarView }) => {
         <div className="p-4 sidebar2a m-2 rounded font-semibold h-[160px] flex flex-col items-start justify-start gap-1 pl-4 mt-10">
           <h1>Create a playlist with your desired songs</h1>
           <button
-            onClick={() => setSidebarView("playlist")}
+            onClick={startNewPlaylist}
             className="button1 px-4 py-1.5 text-[22px] rounded-full mt-4 cursor-pointer font-normal transition-all duration-200 hover:scale-105"
           >
             Create playlist

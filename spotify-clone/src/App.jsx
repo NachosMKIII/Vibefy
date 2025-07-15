@@ -9,6 +9,8 @@ import Player from "./components/Player";
 import { SpotifyContext } from "./context/SpotifyContext";
 import { PlaylistContext } from "./context/PlaylistContext";
 import PlaylistManager from "./components/PlaylistManager";
+import PlaylistList from "./components/PlaylistList";
+import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
 import { refreshAccessToken } from "./functions/spotifyUtils";
 
@@ -22,18 +24,57 @@ const App = () => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "cozy";
   });
-  const [sidebarView, setSidebarView] = useState("default"); // New state for sidebar content
-  const [playlist, setPlaylist] = useState(() => {
-    const savedPlaylist = localStorage.getItem("playlist");
-    return savedPlaylist ? JSON.parse(savedPlaylist) : [];
+  const [sidebarView, setSidebarView] = useState("default");
+  const [playlists, setPlaylists] = useState(() => {
+    const savedPlaylists = localStorage.getItem("playlists");
+    return savedPlaylists ? JSON.parse(savedPlaylists) : [];
   });
+  const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  const addTrack = (track) => {
-    setPlaylist((prev) => [...prev, track]);
+  const startNewPlaylist = () => {
+    setCurrentPlaylist({ id: Date.now(), name: "", tracks: [] });
+    setSidebarView("playlistManager");
   };
 
-  const removeTrack = (trackId) => {
-    setPlaylist((prev) => prev.filter((t) => t.id !== trackId));
+  const addTrackToCurrent = (track) => {
+    if (currentPlaylist) {
+      setCurrentPlaylist((prev) => ({
+        ...prev,
+        tracks: [...prev.tracks, track],
+      }));
+    }
+  };
+
+  const removeTrackFromCurrent = (trackId) => {
+    if (currentPlaylist) {
+      setCurrentPlaylist((prev) => ({
+        ...prev,
+        tracks: prev.tracks.filter((t) => t.id !== trackId),
+      }));
+    }
+  };
+
+  const savePlaylist = () => {
+    if (
+      currentPlaylist &&
+      currentPlaylist.name &&
+      currentPlaylist.tracks.length > 0
+    ) {
+      setPlaylists((prev) => [...prev, currentPlaylist]);
+      setCurrentPlaylist(null);
+      setSidebarView("default");
+    } else {
+      alert("Please provide a name and add at least one track.");
+    }
+  };
+
+  const selectPlaylist = (playlistId) => {
+    const playlist = playlists.find((p) => p.id === playlistId);
+    if (playlist) {
+      setCurrentPlaylist(playlist);
+      setSidebarView("playlistManager");
+    }
   };
 
   useEffect(() => {
@@ -41,8 +82,8 @@ const App = () => {
   }, [theme]);
 
   useEffect(() => {
-    localStorage.setItem("playlist", JSON.stringify(playlist));
-  }, [playlist]);
+    localStorage.setItem("playlists", JSON.stringify(playlists));
+  }, [playlists]);
 
   useEffect(() => {
     if (player) {
@@ -63,7 +104,6 @@ const App = () => {
           let accessToken = localStorage.getItem("access_token");
           const expirationTime = localStorage.getItem("expiration_time");
           const currentTime = Date.now();
-
           if (expirationTime && currentTime >= expirationTime - 60000) {
             try {
               accessToken = await refreshAccessToken();
@@ -102,7 +142,6 @@ const App = () => {
     };
 
     window.onSpotifyWebPlaybackSDKReady = initializePlayer;
-
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
     script.async = true;
@@ -117,7 +156,17 @@ const App = () => {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <SpotifyContext.Provider value={{ deviceId, player, isPlayerReady }}>
-        <PlaylistContext.Provider value={{ playlist, addTrack, removeTrack }}>
+        <PlaylistContext.Provider
+          value={{
+            playlists,
+            currentPlaylist,
+            setCurrentPlaylist,
+            addTrack: addTrackToCurrent,
+            removeTrack: removeTrackFromCurrent,
+            savePlaylist,
+            selectPlaylist,
+          }}
+        >
           <Router>
             <Routes>
               <Route
@@ -131,14 +180,28 @@ const App = () => {
                   >
                     <div className="h-[90%] flex">
                       {sidebarView === "default" ? (
-                        <Sidebar setSidebarView={setSidebarView} />
-                      ) : (
+                        <Sidebar
+                          setSidebarView={setSidebarView}
+                          startNewPlaylist={startNewPlaylist}
+                        />
+                      ) : sidebarView === "playlistManager" ? (
                         <PlaylistManager setSidebarView={setSidebarView} />
+                      ) : (
+                        <PlaylistList />
                       )}
                       {accessToken ? (
                         <div className="flex-1 overflow-x-auto">
-                          <AlbumRow />
-                          <AlbumRow />
+                          {selectedAlbum ? (
+                            <TrackList
+                              albumId={selectedAlbum}
+                              setSelectedAlbum={setSelectedAlbum}
+                            />
+                          ) : (
+                            <>
+                              <AlbumRow setSelectedAlbum={setSelectedAlbum} />
+                              <AlbumRow setSelectedAlbum={setSelectedAlbum} />
+                            </>
+                          )}
                         </div>
                       ) : (
                         <div>Please log in to see albums.</div>
