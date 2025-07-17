@@ -10,6 +10,7 @@ import { SpotifyContext } from "./context/SpotifyContext";
 import { PlaylistContext } from "./context/PlaylistContext";
 import PlaylistManager from "./components/PlaylistManager";
 import PlaylistList from "./components/PlaylistList";
+import PlaylistCustomizer from "./components/PlaylistCustomizer";
 import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
 import { refreshAccessToken } from "./functions/spotifyUtils";
@@ -30,6 +31,7 @@ const App = () => {
     return savedPlaylists ? JSON.parse(savedPlaylists) : [];
   });
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   const startNewPlaylist = () => {
@@ -72,8 +74,7 @@ const App = () => {
   const selectPlaylist = (playlistId) => {
     const playlist = playlists.find((p) => p.id === playlistId);
     if (playlist) {
-      setCurrentPlaylist(playlist);
-      setSidebarView("playlistManager");
+      setSelectedPlaylist(playlist);
     }
   };
 
@@ -186,8 +187,13 @@ const App = () => {
                         />
                       ) : sidebarView === "playlistManager" ? (
                         <PlaylistManager setSidebarView={setSidebarView} />
+                      ) : sidebarView === "playlistCustomizer" ? (
+                        <PlaylistCustomizer
+                          setSidebarView={setSidebarView}
+                          playlist={selectedPlaylist}
+                        />
                       ) : (
-                        <PlaylistList />
+                        <PlaylistList setSidebarView={setSidebarView} />
                       )}
                       {accessToken ? (
                         <div className="flex-1 overflow-x-auto">

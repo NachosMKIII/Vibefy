@@ -2,8 +2,13 @@
 import React, { useContext } from "react";
 import { PlaylistContext } from "../context/PlaylistContext";
 
-const PlaylistList = () => {
+const PlaylistList = ({ setSidebarView }) => {
   const { playlists, selectPlaylist } = useContext(PlaylistContext);
+
+  const handleSelectPlaylist = (playlistId) => {
+    selectPlaylist(playlistId);
+    setSidebarView("playlistCustomizer");
+  };
 
   return (
     <div className="playlist-list p-4 w-[20%] h-[110%]">
@@ -16,7 +21,7 @@ const PlaylistList = () => {
             <li
               key={playlist.id}
               className="flex items-center gap-2 p-2 hover:bg-gray-700/50 cursor-pointer"
-              onClick={() => selectPlaylist(playlist.id)}
+              onClick={() => handleSelectPlaylist(playlist.id)}
             >
               {playlist.tracks.length > 0 && (
                 <img
