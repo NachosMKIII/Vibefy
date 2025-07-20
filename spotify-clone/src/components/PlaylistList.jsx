@@ -11,8 +11,14 @@ const PlaylistList = ({ setSidebarView }) => {
   };
 
   return (
-    <div className="playlist-list p-4 w-[20%] h-[110%]">
+    <div className="playlist-list p-4 w-[20%] h-[110%] flex flex-col">
       <h2 className="text-2xl font-bold mb-4">Your Playlists</h2>
+      <button
+        onClick={() => setSidebarView("default")}
+        className="mb-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+      >
+        Back to Sidebar
+      </button>
       {playlists.length === 0 ? (
         <p>No playlists created yet.</p>
       ) : (

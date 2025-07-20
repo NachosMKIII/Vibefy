@@ -2,10 +2,31 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { SpotifyContext } from "../context/SpotifyContext";
+import { useSpotifyApi } from "../backend/Auth";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
-  const { removeTrack } = useContext(PlaylistContext);
+  const { removeTrackFromPlaylist, deletePlaylist } =
+    useContext(PlaylistContext);
+  const { deviceId } = useContext(SpotifyContext);
+  const makeApiCall = useSpotifyApi();
+
+  const handlePlayPlaylist = async () => {
+    if (!playlist.tracks.length) return;
+    const uris = playlist.tracks.map((track) => track.uri);
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ uris }),
+        }
+      );
+    } catch (error) {
+      console.error("Error playing playlist:", error);
+    }
+  };
 
   const handleAddTracks = () => {
     // Placeholder for customization logic (e.g., switch to track selection mode)
@@ -40,7 +61,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             >
               <span>{track.name}</span>
               <button
-                onClick={() => removeTrack(track.id)}
+                onClick={() => removeTrackFromPlaylist(playlist.id, track.id)}
                 className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Remove
@@ -49,6 +70,18 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           ))
         )}
       </div>
+      <button
+        onClick={handlePlayPlaylist}
+        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+      >
+        Play Playlist
+      </button>
+      <button
+        onClick={() => deletePlaylist(playlist.id)}
+        className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+      >
+        Delete Playlist
+      </button>
     </div>
   );
 };

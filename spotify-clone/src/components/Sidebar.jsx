@@ -63,6 +63,12 @@ const Sidebar = ({ setSidebarView, startNewPlaylist }) => {
               className="w-12 h-12 -ml-1 -mb-4 cursor-pointer icon"
               onClick={() => setSidebarView("playlistList")}
             />
+            <p
+              className="text-2xl relative top-6 -mt-10 font-normal cursor-pointer"
+              onClick={() => setSidebarView("playlistList")}
+            >
+              Playlists
+            </p>
           </div>
         </div>
         <div className="p-4 sidebar2a m-2 rounded font-semibold flex flex-col items-start h-[160px] justify-start gap-1 pl-4 mt-10">

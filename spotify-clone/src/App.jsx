@@ -34,6 +34,25 @@ const App = () => {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
+  const removeTrackFromPlaylist = (playlistId, trackId) => {
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.map((p) =>
+        p.id === playlistId
+          ? { ...p, tracks: p.tracks.filter((t) => t.id !== trackId) }
+          : p
+      )
+    );
+  };
+
+  const deletePlaylist = (playlistId) => {
+    if (window.confirm("Are you sure you want to delete this playlist?")) {
+      setPlaylists((prevPlaylists) =>
+        prevPlaylists.filter((p) => p.id !== playlistId)
+      );
+      setSidebarView("default");
+    }
+  };
+
   const startNewPlaylist = () => {
     setCurrentPlaylist({ id: Date.now(), name: "", tracks: [] });
     setSidebarView("playlistManager");
@@ -164,8 +183,10 @@ const App = () => {
             setCurrentPlaylist,
             addTrack: addTrackToCurrent,
             removeTrack: removeTrackFromCurrent,
+            removeTrackFromPlaylist,
             savePlaylist,
             selectPlaylist,
+            deletePlaylist,
           }}
         >
           <Router>
