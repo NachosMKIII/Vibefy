@@ -31,7 +31,7 @@ const App = () => {
     return savedPlaylists ? JSON.parse(savedPlaylists) : [];
   });
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   const addTrackToCurrent = (track) => {
@@ -76,6 +76,7 @@ const App = () => {
         prevPlaylists.filter((p) => p.id !== playlistId)
       );
       setSidebarView("default");
+      setSelectedPlaylistId(null);
     }
   };
 
@@ -99,11 +100,8 @@ const App = () => {
   };
 
   const selectPlaylist = (playlistId) => {
-    const playlist = playlists.find((p) => p.id === playlistId);
-    if (playlist) {
-      setSelectedPlaylist(playlist);
-      setSidebarView("playlistCustomizer");
-    }
+    setSelectedPlaylistId(playlistId);
+    setSidebarView("playlistCustomizer");
   };
 
   useEffect(() => {
@@ -218,10 +216,14 @@ const App = () => {
                         />
                       ) : sidebarView === "playlistManager" ? (
                         <PlaylistManager setSidebarView={setSidebarView} />
-                      ) : sidebarView === "playlistCustomizer" ? (
+                      ) : sidebarView === "playlistCustomizer" &&
+                        selectedPlaylistId ? (
                         <PlaylistCustomizer
+                          key={JSON.stringify(playlists)}
                           setSidebarView={setSidebarView}
-                          playlist={selectedPlaylist}
+                          playlist={playlists.find(
+                            (p) => p.id === selectedPlaylistId
+                          )}
                         />
                       ) : (
                         <PlaylistList setSidebarView={setSidebarView} />

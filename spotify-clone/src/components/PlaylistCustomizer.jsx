@@ -183,7 +183,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     <img
                       src={album.images[1]?.url || "fallback-image-url.jpg"}
                       alt={album.name}
-                      className="w-8 h-8 rounded"
+                      className="w-8 h-8 rounded "
                     />
                     <p className="truncate">{album.name}</p>
                   </div>
