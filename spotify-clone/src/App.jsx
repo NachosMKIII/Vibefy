@@ -34,6 +34,32 @@ const App = () => {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
+  const addTrackToCurrent = (track) => {
+    if (currentPlaylist) {
+      setCurrentPlaylist((prev) => ({
+        ...prev,
+        tracks: [...prev.tracks, track],
+      }));
+    }
+  };
+
+  const removeTrackFromCurrent = (trackId) => {
+    if (currentPlaylist) {
+      setCurrentPlaylist((prev) => ({
+        ...prev,
+        tracks: prev.tracks.filter((t) => t.id !== trackId),
+      }));
+    }
+  };
+
+  const addTrackToPlaylist = (playlistId, track) => {
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.map((p) =>
+        p.id === playlistId ? { ...p, tracks: [...p.tracks, track] } : p
+      )
+    );
+  };
+
   const removeTrackFromPlaylist = (playlistId, trackId) => {
     setPlaylists((prevPlaylists) =>
       prevPlaylists.map((p) =>
@@ -58,24 +84,6 @@ const App = () => {
     setSidebarView("playlistManager");
   };
 
-  const addTrackToCurrent = (track) => {
-    if (currentPlaylist) {
-      setCurrentPlaylist((prev) => ({
-        ...prev,
-        tracks: [...prev.tracks, track],
-      }));
-    }
-  };
-
-  const removeTrackFromCurrent = (trackId) => {
-    if (currentPlaylist) {
-      setCurrentPlaylist((prev) => ({
-        ...prev,
-        tracks: prev.tracks.filter((t) => t.id !== trackId),
-      }));
-    }
-  };
-
   const savePlaylist = () => {
     if (
       currentPlaylist &&
@@ -94,6 +102,7 @@ const App = () => {
     const playlist = playlists.find((p) => p.id === playlistId);
     if (playlist) {
       setSelectedPlaylist(playlist);
+      setSidebarView("playlistCustomizer");
     }
   };
 
@@ -182,6 +191,7 @@ const App = () => {
             currentPlaylist,
             setCurrentPlaylist,
             addTrack: addTrackToCurrent,
+            addTrackToPlaylist,
             removeTrack: removeTrackFromCurrent,
             removeTrackFromPlaylist,
             savePlaylist,
