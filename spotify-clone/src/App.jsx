@@ -219,7 +219,7 @@ const App = () => {
                       ) : sidebarView === "playlistCustomizer" &&
                         selectedPlaylistId ? (
                         <PlaylistCustomizer
-                          key={JSON.stringify(playlists)}
+                          key={selectedPlaylistId}
                           setSidebarView={setSidebarView}
                           playlist={playlists.find(
                             (p) => p.id === selectedPlaylistId
