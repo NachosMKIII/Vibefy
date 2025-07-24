@@ -39,6 +39,10 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     }
   }, [isAddingTracks, selectedTheme, makeApiCall]);
 
+  useEffect(() => {
+    console.log("isAddingTracks changed:", isAddingTracks);
+  }, [isAddingTracks]);
+
   // Fetch tracks when an album is selected
   useEffect(() => {
     if (selectedAlbum) {
@@ -154,20 +158,31 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               </button>
               <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
               <div className="overflow-y-auto max-h-[200px]">
-                {tracks.map((track) => (
-                  <div
-                    key={track.id}
-                    className="flex justify-between items-center p-1"
-                  >
-                    <span className="truncate">{track.name}</span>
-                    <button
-                      onClick={() => handleAddTrack(track)}
-                      className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                {tracks.map((track) => {
+                  const isAdded = playlist.tracks.some(
+                    (t) => t.id === track.id
+                  );
+                  return (
+                    <div
+                      key={track.id}
+                      className="flex justify-between items-center p-1"
                     >
-                      Add
-                    </button>
-                  </div>
-                ))}
+                      <span className="truncate">{track.name}</span>
+                      {isAdded ? (
+                        <span className="px-2 py-1 bg-gray-500 text-white rounded">
+                          Added
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleAddTrack(track)}
+                          className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                        >
+                          Add
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ) : (
@@ -183,7 +198,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     <img
                       src={album.images[1]?.url || "fallback-image-url.jpg"}
                       alt={album.name}
-                      className="w-8 h-8 rounded "
+                      className="w-8 h-8 rounded"
                     />
                     <p className="truncate">{album.name}</p>
                   </div>
