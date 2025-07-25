@@ -12,6 +12,7 @@ export const themeAlbums = {
     "2kz6FGzMkZUyGZPywlkcOu",
     "60EzsIzS77S9MWHT0Tm37s",
     "02gFZUaqAcQNtV6rmVIsN0",
+    "3oPVMDW85Fo8tXQWKhYIQO",
   ],
   "rock-metal": [
     "2kcJ3TxBhSwmki0QWFXUz8",

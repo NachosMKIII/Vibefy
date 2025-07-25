@@ -5,7 +5,8 @@ import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
 import { themeAlbums } from "./Data/themeAlbums";
-import "./cozy-theme/sidebar.css";
+import { CirclePlay, Trash2 } from "lucide-react";
+//import "./cozy-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
@@ -121,44 +122,46 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
       className={`playlist-customizer main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
       {isAddingTracks ? (
-        <div>
-          <button
-            onClick={handleBackToPlaylist}
-            className="mb-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Back to Playlist
-          </button>
-          <h2 className="text-2xl font-bold mb-4">
-            Add Tracks to {playlist.name}
-          </h2>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Select Theme</h3>
-            <div className="flex gap-2">
-              {["cozy", "rock-metal", "experimental"].map((th) => (
-                <button
-                  key={th}
-                  onClick={() => handleThemeChange(th)}
-                  className={`px-3 py-1 rounded ${
-                    selectedTheme === th
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 text-black"
-                  }`}
-                >
-                  {th.charAt(0).toUpperCase() + th.slice(1)}
-                </button>
-              ))}
+        <div className="hidden lg:flex flex-col">
+          <div className="sidebar1 rounded hidden lg:flex flex-col">
+            <button
+              onClick={handleBackToPlaylist}
+              className="mb-2 mx-2 mt-2 px-4 py-2 rounded cursor-pointer button3"
+            >
+              Back to Playlist
+            </button>
+            <h2 className="text-2xl font-bold ml-2 mb-4">
+              Add Tracks to {playlist.name}
+            </h2>
+            <div className="mb-4">
+              <h3 className="text-lg ml-2 font-semibold">Select Theme</h3>
+              <div className="flex gap-1 max-w-[280px]">
+                {["cozy", "rock-metal", "experimental"].map((th) => (
+                  <button
+                    key={th}
+                    onClick={() => handleThemeChange(th)}
+                    className={`px-3 py-1 rounded cursor-pointer ml-2 ${
+                      selectedTheme === th
+                        ? "button2 "
+                        : "bg-gray-300 text-black"
+                    }`}
+                  >
+                    {th.charAt(0).toUpperCase() + th.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
           {selectedAlbum ? (
             <div>
               <button
                 onClick={() => setSelectedAlbum(null)}
-                className="mb-2 px-2 py-1 bg-gray-400 text-white rounded hover:bg-gray-500"
+                className="mb-2 mt-4 px-2 py-1 rounded button1"
               >
                 Back to Albums
               </button>
               <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
-              <div className="overflow-y-auto max-h-[200px]">
+              <div className="overflow-y-auto sidebar1 max-h-[441px]">
                 {tracks.map((track) => {
                   const isAdded = playlist.tracks.some(
                     (t) => t.id === track.id
@@ -187,9 +190,11 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               </div>
             </div>
           ) : (
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Available Albums</h3>
-              <div className="overflow-y-auto max-h-[200px]">
+            <div className="sidebar2b rounded mt-2">
+              <h3 className="text-xl font-semibold mt-1 ml-2 mb-2">
+                Available Albums
+              </h3>
+              <div className="overflow-y-auto max-h-[463px]">
                 {albums.map((album) => (
                   <div
                     key={album.id}
@@ -209,59 +214,57 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           )}
         </div>
       ) : (
-        <div>
-          <button
-            onClick={() => setSidebarView("default")}
-            className="mb-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Back to Sidebar
-          </button>
-          <button
-            onClick={handleAddTracks}
-            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Add Tracks
-          </button>
-          <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
-          <div className="overflow-y-auto max-h-[300px]">
-            {playlist.tracks.length === 0 ? (
-              <p>No tracks in this playlist</p>
-            ) : (
-              playlist.tracks.map((track) => (
-                <div
-                  key={track.id}
-                  className="flex justify-between items-center p-2"
-                >
-                  <span className="truncate">{track.name}</span>
-                  <button
-                    onClick={() =>
-                      removeTrackFromPlaylist(playlist.id, track.id)
-                    }
-                    className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        <div className="hidden lg:flex flex-col">
+          <div className="sidebar1 hidden lg:flex flex-col mt-10 rounded">
+            <button
+              onClick={() => setSidebarView("default")}
+              className="mb-2 mx-2 px-4 py-2 mt-2 cursor-pointer rounded button1"
+            >
+              Back to Sidebar
+            </button>
+            <button
+              onClick={handleAddTracks}
+              className="mb-4 px-4 mx-2 py-2 cursor-pointer rounded button2"
+            >
+              Add Tracks
+            </button>
+            <CirclePlay
+              onClick={handlePlayPlaylist}
+              disabled={!isPlayerReady}
+              className={`w-8 h-8 my-2 cursor-pointer ${
+                isPlayerReady
+                  ? "text-green-500"
+                  : "text-gray-400 cursor-not-allowed"
+              }`}
+            />
+            <Trash2
+              onClick={() => deletePlaylist(playlist.id)}
+              className="w-8 h-8 my-2 cursor-pointer text-red-500"
+            />
+            <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
+            <div className="overflow-y-auto sidebar2b max-h-[423px]">
+              {playlist.tracks.length === 0 ? (
+                <p>No tracks in this playlist</p>
+              ) : (
+                playlist.tracks.map((track) => (
+                  <div
+                    key={track.id}
+                    className="flex justify-between items-center p-2"
                   >
-                    Remove
-                  </button>
-                </div>
-              ))
-            )}
+                    <span className="truncate">{track.name}</span>
+                    <button
+                      onClick={() =>
+                        removeTrackFromPlaylist(playlist.id, track.id)
+                      }
+                      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-          <button
-            onClick={handlePlayPlaylist}
-            disabled={!isPlayerReady}
-            className={`mt-4 px-4 py-2 text-white rounded ${
-              isPlayerReady
-                ? "bg-green-500 hover:bg-green-600"
-                : "bg-gray-400 cursor-not-allowed"
-            }`}
-          >
-            Play Playlist
-          </button>
-          <button
-            onClick={() => deletePlaylist(playlist.id)}
-            className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-          >
-            Delete Playlist
-          </button>
         </div>
       )}
     </div>
