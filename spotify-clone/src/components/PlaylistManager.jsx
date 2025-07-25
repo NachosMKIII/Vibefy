@@ -17,6 +17,32 @@ const PlaylistManager = ({ setSidebarView }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
+  const scrollbarConfig = {
+    cozy: {
+      trackColor: "#92400e",
+      thumbColor: "linear-gradient(180deg, #22c55e, #16a34a)",
+      thumbHover: "linear-gradient(180deg, #4ade80, #22c55e)",
+      thumbActive: "linear-gradient(180deg, #86efac, #4ade80)",
+    },
+    "rock-metal": {
+      trackColor: "#1e293b",
+      thumbColor: "linear-gradient(180deg, #0ea5e9, #0284c7)",
+      thumbHover: "linear-gradient(180deg, #38bdf8, #0ea5e9)",
+      thumbActive: "linear-gradient(180deg, #7dd3fc, #38bdf8)",
+    },
+    experimental: {
+      trackColor: "#581c87",
+      thumbColor: "linear-gradient(180deg, #eab308, #ca8a04)",
+      thumbHover: "linear-gradient(180deg, #fbbf24, #eab308)",
+      thumbActive: "linear-gradient(180deg, #fde047, #fbbf24)",
+    },
+    null: {
+      trackColor: "#92400e",
+      thumbColor: "linear-gradient(180deg, #22c55e, #16a34a)",
+      thumbHover: "linear-gradient(180deg, #4ade80, #22c55e)",
+      thumbActive: "linear-gradient(180deg, #86efac, #4ade80)",
+    },
+  };
 
   // Fetch albums when selectedTheme changes
   useEffect(() => {
@@ -124,7 +150,9 @@ const PlaylistManager = ({ setSidebarView }) => {
             Back to Albums
           </button>
           <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
-          <div className="overflow-y-auto max-h-[200px]">
+          <div
+            className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
+          >
             {tracks.map((track) => (
               <div
                 key={track.id}
@@ -144,7 +172,9 @@ const PlaylistManager = ({ setSidebarView }) => {
       ) : (
         <div>
           <h3 className="text-xl font-semibold mb-2">Available Albums</h3>
-          <div className="overflow-y-auto max-h-[200px]">
+          <div
+            className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
+          >
             {albums.map((album) => (
               <div
                 key={album.id}
@@ -173,7 +203,9 @@ const PlaylistManager = ({ setSidebarView }) => {
           onChange={handleNameChange}
           className="mb-2 p-1 border rounded w-full text-black"
         />
-        <div className="overflow-y-auto max-h-[150px]">
+        <div
+          className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
+        >
           {currentPlaylist.tracks.length === 0 ? (
             <p>No tracks added yet</p>
           ) : (
@@ -200,6 +232,83 @@ const PlaylistManager = ({ setSidebarView }) => {
           Save Playlist
         </button>
       </div>
+      <style jsx>{`
+        .custom-scrollbar-cozy::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.cozy.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.cozy.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.cozy.trackColor};
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.cozy.thumbHover};
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.cozy.thumbActive};
+        }
+
+        .custom-scrollbar-rock-metal::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-track {
+          background: ${scrollbarConfig["rock-metal"].trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig["rock-metal"].thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig["rock-metal"].trackColor};
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig["rock-metal"].thumbHover};
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig["rock-metal"].thumbActive};
+        }
+
+        .custom-scrollbar-experimental::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.experimental.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.experimental.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.experimental.trackColor};
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.experimental.thumbHover};
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.experimental.thumbActive};
+        }
+
+        .custom-scrollbar-null::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.null.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.null.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.null.trackColor};
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.null.thumbHover};
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.null.thumbActive};
+        }
+      `}</style>
     </div>
   );
 };

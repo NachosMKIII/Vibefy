@@ -21,6 +21,32 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
+  const scrollbarConfig = {
+    cozy: {
+      trackColor: "#92400e",
+      thumbColor: "linear-gradient(180deg, #22c55e, #16a34a)",
+      thumbHover: "linear-gradient(180deg, #4ade80, #22c55e)",
+      thumbActive: "linear-gradient(180deg, #86efac, #4ade80)",
+    },
+    "rock-metal": {
+      trackColor: "#1e293b",
+      thumbColor: "linear-gradient(180deg, #0ea5e9, #0284c7)",
+      thumbHover: "linear-gradient(180deg, #38bdf8, #0ea5e9)",
+      thumbActive: "linear-gradient(180deg, #7dd3fc, #38bdf8)",
+    },
+    experimental: {
+      trackColor: "#581c87",
+      thumbColor: "linear-gradient(180deg, #eab308, #ca8a04)",
+      thumbHover: "linear-gradient(180deg, #fbbf24, #eab308)",
+      thumbActive: "linear-gradient(180deg, #fde047, #fbbf24)",
+    },
+    null: {
+      trackColor: "#92400e",
+      thumbColor: "linear-gradient(180deg, #22c55e, #16a34a)",
+      thumbHover: "linear-gradient(180deg, #4ade80, #22c55e)",
+      thumbActive: "linear-gradient(180deg, #86efac, #4ade80)",
+    },
+  };
 
   // Fetch albums when in add tracks mode and theme changes
   useEffect(() => {
@@ -156,12 +182,14 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             <div>
               <button
                 onClick={() => setSelectedAlbum(null)}
-                className="mb-2 mt-4 px-2 py-1 rounded button1"
+                className="mb-2 mt-4 px-2 py-1 rounded cursor-pointer button1"
               >
                 Back to Albums
               </button>
               <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
-              <div className="overflow-y-auto sidebar1 max-h-[441px]">
+              <div
+                className={`overflow-y-auto sidebar1 max-h-[441px] custom-scrollbar-${theme}`}
+              >
                 {tracks.map((track) => {
                   const isAdded = playlist.tracks.some(
                     (t) => t.id === track.id
@@ -194,7 +222,9 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               <h3 className="text-xl font-semibold mt-1 ml-2 mb-2">
                 Available Albums
               </h3>
-              <div className="overflow-y-auto max-h-[463px]">
+              <div
+                className={`overflow-y-auto max-h-[463px] custom-scrollbar-${theme}`}
+              >
                 {albums.map((album) => (
                   <div
                     key={album.id}
@@ -242,7 +272,9 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               className="w-8 h-8 my-2 cursor-pointer text-red-500"
             />
             <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
-            <div className="overflow-y-auto sidebar2b max-h-[423px]">
+            <div
+              className={`overflow-y-auto sidebar2b max-h-[423px] custom-scrollbar-${theme}`}
+            >
               {playlist.tracks.length === 0 ? (
                 <p>No tracks in this playlist</p>
               ) : (
@@ -267,6 +299,83 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           </div>
         </div>
       )}
+      <style jsx>{`
+        .custom-scrollbar-cozy::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.cozy.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.cozy.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.cozy.trackColor};
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.cozy.thumbHover};
+        }
+        .custom-scrollbar-cozy::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.cozy.thumbActive};
+        }
+
+        .custom-scrollbar-rock-metal::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-track {
+          background: ${scrollbarConfig["rock-metal"].trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig["rock-metal"].thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig["rock-metal"].trackColor};
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig["rock-metal"].thumbHover};
+        }
+        .custom-scrollbar-rock-metal::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig["rock-metal"].thumbActive};
+        }
+
+        .custom-scrollbar-experimental::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.experimental.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.experimental.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.experimental.trackColor};
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.experimental.thumbHover};
+        }
+        .custom-scrollbar-experimental::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.experimental.thumbActive};
+        }
+
+        .custom-scrollbar-null::-webkit-scrollbar {
+          width: 12px;
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-track {
+          background: ${scrollbarConfig.null.trackColor};
+          border-radius: 6px;
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb {
+          background: ${scrollbarConfig.null.thumbColor};
+          border-radius: 6px;
+          border: 2px solid ${scrollbarConfig.null.trackColor};
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarConfig.null.thumbHover};
+        }
+        .custom-scrollbar-null::-webkit-scrollbar-thumb:active {
+          background: ${scrollbarConfig.null.thumbActive};
+        }
+      `}</style>
     </div>
   );
 };
