@@ -36,3 +36,17 @@
 .sidebar.cozy .icon {
   color: #10b981;
 }
+.sidebar.cozy .album-playlist {
+  background: linear-gradient(to bottom right, #138f436c, #10b54fdd);
+}
+.sidebar.cozy .album-playlist:hover {
+  background: linear-gradient(to bottom right, #a8531f66, #b3571166);
+}
+.sidebar.cozy .button3 {
+  background: linear-gradient(to right, #16a34a, #15803d);
+  color: white;
+}
+.sidebar.cozy .button3:hover {
+  background: linear-gradient(to right, #22c55e, #16a34a);
+  color: white;
+}

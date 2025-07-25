@@ -1,10 +1,11 @@
-//PlaylistCustomizer.jsx
+// PlaylistCustomizer.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
 import { themeAlbums } from "./Data/themeAlbums";
+import "./cozy-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
@@ -117,10 +118,10 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
 
   return (
     <div
-      className={`playlist-customizer p-4 flex flex-col w-[20%] h-[110%] ${theme}`}
+      className={`playlist-customizer main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
       {isAddingTracks ? (
-        <>
+        <div>
           <button
             onClick={handleBackToPlaylist}
             className="mb-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
@@ -206,9 +207,9 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               </div>
             </div>
           )}
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <button
             onClick={() => setSidebarView("default")}
             className="mb-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
@@ -261,7 +262,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           >
             Delete Playlist
           </button>
-        </>
+        </div>
       )}
     </div>
   );

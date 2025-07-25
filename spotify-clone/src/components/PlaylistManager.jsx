@@ -4,6 +4,7 @@ import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { themeAlbums } from "./Data/themeAlbums"; // Import shared themeAlbums
+import "./cozy-theme/sidebar.css";
 
 const PlaylistManager = ({ setSidebarView }) => {
   const { theme } = useContext(ThemeContext);
@@ -85,7 +86,7 @@ const PlaylistManager = ({ setSidebarView }) => {
 
   return (
     <div
-      className={`playlist-manager p-4 flex flex-col w-[20%] h-[110%] ${theme}`}
+      className={`playlist-manager main-sidebar sidebar p-4 flex flex-col w-[20%] h-[110%] ${theme}`}
     >
       <button
         onClick={() => setSidebarView("default")}
