@@ -42,11 +42,30 @@
 .sidebar.cozy .album-playlist:hover {
   background: linear-gradient(to bottom right, #a8531f66, #b3571166);
 }
+.sidebar.cozy .album-playlist2:hover {
+  background: linear-gradient(to bottom right, #a8531f66, #b3571166);
+}
 .sidebar.cozy .button3 {
   background: linear-gradient(to right, #16a34a, #15803d);
   color: white;
 }
 .sidebar.cozy .button3:hover {
   background: linear-gradient(to right, #22c55e, #16a34a);
+  color: white;
+}
+.sidebar.cozy .remove-button {
+  background: linear-gradient(to right, #fef08a, #fde047);
+  color: #64470d;
+}
+.sidebar.cozy .play-icon {
+  background: linear-gradient(to bottom right, #a8531f66, #b3571166);
+  color: #10b981;
+}
+.sidebar.cozy .add-button {
+  background-color: #059669;
+  color: white;
+}
+.sidebar.cozy .add-button:hover {
+  background-color: #10b981;
   color: white;
 }

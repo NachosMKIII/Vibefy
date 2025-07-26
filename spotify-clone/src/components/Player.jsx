@@ -63,7 +63,7 @@ const Player = ({ playbackState }) => {
 
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
-    return <div className="text-white">No track playing</div>;
+    return;
   }
 
   // Extract track details from playbackState

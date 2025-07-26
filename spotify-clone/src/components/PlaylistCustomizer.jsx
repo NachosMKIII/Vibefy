@@ -165,9 +165,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     key={th}
                     onClick={() => handleThemeChange(th)}
                     className={`px-3 py-1 rounded cursor-pointer ml-2 ${
-                      selectedTheme === th
-                        ? "button2"
-                        : "bg-gray-300 text-black"
+                      selectedTheme === th ? "button2" : "button1"
                     }`}
                   >
                     {th.charAt(0).toUpperCase() + th.slice(1)}
@@ -208,13 +206,13 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                         </span>
                       </div>
                       {isAdded ? (
-                        <span className="px-2 py-1 bg-gray-500 text-white rounded">
+                        <span className="px-2 py-1 button2 rounded cursor-pointer">
                           Added
                         </span>
                       ) : (
                         <button
                           onClick={() => handleAddTrack(track)}
-                          className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                          className="px-2 py-1 cursor-pointer rounded add-button"
                         >
                           Add
                         </button>
@@ -235,7 +233,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 {albums.map((album) => (
                   <div
                     key={album.id}
-                    className="flex items-center gap-2 p-2 hover:bg-gray-700/50 cursor-pointer rounded"
+                    className="flex items-center gap-2 p-2 album-playlist2 cursor-pointer rounded"
                     onClick={() => setSelectedAlbum(album.id)}
                   >
                     <img
@@ -268,15 +266,13 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             <CirclePlay
               onClick={handlePlayPlaylist}
               disabled={!isPlayerReady}
-              className={`w-8 h-8 my-2 cursor-pointer ${
-                isPlayerReady
-                  ? "text-green-500"
-                  : "text-gray-400 cursor-not-allowed"
+              className={`w-8 h-8 my-2 cursor-pointer ml-3 p-1 rounded-full ${
+                isPlayerReady ? "play-icon" : "text-gray-400 cursor-not-allowed"
               }`}
             />
             <Trash2
               onClick={() => deletePlaylist(playlist.id)}
-              className="w-8 h-8 my-2 cursor-pointer text-red-500"
+              className="w-8 h-8 my-2 cursor-pointer remove-button rounded-full p-1 ml-3"
             />
             <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
             <div
@@ -288,7 +284,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 playlist.tracks.map((track) => (
                   <div
                     key={track.id}
-                    className="flex items-center justify-between gap-2 pt-4 p-2"
+                    className="flex items-center justify-between  pt-2 p-1"
                   >
                     <div className="inline-flex gap-1">
                       <img
@@ -296,13 +292,15 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                         alt={`${track.name} album cover`}
                         className="w-10 h-10 rounded"
                       />
-                      <span className="truncate">{track.name}</span>
+                      <span className="truncate max-w-[16ch]">
+                        {track.name}
+                      </span>
                     </div>
                     <button
                       onClick={() =>
                         removeTrackFromPlaylist(playlist.id, track.id)
                       }
-                      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                      className="px-2 py-1 relative top-1 cursor-pointer remove-button"
                     >
                       Remove
                     </button>
