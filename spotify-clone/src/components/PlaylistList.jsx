@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { ThemeContext } from "../context/ThemeContext";
 import "./cozy-theme/sidebar.css";
+import "./metal-rock-theme/sidebar.css";
 
 const PlaylistList = ({ setSidebarView }) => {
   const { playlists, selectPlaylist } = useContext(PlaylistContext);

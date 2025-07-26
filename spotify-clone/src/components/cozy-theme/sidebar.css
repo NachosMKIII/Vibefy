@@ -69,3 +69,6 @@
   background-color: #10b981;
   color: white;
 }
+.sidebar.cozy .track-container:hover {
+  background: linear-gradient(to bottom right, #92400e66, #b4530966);
+}

@@ -7,6 +7,7 @@ import { useSpotifyApi } from "../backend/Auth";
 import { themeAlbums } from "./Data/themeAlbums";
 import { CirclePlay, Trash2 } from "lucide-react";
 import "./cozy-theme/sidebar.css";
+import "./metal-rock-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
@@ -188,7 +189,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               </button>
               <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
               <div
-                className={`overflow-y-auto sidebar1 max-h-[441px] custom-scrollbar-${theme}`}
+                className={`overflow-y-auto sidebar1 max-h-[422px] rounded custom-scrollbar-${theme}`}
               >
                 {tracks.map((track) => {
                   const isAdded = playlist.tracks.some(
@@ -197,7 +198,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                   return (
                     <div
                       key={track.id}
-                      className="flex items-center justify-between gap-2 pt-2 p-1"
+                      className="flex items-center album-playlist2 cursor-pointer justify-between gap-2 pt-2 p-1"
                     >
                       <div className="inline-flex gap-1">
                         <img
@@ -291,7 +292,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 playlist.tracks.map((track) => (
                   <div
                     key={track.id}
-                    className="flex items-center justify-between pt-2 p-1"
+                    className="flex items-center track-container cursor-pointer justify-between pt-2 p-1"
                   >
                     <div className="inline-flex gap-1">
                       <img
