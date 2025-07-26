@@ -37,3 +37,38 @@
 .sidebar.experimental .icon {
   color: #fde047;
 }
+.sidebar.experimental .album-playlist {
+  background: linear-gradient(to right, #eab308, #ea580c);
+}
+.sidebar.experimental .album-playlist:hover {
+  background: linear-gradient(to bottom right, #300e4ba0, #6523a2c2);
+}
+.sidebar.experimental .album-playlist2:hover {
+  background: linear-gradient(to bottom right, #300e4ba0, #6523a2c2);
+}
+.sidebar.experimental .button3 {
+  background: linear-gradient(to right, #eab308, #ea580c);
+  color: #713f12;
+}
+.sidebar.experimental .button3:hover {
+  background: linear-gradient(to right, #facc15, #f97316);
+}
+.sidebar.experimental .remove-button {
+  background: linear-gradient(to right, #f43353, #de143f);
+  color: #4c0519;
+}
+.sidebar.experimental .play-icon {
+  background-color: #9333ea80;
+  color: #eab308;
+}
+.sidebar.experimental .add-button {
+  background-color: #eab308;
+  color: white;
+}
+.sidebar.experimental .add-button:hover {
+  background-color: #facc15;
+  color: white;
+}
+.sidebar.experimental .track-container:hover {
+  background: linear-gradient(to bottom right, #300e4ba0, #6523a2c2);
+}
