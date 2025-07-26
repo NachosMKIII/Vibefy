@@ -6,7 +6,7 @@ import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
 import { themeAlbums } from "./Data/themeAlbums";
 import { CirclePlay, Trash2 } from "lucide-react";
-//import "./cozy-theme/sidebar.css";
+import "./cozy-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
@@ -21,6 +21,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
+
   const scrollbarConfig = {
     cozy: {
       trackColor: "#92400e",
@@ -48,7 +49,6 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     },
   };
 
-  // Fetch albums when in add tracks mode and theme changes
   useEffect(() => {
     if (isAddingTracks) {
       const fetchAlbums = async () => {
@@ -68,18 +68,20 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   }, [isAddingTracks, selectedTheme, makeApiCall]);
 
   useEffect(() => {
-    console.log("isAddingTracks changed:", isAddingTracks);
-  }, [isAddingTracks]);
-
-  // Fetch tracks when an album is selected
-  useEffect(() => {
     if (selectedAlbum) {
       const fetchTracks = async () => {
         try {
           const data = await makeApiCall(
             `https://api.spotify.com/v1/albums/${selectedAlbum}/tracks`
           );
-          setTracks(data.items);
+          const album = albums.find((a) => a.id === selectedAlbum);
+          const albumImage = album?.images[1]?.url || "fallback-image-url.jpg";
+          setTracks(
+            data.items.map((track) => ({
+              ...track,
+              albumImage,
+            }))
+          );
         } catch (error) {
           setError(error.message);
           console.error("Error fetching tracks:", error);
@@ -89,7 +91,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     } else {
       setTracks([]);
     }
-  }, [selectedAlbum, makeApiCall]);
+  }, [selectedAlbum, makeApiCall, albums]);
 
   const handlePlayPlaylist = async () => {
     if (!isPlayerReady || !deviceId || !playlist.tracks.length) {
@@ -102,9 +104,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
         `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ uris }),
         }
       );
@@ -113,9 +113,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     }
   };
 
-  const handleAddTracks = () => {
-    setIsAddingTracks(true);
-  };
+  const handleAddTracks = () => setIsAddingTracks(true);
 
   const handleBackToPlaylist = () => {
     setIsAddingTracks(false);
@@ -168,7 +166,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     onClick={() => handleThemeChange(th)}
                     className={`px-3 py-1 rounded cursor-pointer ml-2 ${
                       selectedTheme === th
-                        ? "button2 "
+                        ? "button2"
                         : "bg-gray-300 text-black"
                     }`}
                   >
@@ -197,9 +195,18 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                   return (
                     <div
                       key={track.id}
-                      className="flex justify-between items-center p-1"
+                      className="flex items-center justify-between gap-2 pt-2 p-1"
                     >
-                      <span className="truncate">{track.name}</span>
+                      <div className="inline-flex gap-1">
+                        <img
+                          src={track.albumImage}
+                          alt={`${track.name} album cover`}
+                          className="w-10 h-10 rounded"
+                        />
+                        <span className="truncate max-w-[15ch] relative top-1">
+                          {track.name}
+                        </span>
+                      </div>
                       {isAdded ? (
                         <span className="px-2 py-1 bg-gray-500 text-white rounded">
                           Added
@@ -234,7 +241,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     <img
                       src={album.images[1]?.url || "fallback-image-url.jpg"}
                       alt={album.name}
-                      className="w-8 h-8 rounded"
+                      className="w-10 h-10 rounded"
                     />
                     <p className="truncate">{album.name}</p>
                   </div>
@@ -281,9 +288,16 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 playlist.tracks.map((track) => (
                   <div
                     key={track.id}
-                    className="flex justify-between items-center p-2"
+                    className="flex items-center justify-between gap-2 pt-4 p-2"
                   >
-                    <span className="truncate">{track.name}</span>
+                    <div className="inline-flex gap-1">
+                      <img
+                        src={track.image}
+                        alt={`${track.name} album cover`}
+                        className="w-10 h-10 rounded"
+                      />
+                      <span className="truncate">{track.name}</span>
+                    </div>
                     <button
                       onClick={() =>
                         removeTrackFromPlaylist(playlist.id, track.id)

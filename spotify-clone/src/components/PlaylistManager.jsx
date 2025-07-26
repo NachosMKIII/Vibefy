@@ -3,8 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
-import { themeAlbums } from "./Data/themeAlbums"; // Import shared themeAlbums
-import "./cozy-theme/sidebar.css";
+import { themeAlbums } from "./Data/themeAlbums";
 
 const PlaylistManager = ({ setSidebarView }) => {
   const { theme } = useContext(ThemeContext);
@@ -17,6 +16,7 @@ const PlaylistManager = ({ setSidebarView }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
+
   const scrollbarConfig = {
     cozy: {
       trackColor: "#92400e",
@@ -44,7 +44,6 @@ const PlaylistManager = ({ setSidebarView }) => {
     },
   };
 
-  // Fetch albums when selectedTheme changes
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -60,7 +59,6 @@ const PlaylistManager = ({ setSidebarView }) => {
     fetchAlbums();
   }, [selectedTheme, makeApiCall]);
 
-  // Fetch tracks when selectedAlbum changes
   useEffect(() => {
     if (selectedAlbum) {
       const fetchTracks = async () => {
@@ -81,7 +79,7 @@ const PlaylistManager = ({ setSidebarView }) => {
 
   const handleThemeChange = (newTheme) => {
     setSelectedTheme(newTheme);
-    setSelectedAlbum(null); // Reset album selection when theme changes
+    setSelectedAlbum(null);
   };
 
   const handleAddTrack = (track) => {
@@ -103,9 +101,8 @@ const PlaylistManager = ({ setSidebarView }) => {
     }));
   };
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e) =>
     setCurrentPlaylist((prev) => ({ ...prev, name: e.target.value }));
-  };
 
   if (!currentPlaylist) return null;
   if (error) return <div>Error: {error}</div>;
@@ -122,7 +119,6 @@ const PlaylistManager = ({ setSidebarView }) => {
       </button>
       <h2 className="text-2xl font-bold mb-4">Create Your Playlist</h2>
 
-      {/* Theme Selection */}
       <div className="mb-4">
         <h3 className="text-lg font-semibold">Select Theme</h3>
         <div className="flex gap-2">
@@ -140,7 +136,6 @@ const PlaylistManager = ({ setSidebarView }) => {
         </div>
       </div>
 
-      {/* Album or Track Display */}
       {selectedAlbum ? (
         <div>
           <button
@@ -156,9 +151,16 @@ const PlaylistManager = ({ setSidebarView }) => {
             {tracks.map((track) => (
               <div
                 key={track.id}
-                className="flex justify-between items-center p-1"
+                className="flex justify-between items-center gap-2 p-1"
               >
-                <span>{track.name}</span>
+                <div className="inline-flex">
+                  <img
+                    src={track.image || "fallback-image-url.jpg"}
+                    alt={track.album || "Album"}
+                    className="w-10 h-10 rounded"
+                  />
+                  <span className="truncate max-w[20ch]">{track.name}</span>
+                </div>
                 <button
                   onClick={() => handleAddTrack(track)}
                   className="px-2 py-1 bg-green-500 text-white rounded"
@@ -184,7 +186,7 @@ const PlaylistManager = ({ setSidebarView }) => {
                 <img
                   src={album.images[1]?.url || "fallback-image-url.jpg"}
                   alt={album.name}
-                  className="w-8 h-8 rounded"
+                  className="w-10 h-10 rounded"
                 />
                 <p>{album.name}</p>
               </div>
@@ -193,7 +195,6 @@ const PlaylistManager = ({ setSidebarView }) => {
         </div>
       )}
 
-      {/* Current Playlist */}
       <div className="mt-4">
         <h3 className="text-xl font-semibold mb-2">Your Playlist</h3>
         <input
@@ -210,11 +211,13 @@ const PlaylistManager = ({ setSidebarView }) => {
             <p>No tracks added yet</p>
           ) : (
             currentPlaylist.tracks.map((track) => (
-              <div
-                key={track.id}
-                className="flex justify-between items-center p-1"
-              >
-                <span>{track.name}</span>
+              <div key={track.id} className="flex items-center gap-2 p-1">
+                <img
+                  src={track.image || "fallback-image-url.jpg"}
+                  alt={track.album || "Album"}
+                  className="w-10 h-10 rounded"
+                />
+                <span className="truncate flex-1">{track.name}</span>
                 <button
                   onClick={() => removeTrack(track.id)}
                   className="px-2 py-1 bg-red-500 text-white rounded"
@@ -307,7 +310,7 @@ const PlaylistManager = ({ setSidebarView }) => {
         }
         .custom-scrollbar-null::-webkit-scrollbar-thumb:active {
           background: ${scrollbarConfig.null.thumbActive};
-        }
+        }c
       `}</style>
     </div>
   );
