@@ -138,6 +138,10 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     });
   };
 
+  const handleRemoveTrack = (trackId) => {
+    removeTrackFromPlaylist(playlist.id, trackId);
+  };
+
   if (!playlist) return null;
   if (error) return <div className={`text-white ${theme}`}>Error: {error}</div>;
 
@@ -206,9 +210,12 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                         </span>
                       </div>
                       {isAdded ? (
-                        <span className="px-2 py-1 button2 rounded cursor-pointer">
+                        <button
+                          onClick={() => handleRemoveTrack(track.id)}
+                          className="px-2 py-1 button2 rounded cursor-pointer hover:bg-red-600"
+                        >
                           Added
-                        </span>
+                        </button>
                       ) : (
                         <button
                           onClick={() => handleAddTrack(track)}
@@ -284,7 +291,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 playlist.tracks.map((track) => (
                   <div
                     key={track.id}
-                    className="flex items-center justify-between  pt-2 p-1"
+                    className="flex items-center justify-between pt-2 p-1"
                   >
                     <div className="inline-flex gap-1">
                       <img
