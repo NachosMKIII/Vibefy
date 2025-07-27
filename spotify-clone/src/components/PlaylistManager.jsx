@@ -4,6 +4,9 @@ import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { themeAlbums } from "./Data/themeAlbums";
+import "./cozy-theme/sidebar.css";
+import "./metal-rock-theme/sidebar.css";
+import "./experimental-theme/sidebar.css";
 
 const PlaylistManager = ({ setSidebarView }) => {
   const { theme } = useContext(ThemeContext);
@@ -109,30 +112,32 @@ const PlaylistManager = ({ setSidebarView }) => {
 
   return (
     <div
-      className={`playlist-manager main-sidebar sidebar p-4 flex flex-col w-[20%] h-[110%] ${theme}`}
+      className={`playlist-manager main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
-      <button
-        onClick={() => setSidebarView("default")}
-        className="mb-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-      >
-        Back to Sidebar
-      </button>
-      <h2 className="text-2xl font-bold mb-4">Create Your Playlist</h2>
+      <div className="sidebar1 rounded hidden lg:flex flex-col">
+        <button
+          onClick={() => setSidebarView("default")}
+          className="mb-2 mx-2 mt-2 px-4 py-2 rounded cursor-pointer button3"
+        >
+          Back to Sidebar
+        </button>
+        <h2 className="text-2xl font-bold ml-2 mb-4">Create Your Playlist</h2>
 
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">Select Theme</h3>
-        <div className="flex gap-2">
-          {["cozy", "rock-metal", "experimental"].map((th) => (
-            <button
-              key={th}
-              onClick={() => handleThemeChange(th)}
-              className={`px-3 py-1 rounded ${
-                selectedTheme === th ? "bg-blue-500 text-white" : "bg-gray-300"
-              }`}
-            >
-              {th}
-            </button>
-          ))}
+        <div className="mb-4">
+          <h3 className="text-lg ml-2 font-semibold">Select Theme</h3>
+          <div className="flex gap-2">
+            {["cozy", "rock-metal", "experimental"].map((th) => (
+              <button
+                key={th}
+                onClick={() => handleThemeChange(th)}
+                className={`px-3 py-1 rounded cursor-pointer ml-1 mr-1 ${
+                  selectedTheme === th ? "button2" : "button1"
+                }`}
+              >
+                {th}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -140,18 +145,18 @@ const PlaylistManager = ({ setSidebarView }) => {
         <div>
           <button
             onClick={() => setSelectedAlbum(null)}
-            className="mb-2 px-2 py-1 bg-gray-400 text-white rounded"
+            className="mb-2 px-2 mt-2 py-1 button3 rounded my-1"
           >
             Back to Albums
           </button>
           <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
           <div
-            className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
+            className={`overflow-y-auto max-h-[250px] rounded sidebar2b custom-scrollbar-${theme}`}
           >
             {tracks.map((track) => (
               <div
                 key={track.id}
-                className="flex justify-between items-center gap-2 p-1"
+                className="flex justify-between album-playlist2 cursor-pointer items-center gap-2 p-1"
               >
                 <div className="inline-flex">
                   <img
@@ -159,11 +164,11 @@ const PlaylistManager = ({ setSidebarView }) => {
                     alt={track.album || "Album"}
                     className="w-10 h-10 rounded"
                   />
-                  <span className="truncate max-w[20ch]">{track.name}</span>
+                  <span className="truncate max-w-[17ch]">{track.name}</span>
                 </div>
                 <button
                   onClick={() => handleAddTrack(track)}
-                  className="px-2 py-1 bg-green-500 text-white rounded"
+                  className="px-2 py-1 add-button rounded cursor-pointer"
                 >
                   Add
                 </button>
@@ -173,14 +178,14 @@ const PlaylistManager = ({ setSidebarView }) => {
         </div>
       ) : (
         <div>
-          <h3 className="text-xl font-semibold mb-2">Available Albums</h3>
+          <h3 className="text-xl font-semibold mt-1 mb-2">Available Albums</h3>
           <div
-            className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
+            className={`overflow-y-auto max-h-[200px] rounded sidebar2b custom-scrollbar-${theme}`}
           >
             {albums.map((album) => (
               <div
                 key={album.id}
-                className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
+                className="flex items-center gap-2 p-2 album-playlist2 cursor-pointer"
                 onClick={() => setSelectedAlbum(album.id)}
               >
                 <img
@@ -202,7 +207,7 @@ const PlaylistManager = ({ setSidebarView }) => {
           placeholder="Playlist Name"
           value={currentPlaylist.name}
           onChange={handleNameChange}
-          className="mb-2 p-1 border rounded w-full text-black"
+          className="mb-2 p-1 border rounded w-full button1"
         />
         <div
           className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
@@ -230,7 +235,7 @@ const PlaylistManager = ({ setSidebarView }) => {
         </div>
         <button
           onClick={savePlaylist}
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+          className="mt-2 px-4 py-2 button2 cursor-pointer rounded"
         >
           Save Playlist
         </button>

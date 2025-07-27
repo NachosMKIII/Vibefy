@@ -8,6 +8,7 @@ import { themeAlbums } from "./Data/themeAlbums";
 import { CirclePlay, Trash2 } from "lucide-react";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
+import "./experimental-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
@@ -169,7 +170,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                   <button
                     key={th}
                     onClick={() => handleThemeChange(th)}
-                    className={`px-3 py-1 rounded cursor-pointer ml-2 ${
+                    className={`px-3 py-1 rounded cursor-pointer ml-1 mr-1 ${
                       selectedTheme === th ? "button2" : "button1"
                     }`}
                   >
@@ -213,7 +214,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                       {isAdded ? (
                         <button
                           onClick={() => handleRemoveTrack(track.id)}
-                          className="px-2 py-1 button2 rounded cursor-pointer hover:bg-red-600"
+                          className="px-2 py-1 button2 rounded cursor-pointer"
                         >
                           Added
                         </button>

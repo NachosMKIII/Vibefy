@@ -28,6 +28,7 @@ export const themeAlbums = {
     "3HFbH1loOUbqCyPsLuHLLh",
     "7izZDSBxj6nB2PieJo6U0u",
     "7rSZXXHHvIhF4yUFdaOCy9",
+    "0EabZMx74C2wyXhvMMO1eI",
   ],
   experimental: [
     "4LileDrFwEUFB5UPA3AEia",
@@ -42,6 +43,7 @@ export const themeAlbums = {
     "7GjVWG39IOj4viyWplJV4H",
     "3ddMQ2PZjiD8Zxm0lu92rb",
     "1WwiyWxa40PKucRxIKlEVM",
+    "4vvx8uOeJE7YR4tORVtYV4",
   ],
   null: [
     "7DxmOS2dKJgTfLLRNOP4ch",
