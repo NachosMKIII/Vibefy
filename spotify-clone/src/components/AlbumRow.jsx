@@ -132,7 +132,7 @@ export default function AlbumRow({ title, albumIds, playbackState }) {
   }
 
   return (
-    <div className={`w-full main-album-row ${theme}`}>
+    <div className={`w-full main-album-row album-row ${theme}`}>
       <div className="flex items-center justify-between mt-2 mb-2">
         <h2 className="text-2xl font-bold album-title">{title}</h2>
         <div className="flex gap-2">
@@ -140,7 +140,7 @@ export default function AlbumRow({ title, albumIds, playbackState }) {
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             className={[
-              "p-2 relative right-[1130px] rounded-full bg-black/10 hover:bg-black/20 transition-colors",
+              "p-2 relative right-[1130px] cursor-pointer rounded-full button1 transition-colors",
               !canScrollLeft && "opacity-50 cursor-not-allowed",
             ]
               .filter(Boolean)
@@ -153,7 +153,7 @@ export default function AlbumRow({ title, albumIds, playbackState }) {
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             className={[
-              "p-2 relative right-[1130px] rounded-full bg-black/10 hover:bg-black/20 transition-colors",
+              "p-2 relative right-[1130px] cursor-pointer rounded-full button1 transition-colors",
               !canScrollRight && "opacity-50 cursor-not-allowed",
             ]
               .filter(Boolean)

@@ -10,3 +10,7 @@
   background: linear-gradient(to bottom right, #78350f66, #92400e66);
   border-color: #7c2d1233;
 }
+.album-row.cozy .button1 {
+  background: linear-gradient(to right, #16a34a, #15803d);
+  color: #052e16;
+}
