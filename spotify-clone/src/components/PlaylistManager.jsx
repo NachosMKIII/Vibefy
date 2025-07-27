@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { SpotifyContext } from "../context/SpotifyContext";
 import { themeAlbums } from "./Data/themeAlbums";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
@@ -12,6 +13,7 @@ const PlaylistManager = ({ setSidebarView }) => {
   const { theme } = useContext(ThemeContext);
   const { currentPlaylist, setCurrentPlaylist, removeTrack, savePlaylist } =
     useContext(PlaylistContext);
+  const { deviceId, isPlayerReady } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
 
   const [selectedTheme, setSelectedTheme] = useState(theme);
@@ -69,7 +71,16 @@ const PlaylistManager = ({ setSidebarView }) => {
           const data = await makeApiCall(
             `https://api.spotify.com/v1/albums/${selectedAlbum}/tracks`
           );
-          setTracks(data.items);
+          const album = albums.find((a) => a.id === selectedAlbum);
+          const albumImage = album?.images[1]?.url || "fallback-image-url.jpg";
+          const albumUri = album?.uri; // Get the album URI
+          setTracks(
+            data.items.map((track) => ({
+              ...track,
+              image: albumImage,
+              albumUri, // Add album URI to each track
+            }))
+          );
         } catch (error) {
           setError(error.message);
         }
@@ -78,7 +89,7 @@ const PlaylistManager = ({ setSidebarView }) => {
     } else {
       setTracks([]);
     }
-  }, [selectedAlbum, makeApiCall]);
+  }, [selectedAlbum, makeApiCall, albums]);
 
   const handleThemeChange = (newTheme) => {
     setSelectedTheme(newTheme);
@@ -102,6 +113,32 @@ const PlaylistManager = ({ setSidebarView }) => {
         },
       ],
     }));
+  };
+
+  const handleRemoveTrack = (trackId) => {
+    removeTrack(trackId);
+  };
+
+  const handlePlayTrackFromAlbum = async (albumUri, trackUri) => {
+    if (!isPlayerReady || !deviceId) {
+      console.error("Player not ready or no device ID");
+      return;
+    }
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            context_uri: albumUri,
+            offset: { uri: trackUri },
+          }),
+        }
+      );
+    } catch (error) {
+      console.error("Error playing track from album:", error);
+    }
   };
 
   const handleNameChange = (e) =>
@@ -153,27 +190,50 @@ const PlaylistManager = ({ setSidebarView }) => {
           <div
             className={`overflow-y-auto max-h-[250px] rounded sidebar2b custom-scrollbar-${theme}`}
           >
-            {tracks.map((track) => (
-              <div
-                key={track.id}
-                className="flex justify-between album-playlist2 cursor-pointer items-center gap-2 p-1"
-              >
-                <div className="inline-flex">
-                  <img
-                    src={track.image || "fallback-image-url.jpg"}
-                    alt={track.album || "Album"}
-                    className="w-10 h-10 rounded"
-                  />
-                  <span className="truncate max-w-[17ch]">{track.name}</span>
-                </div>
-                <button
-                  onClick={() => handleAddTrack(track)}
-                  className="px-2 py-1 add-button rounded cursor-pointer"
+            {tracks.map((track) => {
+              const isAdded = currentPlaylist.tracks.some(
+                (t) => t.id === track.id
+              );
+              return (
+                <div
+                  key={track.id}
+                  className="flex justify-between album-playlist2 cursor-pointer items-center gap-2 p-1"
+                  onClick={() =>
+                    handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                  }
                 >
-                  Add
-                </button>
-              </div>
-            ))}
+                  <div className="inline-flex">
+                    <img
+                      src={track.image || "fallback-image-url.jpg"}
+                      alt={track.album || "Album"}
+                      className="w-10 h-10 rounded"
+                    />
+                    <span className="truncate max-w-[17ch]">{track.name}</span>
+                  </div>
+                  {isAdded ? (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveTrack(track.id);
+                      }}
+                      className="px-2 py-1 button2 rounded cursor-pointer"
+                    >
+                      Added
+                    </button>
+                  ) : (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddTrack(track);
+                      }}
+                      className="px-2 py-1 add-button rounded cursor-pointer"
+                    >
+                      Add
+                    </button>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (
@@ -201,7 +261,6 @@ const PlaylistManager = ({ setSidebarView }) => {
       )}
 
       <div className="mt-4">
-        <h3 className="text-xl font-semibold mb-2">Your Playlist</h3>
         <input
           type="text"
           placeholder="Playlist Name"
@@ -209,30 +268,6 @@ const PlaylistManager = ({ setSidebarView }) => {
           onChange={handleNameChange}
           className="mb-2 p-1 border rounded w-full button1"
         />
-        <div
-          className={`overflow-y-auto max-h-[200px] custom-scrollbar-${theme}`}
-        >
-          {currentPlaylist.tracks.length === 0 ? (
-            <p>No tracks added yet</p>
-          ) : (
-            currentPlaylist.tracks.map((track) => (
-              <div key={track.id} className="flex items-center gap-2 p-1">
-                <img
-                  src={track.image || "fallback-image-url.jpg"}
-                  alt={track.album || "Album"}
-                  className="w-10 h-10 rounded"
-                />
-                <span className="truncate flex-1">{track.name}</span>
-                <button
-                  onClick={() => removeTrack(track.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded"
-                >
-                  Remove
-                </button>
-              </div>
-            ))
-          )}
-        </div>
         <button
           onClick={savePlaylist}
           className="mt-2 px-4 py-2 button2 cursor-pointer rounded"
@@ -240,7 +275,7 @@ const PlaylistManager = ({ setSidebarView }) => {
           Save Playlist
         </button>
       </div>
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar-cozy::-webkit-scrollbar {
           width: 12px;
         }
@@ -315,7 +350,7 @@ const PlaylistManager = ({ setSidebarView }) => {
         }
         .custom-scrollbar-null::-webkit-scrollbar-thumb:active {
           background: ${scrollbarConfig.null.thumbActive};
-        }c
+        }
       `}</style>
     </div>
   );

@@ -64,7 +64,7 @@ const Sidebar = ({ setSidebarView, startNewPlaylist }) => {
               onClick={() => setSidebarView("playlistList")}
             />
             <p
-              className="text-2xl relative top-6 -mt-10 font-normal cursor-pointer"
+              className="text-2xl relative top-6 -mt-10 font-bold cursor-pointer"
               onClick={() => setSidebarView("playlistList")}
             >
               Playlists

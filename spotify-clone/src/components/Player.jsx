@@ -2,12 +2,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets/assets";
 //lucide-react icons
-import { Shuffle } from "lucide-react";
-import { SquarePlay } from "lucide-react";
-import { StepForward } from "lucide-react";
-import { StepBack } from "lucide-react";
-import { Repeat2 } from "lucide-react";
-//end of lucide-react-icons
+import {
+  Shuffle,
+  SquarePlay,
+  StepForward,
+  StepBack,
+  Repeat2,
+} from "lucide-react";
 import { useSpotifyApi } from "../backend/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";

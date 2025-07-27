@@ -1,4 +1,4 @@
-// PlaylistCustomizer.jsx
+//PlaylistCustomizer.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
@@ -78,10 +78,12 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           );
           const album = albums.find((a) => a.id === selectedAlbum);
           const albumImage = album?.images[1]?.url || "fallback-image-url.jpg";
+          const albumUri = album?.uri; // Get the album URI
           setTracks(
             data.items.map((track) => ({
               ...track,
-              albumImage,
+              image: albumImage,
+              albumUri, // Add album URI to each track
             }))
           );
         } catch (error) {
@@ -112,6 +114,51 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
       );
     } catch (error) {
       console.error("Error playing playlist:", error);
+    }
+  };
+
+  const handlePlayTrackFromAlbum = async (albumUri, trackUri) => {
+    if (!isPlayerReady || !deviceId) {
+      console.error("Player not ready or no device ID");
+      return;
+    }
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            context_uri: albumUri,
+            offset: { uri: trackUri },
+          }),
+        }
+      );
+    } catch (error) {
+      console.error("Error playing track from album:", error);
+    }
+  };
+
+  const handlePlayTrackFromPlaylist = async (startIndex) => {
+    if (!isPlayerReady || !deviceId) {
+      console.error("Player not ready or no device ID");
+      return;
+    }
+    const uris = playlist.tracks.map((track) => track.uri);
+    try {
+      await makeApiCall(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            uris,
+            offset: { position: startIndex },
+          }),
+        }
+      );
+    } catch (error) {
+      console.error("Error playing track from playlist:", error);
     }
   };
 
@@ -200,10 +247,13 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                     <div
                       key={track.id}
                       className="flex items-center album-playlist2 cursor-pointer justify-between gap-2 pt-2 p-1"
+                      onClick={() =>
+                        handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                      }
                     >
                       <div className="inline-flex gap-1">
                         <img
-                          src={track.albumImage}
+                          src={track.image}
                           alt={`${track.name} album cover`}
                           className="w-10 h-10 rounded"
                         />
@@ -213,14 +263,20 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                       </div>
                       {isAdded ? (
                         <button
-                          onClick={() => handleRemoveTrack(track.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveTrack(track.id);
+                          }}
                           className="px-2 py-1 button2 rounded cursor-pointer"
                         >
                           Added
                         </button>
                       ) : (
                         <button
-                          onClick={() => handleAddTrack(track)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddTrack(track);
+                          }}
                           className="px-2 py-1 cursor-pointer rounded add-button"
                         >
                           Add
@@ -282,7 +338,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             <Trash2
               onClick={() => deletePlaylist(playlist.id)}
               className="w-8 h-8 my-2 cursor-pointer remove-button rounded-full p-1 ml-3"
-            />
+            />{" "}
             <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
             <div
               className={`overflow-y-auto sidebar2b max-h-[423px] custom-scrollbar-${theme}`}
@@ -290,10 +346,11 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               {playlist.tracks.length === 0 ? (
                 <p>No tracks in this playlist</p>
               ) : (
-                playlist.tracks.map((track) => (
+                playlist.tracks.map((track, index) => (
                   <div
                     key={track.id}
                     className="flex items-center track-container cursor-pointer justify-between pt-2 p-1"
+                    onClick={() => handlePlayTrackFromPlaylist(index)}
                   >
                     <div className="inline-flex gap-1">
                       <img
@@ -306,9 +363,10 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                       </span>
                     </div>
                     <button
-                      onClick={() =>
-                        removeTrackFromPlaylist(playlist.id, track.id)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeTrackFromPlaylist(playlist.id, track.id);
+                      }}
                       className="px-2 py-1 relative top-1 cursor-pointer remove-button"
                     >
                       Remove
@@ -320,7 +378,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           </div>
         </div>
       )}
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar-cozy::-webkit-scrollbar {
           width: 12px;
         }
