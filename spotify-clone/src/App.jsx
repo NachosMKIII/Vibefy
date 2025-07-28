@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
+import AlbumRow2 from "./components/AlbumRow2";
 import LoginButton from "./components/LoginButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Callback from "./backend/Callback";
@@ -219,7 +220,7 @@ const App = () => {
                       ) : sidebarView === "playlistCustomizer" &&
                         selectedPlaylistId ? (
                         <PlaylistCustomizer
-                          key={selectedPlaylistId}
+                          key={JSON.stringify(playlists)}
                           setSidebarView={setSidebarView}
                           playlist={playlists.find(
                             (p) => p.id === selectedPlaylistId
@@ -238,7 +239,7 @@ const App = () => {
                           ) : (
                             <>
                               <AlbumRow setSelectedAlbum={setSelectedAlbum} />
-                              <AlbumRow setSelectedAlbum={setSelectedAlbum} />
+                              <AlbumRow2 setSelectedAlbum={setSelectedAlbum} />
                             </>
                           )}
                         </div>
