@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
-import { themeAlbums } from "./Data/themeAlbums";
+import { themeAlbums } from "./data/themeAlbums";
 import "./experimental-theme/sidebar.css";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";

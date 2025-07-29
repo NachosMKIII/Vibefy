@@ -48,7 +48,7 @@
 }
 .sidebar.rock-metal .button3 {
   background: linear-gradient(to right, #64748b, #0891b2);
-  color: #0f172a;
+  color: white;
 }
 .sidebar.rock-metal .button3:hover {
   background: linear-gradient(to right, #94a3b8, #06b6d4);

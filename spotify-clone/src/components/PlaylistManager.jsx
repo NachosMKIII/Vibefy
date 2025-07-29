@@ -4,7 +4,7 @@ import { useSpotifyApi } from "../backend/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
-import { themeAlbums } from "./Data/themeAlbums";
+import { themeAlbums } from "./data/themeAlbums";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import "./experimental-theme/sidebar.css";
@@ -197,8 +197,8 @@ const PlaylistManager = ({ setSidebarView }) => {
               return (
                 <div
                   key={track.id}
-                  className="flex justify-between album-playlist2 cursor-pointer items-center gap-2 p-1"
-                  onClick={() =>
+                  className="flex justify-between album-playlist2 items-center gap-2 p-1"
+                  onDoubleClick={() =>
                     handlePlayTrackFromAlbum(track.albumUri, track.uri)
                   }
                 >
@@ -206,9 +206,19 @@ const PlaylistManager = ({ setSidebarView }) => {
                     <img
                       src={track.image || "fallback-image-url.jpg"}
                       alt={track.album || "Album"}
-                      className="w-10 h-10 rounded"
+                      className="w-10 h-10 rounded cursor-pointer"
+                      onClick={() =>
+                        handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                      }
                     />
-                    <span className="truncate max-w-[17ch]">{track.name}</span>
+                    <span
+                      className="truncate max-w-[17ch] cursor-pointer"
+                      onClick={() =>
+                        handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                      }
+                    >
+                      {track.name}
+                    </span>
                   </div>
                   {isAdded ? (
                     <button

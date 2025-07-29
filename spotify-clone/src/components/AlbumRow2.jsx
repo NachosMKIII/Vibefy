@@ -9,7 +9,12 @@ import "./experimental-theme/album-row.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
-export default function AlbumRow2({ title, albumIds, playbackState }) {
+export default function AlbumRow2({
+  title,
+  albumIds,
+  playbackState,
+  setSelectedAlbum,
+}) {
   const { theme } = useContext(ThemeContext);
   const [albums, setAlbums] = useState([]);
   const [error, setError] = useState(null);
@@ -154,14 +159,19 @@ export default function AlbumRow2({ title, albumIds, playbackState }) {
         onScroll={checkScrollButtons}
       >
         {albums.map((album) => (
-          <AlbumCard key={album.id} album={album} theme={theme} />
+          <AlbumCard
+            key={album.id}
+            album={album}
+            theme={theme}
+            setSelectedAlbum={setSelectedAlbum}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function AlbumCard({ album, theme }) {
+function AlbumCard({ album, theme, setSelectedAlbum }) {
   const { playAlbum } = usePlayback();
 
   const albumImage =
@@ -189,7 +199,10 @@ function AlbumCard({ album, theme }) {
         className="description 
       backdrop-blur-sm rounded-lg p-3 border"
       >
-        <h3 className="album-name font-medium text-sm line-clamp-2 mb-1">
+        <h3
+          className="album-name font-medium text-sm line-clamp-2 cursor-pointer hover:underline mb-1"
+          onClick={() => setSelectedAlbum(album.id)}
+        >
           {album.name}
         </h3>
         <p className="album-artist  text-xs line-clamp-1">

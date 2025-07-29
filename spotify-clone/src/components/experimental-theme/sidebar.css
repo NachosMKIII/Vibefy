@@ -48,7 +48,7 @@
 }
 .sidebar.experimental .button3 {
   background: linear-gradient(to right, #eab308, #ea580c);
-  color: #713f12;
+  color: white;
 }
 .sidebar.experimental .button3:hover {
   background: linear-gradient(to right, #facc15, #f97316);

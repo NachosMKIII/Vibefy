@@ -4,7 +4,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
-import { themeAlbums } from "./Data/themeAlbums";
+import { themeAlbums } from "./data/themeAlbums";
 import { CirclePlay, Trash2 } from "lucide-react";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
@@ -12,11 +12,11 @@ import "./experimental-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
-  const { addTrackToPlaylist, removeTrackFromPlaylist, deletePlaylist } =
-    useContext(PlaylistContext);
+
   const { deviceId, isPlayerReady } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
-
+  const { addTrackToPlaylist, removeTrackFromPlaylist, deletePlaylist } =
+    useContext(PlaylistContext);
   const [isAddingTracks, setIsAddingTracks] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(theme);
   const [albums, setAlbums] = useState([]);
@@ -235,7 +235,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               >
                 Back to Albums
               </button>
-              <h3 className="text-xl font-semibold mb-2">Tracks in Album</h3>
+              <h3 className="text-xl font-semibold mb-2">Tracks</h3>
               <div
                 className={`overflow-y-auto sidebar1 max-h-[422px] rounded custom-scrollbar-${theme}`}
               >
@@ -246,8 +246,8 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                   return (
                     <div
                       key={track.id}
-                      className="flex items-center album-playlist2 cursor-pointer justify-between gap-2 pt-2 p-1"
-                      onClick={() =>
+                      className="flex items-center album-playlist2 justify-between gap-2 pt-2 p-1"
+                      onDoubleClick={() =>
                         handlePlayTrackFromAlbum(track.albumUri, track.uri)
                       }
                     >
@@ -255,9 +255,17 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                         <img
                           src={track.image}
                           alt={`${track.name} album cover`}
-                          className="w-10 h-10 rounded"
+                          className="w-10 h-10 rounded cursor-pointer"
+                          onClick={() =>
+                            handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                          }
                         />
-                        <span className="truncate max-w-[15ch] relative top-1">
+                        <span
+                          className="truncate max-w-[15ch] relative top-1 cursor-pointer"
+                          onClick={() =>
+                            handlePlayTrackFromAlbum(track.albumUri, track.uri)
+                          }
+                        >
                           {track.name}
                         </span>
                       </div>
@@ -349,16 +357,20 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 playlist.tracks.map((track, index) => (
                   <div
                     key={track.id}
-                    className="flex items-center track-container cursor-pointer justify-between pt-2 p-1"
-                    onClick={() => handlePlayTrackFromPlaylist(index)}
+                    className="flex items-center track-container justify-between pt-2 p-1"
+                    onDoubleClick={() => handlePlayTrackFromPlaylist(index)}
                   >
                     <div className="inline-flex gap-1">
                       <img
                         src={track.image}
                         alt={`${track.name} album cover`}
-                        className="w-10 h-10 rounded"
+                        className="w-10 h-10 rounded cursor-pointer"
+                        onClick={() => handlePlayTrackFromPlaylist(index)}
                       />
-                      <span className="truncate max-w-[16ch]">
+                      <span
+                        className="truncate max-w-[16ch] cursor-pointer"
+                        onClick={() => handlePlayTrackFromPlaylist(index)}
+                      >
                         {track.name}
                       </span>
                     </div>
