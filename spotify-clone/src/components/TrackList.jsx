@@ -14,6 +14,7 @@ const TrackList = ({ albumId, setSelectedAlbum }) => {
   const [tracks, setTracks] = useState([]);
   const [album, setAlbum] = useState(null);
   const [error, setError] = useState(null);
+  const { addTrack } = useContext(PlaylistContext);
   const { deviceId, isPlayerReady } = useContext(SpotifyContext);
   const { theme } = useContext(ThemeContext);
 
@@ -44,6 +45,14 @@ const TrackList = ({ albumId, setSelectedAlbum }) => {
     };
     fetchAlbumAndTracks();
   }, [albumId, makeApiCall]);
+
+  const formatTime = (ms) => {
+    if (!ms) return "0:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
 
   const handlePlayAlbum = async () => {
     if (!isPlayerReady || !deviceId) {
@@ -115,29 +124,20 @@ const TrackList = ({ albumId, setSelectedAlbum }) => {
         {tracks.map((track) => (
           <div
             key={track.id}
-            className="flex items-center track-container album-playlist2  justify-between p-2 border-b"
-            onDoubleClick={() =>
-              handlePlayTrackFromAlbum(album.uri, track.position)
-            }
+            className="flex items-center track-container album-playlist2 justify-between p-2 border-b cursor-pointer"
+            onClick={() => handlePlayTrackFromAlbum(album.uri, track.position)}
           >
             <div className="inline-flex gap-2">
               <img
                 src={track.album.images[1]?.url || "fallback-image-url.jpg"}
                 alt={track.name}
-                className="w-10 h-10 rounded cursor-pointer"
-                onClick={() =>
-                  handlePlayTrackFromAlbum(album.uri, track.position)
-                }
+                className="w-10 h-10 rounded"
               />
-              <span
-                className="truncate max-w-[70ch] cursor-pointer"
-                onClick={() =>
-                  handlePlayTrackFromAlbum(album.uri, track.position)
-                }
-              >
-                {track.name}
-              </span>
+              <span className="truncate max-w-[70ch]">{track.name}</span>
             </div>
+            <span className="text-sm text-white w-12">
+              {formatTime(track.duration_ms)}
+            </span>
           </div>
         ))}
       </div>

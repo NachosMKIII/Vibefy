@@ -69,7 +69,6 @@ export default function AlbumRow({
         "7GjVWG39IOj4viyWplJV4H",
         "3ddMQ2PZjiD8Zxm0lu92rb",
         "1WwiyWxa40PKucRxIKlEVM",
-        "4vvx8uOeJE7YR4tORVtYV4",
       ];
     } else {
       // Fallback to a default set (e.g., cozy)

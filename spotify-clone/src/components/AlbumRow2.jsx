@@ -33,6 +33,7 @@ export default function AlbumRow2({
         "0InB1oG08YUmJuztRRoHvK",
         "7ywSMs3G2OWOGVKMqc7KsE",
         "0gkEQ4rKVfEwrBRdLEJex7",
+        "2ePvfCfHwJdT77yiCPeo9Y",
       ];
     } else if (theme === "rock-metal") {
       albumIds = [
@@ -41,6 +42,8 @@ export default function AlbumRow2({
         "0vi5ePiEHrGZJF7QhnDW2z",
         "5B4PYA7wNN4WdEXdIJu58a",
         "1U7hECBiaVZvmnF7mZNMhB",
+        "2IOkphZwsrRk1nWRkikEgK",
+        "5U0MXVHm1WiAfmmwFteqUo",
       ];
     } else if (theme === "experimental") {
       albumIds = [
@@ -53,8 +56,6 @@ export default function AlbumRow2({
         "6AOnHGR6Adnmi4FyR3UK6e",
         "4XriwpnB6fJm8OMxb7wQcV",
         "1RHa1VdX6lsLbeedgsV1cb",
-        "6Slyf11lDlxOxhdN7OlAFr",
-        "1yfJqxKKXG320vhqLfUEeC",
       ];
     } else {
       // Fallback to a default set (e.g., cozy)
