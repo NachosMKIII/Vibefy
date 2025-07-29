@@ -64,7 +64,35 @@ const Player = ({ playbackState }) => {
 
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
-    return;
+    return (
+      <div
+        className={`main-player rounded fixed h-[16%] player w-[80%] flex justify-between items-center text-white px-4 bottom-[0px] left-[308px] ${theme}`}
+      >
+        <div className="hidden lg:flex relative right-2 items-center gap-4">
+          <div className="max-w-[30ch]"></div>
+        </div>
+
+        <div className="gap-1 absolute left-125 m-auto">
+          <div className="w-full mt-2 flex items-center"></div>
+          <div className="flex gap-2">
+            <Shuffle
+              className={`w-8 h-8 relative top-2 cursor-pointer playback-control 
+                
+            `}
+            />
+            <StepBack className="w-8 h-8 top-2 relative cursor-pointer" />
+            <SquarePlay
+              className={`w-8 h-8 relative top-2 cursor-pointer playback-control `}
+            />
+            <StepForward className="w-8 h-8 top-2 relative cursor-pointer" />
+            <Repeat2
+              className={`w-8 h-8 top-2 relative cursor-pointer playback-control`}
+            />
+          </div>
+        </div>
+        <div className="items-center flex relative mt-2"></div>
+      </div>
+    );
   }
 
   // Extract track details from playbackState
