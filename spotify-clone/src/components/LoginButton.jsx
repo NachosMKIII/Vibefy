@@ -62,9 +62,9 @@ const LoginButton = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center ">
+    <div className=" flex items-center absolute z-10 left-[833px] bottom-[60px] justify-center">
       <button
-        className="cursor-pointer login-button bg-purple-500 text-black"
+        className="cursor-pointer login-button bg-green-500 p-2 rounded-full text-black"
         onClick={authorizeSpotify}
       >
         Login with Spotify

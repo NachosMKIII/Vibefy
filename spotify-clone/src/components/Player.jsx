@@ -76,17 +76,17 @@ const Player = ({ playbackState }) => {
           <div className="w-full mt-2 flex items-center"></div>
           <div className="flex gap-2">
             <Shuffle
-              className={`w-8 h-8 relative top-2 cursor-pointer playback-control 
+              className={`w-8 h-8 relative top-5 cursor-pointer playback-control 
                 
             `}
             />
-            <StepBack className="w-8 h-8 top-2 relative cursor-pointer" />
+            <StepBack className="w-8 h-8 top-5 relative cursor-pointer" />
             <SquarePlay
-              className={`w-8 h-8 relative top-2 cursor-pointer playback-control `}
+              className={`w-8 h-8 relative top-5 cursor-pointer playback-control `}
             />
-            <StepForward className="w-8 h-8 top-2 relative cursor-pointer" />
+            <StepForward className="w-8 h-8 top-5 relative cursor-pointer" />
             <Repeat2
-              className={`w-8 h-8 top-2 relative cursor-pointer playback-control`}
+              className={`w-8 h-8 top-5 relative cursor-pointer playback-control`}
             />
           </div>
         </div>
