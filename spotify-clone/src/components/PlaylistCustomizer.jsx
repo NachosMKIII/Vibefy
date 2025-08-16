@@ -5,14 +5,13 @@ import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useSpotifyApi } from "../backend/Auth";
 import { themeAlbums } from "./data/themeAlbums";
-import { CirclePlay, Trash2 } from "lucide-react";
+import { CirclePlay, Trash2, ArrowBigLeftDash } from "lucide-react";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import "./experimental-theme/sidebar.css";
 
 const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
   const { theme } = useContext(ThemeContext);
-
   const { deviceId, isPlayerReady } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
   const { addTrackToPlaylist, removeTrackFromPlaylist, deletePlaylist } =
@@ -201,12 +200,11 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
       {isAddingTracks ? (
         <div className="hidden lg:flex flex-col">
           <div className="sidebar1 rounded hidden lg:flex flex-col">
-            <button
-              onClick={handleBackToPlaylist}
-              className="mb-2 mx-2 mt-2 px-4 py-2 rounded cursor-pointer button3"
-            >
-              Back to Playlist
-            </button>
+            <ArrowBigLeftDash
+              onClick={() => handleBackToPlaylist}
+              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1
+                      "
+            />
             <h2 className="text-2xl font-bold ml-2 mb-4">
               Add Tracks to {playlist.name}
             </h2>
@@ -301,7 +299,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
                 Available Albums
               </h3>
               <div
-                className={`overflow-y-auto max-h-[463px] custom-scrollbar-${theme}`}
+                className={`overflow-y-auto max-h-[480px] custom-scrollbar-${theme}`}
               >
                 {albums.map((album) => (
                   <div
@@ -325,17 +323,16 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
         <div className="hidden lg:flex flex-col">
           <div className="sidebar1 hidden lg:flex flex-col mt-10 rounded">
             <button
-              onClick={() => setSidebarView("default")}
-              className="mb-2 mx-2 px-4 py-2 mt-2 cursor-pointer rounded button1"
-            >
-              Back to Sidebar
-            </button>
-            <button
               onClick={handleAddTracks}
-              className="mb-4 px-4 mx-2 py-2 cursor-pointer rounded button2"
+              className="mb-4 px-4 mx-2 py-2 ml-2 cursor-pointer rounded button2 mt-2"
             >
               Add Tracks
             </button>
+            <ArrowBigLeftDash
+              onClick={() => setSidebarView("playlistList")}
+              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1
+          "
+            />
             <CirclePlay
               onClick={handlePlayPlaylist}
               disabled={!isPlayerReady}
@@ -349,7 +346,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             />{" "}
             <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
             <div
-              className={`overflow-y-auto sidebar2b max-h-[423px] custom-scrollbar-${theme}`}
+              className={`overflow-y-auto sidebar2b max-h-[430px] custom-scrollbar-${theme}`}
             >
               {playlist.tracks.length === 0 ? (
                 <p>No tracks in this playlist</p>

@@ -2,11 +2,12 @@
 import React, { useContext } from "react";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { ArrowBigLeftDash } from "lucide-react";
 import "./cozy-theme/sidebar.css";
 import "./metal-rock-theme/sidebar.css";
 import "./experimental-theme/sidebar.css";
 
-const PlaylistList = ({ setSidebarView }) => {
+const PlaylistList = ({ setSidebarView, startNewPlaylist }) => {
   const { playlists, selectPlaylist } = useContext(PlaylistContext);
   const { theme, setTheme } = useContext(ThemeContext);
   const scrollbarConfig = {
@@ -47,15 +48,19 @@ const PlaylistList = ({ setSidebarView }) => {
     >
       <div className="sidebar1 pb-4 rounded mt-10">
         <h2 className="text-2xl font-bold m-4 ml-2">Your Playlists</h2>
-        <button
+        <ArrowBigLeftDash
           onClick={() => setSidebarView("default")}
-          className="mb-2 ml-1 px-4 py-2 button3 text-white rounded cursor-pointer
+          className="mb-2 ml-3 w-8 h-8 button1 rounded cursor-pointer p-1
           "
-        >
-          Back to Sidebar
-        </button>
+        />
+
         {playlists.length === 0 ? (
-          <p className="ml-1">No playlists created yet.</p>
+          <button
+            onClick={startNewPlaylist}
+            className=" mb-2 ml-1 px-4 py-2 rounded cursor-pointer button3 "
+          >
+            Create your first playlist
+          </button>
         ) : (
           <ul
             className={`max-h-[551px] overflow-y-auto custom-scrollbar-${theme}`}
@@ -63,7 +68,7 @@ const PlaylistList = ({ setSidebarView }) => {
             {playlists.map((playlist) => (
               <li
                 key={playlist.id}
-                className="flex items-center ml-1 gap-2 mt-4 album-playlist cursor-pointer rounded max-w-64"
+                className="flex items-center ml-3 gap-2 mt-4 album-playlist cursor-pointer rounded max-w-64"
                 onClick={() => handleSelectPlaylist(playlist.id)}
               >
                 {playlist.tracks.length > 0 && (

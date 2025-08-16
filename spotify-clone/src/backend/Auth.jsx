@@ -20,7 +20,7 @@ export const useSpotifyApi = () => {
         try {
           accessToken = await refreshAccessToken();
         } catch (error) {
-          console.error("Failed to refresh access token:", error);
+          console.error("Failed to refresh access token:");
           throw new Error("Unable to refresh access token");
         }
       }

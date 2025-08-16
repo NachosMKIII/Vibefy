@@ -227,7 +227,10 @@ const App = () => {
                           )}
                         />
                       ) : (
-                        <PlaylistList setSidebarView={setSidebarView} />
+                        <PlaylistList
+                          setSidebarView={setSidebarView}
+                          startNewPlaylist={startNewPlaylist}
+                        />
                       )}
                       {accessToken ? (
                         <div className="flex-1 overflow-x-auto">

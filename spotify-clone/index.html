@@ -3,6 +3,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src 'self' https://sdk.scdn.co/;
+    script-src 'self' https://sdk.scdn.co/spotify-player.js;
+    connect-src 'self' https://api.spotify.com https://accounts.spotify.com;
+    img-src 'self' https://i.scdn.co https://i.scdn.co/images/ data:;
+    style-src 'self' 'unsafe-inline';
+  "
+    />
     <link />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vibefy</title>

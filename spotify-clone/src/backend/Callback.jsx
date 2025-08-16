@@ -45,7 +45,7 @@ const Callback = () => {
           return response.json();
         })
         .then((data) => {
-          console.log("Token data:", data);
+          console.log("Tokens received sucessfuly:");
           if (data.access_token) {
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
@@ -54,11 +54,11 @@ const Callback = () => {
             console.log("Tokens stored successfully");
             window.location.href = "/";
           } else {
-            console.error("Failed to retrieve tokens:", data);
+            console.error("Failed to retrieve tokens:");
           }
         })
         .catch((error) => {
-          console.error("Error fetching token:", error);
+          console.error("Error fetching token:");
         });
     } else {
       console.error("No authorization code found in URL");
