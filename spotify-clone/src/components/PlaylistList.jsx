@@ -50,14 +50,14 @@ const PlaylistList = ({ setSidebarView, startNewPlaylist }) => {
         <h2 className="text-2xl font-bold m-4 ml-2">Your Playlists</h2>
         <ArrowBigLeftDash
           onClick={() => setSidebarView("default")}
-          className="mb-2 ml-3 w-8 h-8 button1 rounded cursor-pointer p-1
+          className="mb-2 ml-3 relative top-2 w-8 h-8 button1 rounded cursor-pointer p-1
           "
         />
 
         {playlists.length === 0 ? (
           <button
             onClick={startNewPlaylist}
-            className=" mb-2 ml-1 px-4 py-2 rounded cursor-pointer button3 "
+            className=" mb-2 mt-2 ml-3 px-4 py-2 rounded cursor-pointer button3 "
           >
             Create your first playlist
           </button>

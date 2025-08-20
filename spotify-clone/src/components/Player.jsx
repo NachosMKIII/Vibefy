@@ -8,7 +8,9 @@ import {
   StepForward,
   StepBack,
   Repeat2,
+  LogOut, // Added this for the logout icon! 💖
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useSpotifyApi } from "../backend/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
@@ -18,10 +20,12 @@ import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
 import Slider from "./sub-components/Slider";
 
-const Player = ({ playbackState }) => {
+const Player = ({ playbackState, isLoggedIn }) => {
+  // Added isLoggedIn prop here! 🥰
   const { theme } = useContext(ThemeContext);
   const { deviceId, player } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
+  const navigate = useNavigate(); // Already here, good!
 
   // Local state for slider value and adjustment tracking
   const [sliderValue, setSliderValue] = useState(50);
@@ -62,6 +66,20 @@ const Player = ({ playbackState }) => {
     }
   }, [player]);
 
+  // Logout handler - disconnect player, clear tokens, navigate home! ✨
+  const handleLogout = () => {
+    if (player) {
+      player.disconnect();
+    }
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("expiration_time");
+    window.alert(
+      "Authentication info removed, remember to remove the app's access in your Spotify account"
+    );
+    window.location.reload();
+  };
+
   // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
     return (
@@ -89,6 +107,16 @@ const Player = ({ playbackState }) => {
               className={`w-8 h-8 top-5 relative cursor-pointer playback-control`}
             />
           </div>
+          {isLoggedIn && (
+            <div className=" flex items-center absolute z-10 left-[290px] top-[2px] justify-center">
+              <button
+                className="cursor-pointer login-button bg-green-500 py-2 px-16 rounded-full text-black"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
         <div className="items-center flex relative mt-2"></div>
       </div>
@@ -277,8 +305,20 @@ const Player = ({ playbackState }) => {
             onClick={cycleRepeatMode}
           />
         </div>
+        {isLoggedIn && (
+          <div className=" flex items-center absolute z-10 left-[290px] bottom-[10px] justify-center">
+            <button
+              className="cursor-pointer login-button bg-green-500 py-2 px-16 rounded-full text-black"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
-      <div className="items-center flex relative mt-2">
+      <div className="items-center flex relative mt-2 gap-4">
+        {" "}
+        {/* Added gap for spacing! */}
         <img className="w-4" src={assets.volume_icon} alt="Volume" />
         <Slider
           min={0}
@@ -297,6 +337,7 @@ const Player = ({ playbackState }) => {
           type="volume"
           theme={theme}
         />
+        {/* Added the logout button here - cute icon, conditional, styled to match! 🌟 */}
       </div>
     </div>
   );

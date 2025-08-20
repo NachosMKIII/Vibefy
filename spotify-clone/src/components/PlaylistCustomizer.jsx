@@ -205,7 +205,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1
                       "
             />
-            <h2 className="text-2xl font-bold ml-2 mb-4">
+            <h2 className="text-xl font-bold ml-2 mb-4">
               Add Tracks to {playlist.name}
             </h2>
             <div className="mb-4">
@@ -344,7 +344,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               onClick={() => deletePlaylist(playlist.id)}
               className="w-8 h-8 my-2 cursor-pointer remove-button rounded-full p-1 ml-3"
             />{" "}
-            <h2 className="text-2xl font-bold mb-4">{playlist.name}</h2>
+            <h2 className="text-xl ml-1 font-bold mb-4">{playlist.name}</h2>
             <div
               className={`overflow-y-auto sidebar2b max-h-[430px] custom-scrollbar-${theme}`}
             >

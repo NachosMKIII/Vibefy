@@ -96,7 +96,7 @@ const App = () => {
       setCurrentPlaylist(null);
       setSidebarView("default");
     } else {
-      alert("Please provide a name and add at least one track.");
+      alert("Provide a name and add at least one track.");
     }
   };
 
@@ -220,7 +220,6 @@ const App = () => {
                       ) : sidebarView === "playlistCustomizer" &&
                         selectedPlaylistId ? (
                         <PlaylistCustomizer
-                          key={JSON.stringify(playlists)}
                           setSidebarView={setSidebarView}
                           playlist={playlists.find(
                             (p) => p.id === selectedPlaylistId
@@ -251,9 +250,20 @@ const App = () => {
                       )}
                     </div>
                     {!accessToken ? (
-                      <LoginButton />
+                      <div>
+                        <LoginButton />
+                        <Player
+                          playbackState={playbackState}
+                          isLoggedIn={!!accessToken}
+                        />
+                      </div>
                     ) : (
-                      isPlayerReady && <Player playbackState={playbackState} />
+                      isPlayerReady && (
+                        <Player
+                          playbackState={playbackState}
+                          isLoggedIn={!!accessToken}
+                        />
+                      )
                     )}
                   </div>
                 }

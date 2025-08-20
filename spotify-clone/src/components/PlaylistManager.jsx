@@ -277,6 +277,7 @@ const PlaylistManager = ({ setSidebarView }) => {
           value={currentPlaylist.name}
           onChange={handleNameChange}
           className="mb-2 p-1 border rounded w-full button1"
+          maxLength="25"
         />
         <button
           onClick={savePlaylist}
