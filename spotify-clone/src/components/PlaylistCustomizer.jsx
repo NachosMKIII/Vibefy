@@ -1,4 +1,4 @@
-//PlaylistCustomizer.jsx
+// PlaylistCustomizer.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
@@ -77,12 +77,12 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
           );
           const album = albums.find((a) => a.id === selectedAlbum);
           const albumImage = album?.images[1]?.url || "fallback-image-url.jpg";
-          const albumUri = album?.uri; // Get the album URI
+          const albumUri = album?.uri;
           setTracks(
             data.items.map((track) => ({
               ...track,
               image: albumImage,
-              albumUri, // Add album URI to each track
+              albumUri,
             }))
           );
         } catch (error) {
@@ -161,9 +161,13 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
     }
   };
 
-  const handleAddTracks = () => setIsAddingTracks(true);
+  const handleAddTracks = () => {
+    console.log("Switching to add tracks view");
+    setIsAddingTracks(true);
+  };
 
   const handleBackToPlaylist = () => {
+    console.log("Returning to playlist view, playlist ID:", playlist.id);
     setIsAddingTracks(false);
     setSelectedAlbum(null);
   };
@@ -184,10 +188,12 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
       uri: track.uri,
       image: albumImage,
     });
+    console.log("Added track to playlist:", track.name);
   };
 
   const handleRemoveTrack = (trackId) => {
     removeTrackFromPlaylist(playlist.id, trackId);
+    console.log("Removed track from playlist, ID:", trackId);
   };
 
   if (!playlist) return null;
@@ -201,9 +207,8 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
         <div className="hidden lg:flex flex-col">
           <div className="sidebar1 rounded hidden lg:flex flex-col">
             <ArrowBigLeftDash
-              onClick={() => handleBackToPlaylist}
-              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1
-                      "
+              onClick={handleBackToPlaylist} // Goes back to playlist tracks
+              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1"
             />
             <h2 className="text-xl font-bold ml-2 mb-4">
               Add Tracks to {playlist.name}
@@ -329,9 +334,8 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               Add Tracks
             </button>
             <ArrowBigLeftDash
-              onClick={() => setSidebarView("playlistList")}
-              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1
-          "
+              onClick={() => setSidebarView("playlistList")} // Goes to playlist list
+              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1"
             />
             <CirclePlay
               onClick={handlePlayPlaylist}
@@ -343,7 +347,7 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
             <Trash2
               onClick={() => deletePlaylist(playlist.id)}
               className="w-8 h-8 my-2 cursor-pointer remove-button rounded-full p-1 ml-3"
-            />{" "}
+            />
             <h2 className="text-xl ml-1 font-bold mb-4">{playlist.name}</h2>
             <div
               className={`overflow-y-auto sidebar2b max-h-[430px] custom-scrollbar-${theme}`}
