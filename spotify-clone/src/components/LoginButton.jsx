@@ -1,6 +1,16 @@
 // LoginButton.jsx
 import React from "react";
 console.log("Environment variables:", import.meta.env);
+console.log("VITE_SPOTIFY_CLIENT_ID:", import.meta.env.VITE_SPOTIFY_CLIENT_ID);
+console.log(
+  "VITE_SPOTIFY_CLIENT_ID type:",
+  typeof import.meta.env.VITE_SPOTIFY_CLIENT_ID
+);
+console.log("VITE_REDIRECT_URI:", import.meta.env.VITE_REDIRECT_URI);
+console.log(
+  "VITE_REDIRECT_URI type:",
+  typeof import.meta.env.VITE_REDIRECT_URI
+);
 
 // Character set for code verifier as per PKCE spec
 const charset =

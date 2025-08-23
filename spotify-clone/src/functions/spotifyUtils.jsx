@@ -1,4 +1,10 @@
 // spotifyUtils.jsx
+
+console.log("spotifyUtils env variables:", import.meta.env);
+console.log(
+  "VITE_SPOTIFY_CLIENT_ID type:",
+  typeof import.meta.env.VITE_SPOTIFY_CLIENT_ID
+);
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 
 export const refreshAccessToken = async () => {

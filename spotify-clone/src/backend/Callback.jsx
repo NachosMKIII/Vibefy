@@ -2,7 +2,15 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const accessToken = localStorage.getItem("access_token");
+console.log("Callback env variables:", import.meta.env);
+console.log(
+  "VITE_SPOTIFY_CLIENT_ID type:",
+  typeof import.meta.env.VITE_SPOTIFY_CLIENT_ID
+);
+console.log(
+  "VITE_REDIRECT_URI type:",
+  typeof import.meta.env.VITE_REDIRECT_URI
+);
 
 const Callback = () => {
   const location = useLocation();
