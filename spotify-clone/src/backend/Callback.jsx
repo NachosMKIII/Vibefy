@@ -20,8 +20,8 @@ const Callback = () => {
         return;
       }
 
-      const clientId = "4a5d0df8f02649c9a121fe843b20824a"; // Replace with your Spotify client ID
-      const redirectUri = "http://localhost:5173/callback"; // Replace with your redirect URI
+      const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID; // Replace with your Spotify client ID
+      const redirectUri = import.meta.env.VITE_REDIRECT_URI; // Replace with your redirect URI
 
       const params = new URLSearchParams();
       params.append("client_id", clientId);
@@ -45,7 +45,7 @@ const Callback = () => {
           return response.json();
         })
         .then((data) => {
-          console.log("Tokens received sucessfuly:");
+          console.log("Tokens received sucessful");
           if (data.access_token) {
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);

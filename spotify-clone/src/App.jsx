@@ -1,4 +1,5 @@
 //App.jsx
+//require("dotenv").config();
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
@@ -246,7 +247,11 @@ const App = () => {
                           )}
                         </div>
                       ) : (
-                        <div>Please log in to see albums.</div>
+                        <div>
+                          <p className="relative top-2 rounded-full py-2 px-10 bg-black text-white">
+                            Log in to see albums
+                          </p>
+                        </div>
                       )}
                     </div>
                     {!accessToken ? (

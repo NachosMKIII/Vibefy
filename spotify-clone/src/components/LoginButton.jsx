@@ -1,5 +1,6 @@
 // LoginButton.jsx
 import React from "react";
+console.log("Environment variables:", import.meta.env);
 
 // Character set for code verifier as per PKCE spec
 const charset =
@@ -28,13 +29,21 @@ const sha256 = async (string) => {
 };
 
 // Spotify app credentials (replace with your own)
-const clientId = "4a5d0df8f02649c9a121fe843b20824a"; // From Spotify Developer Dashboard
-const redirectUri = "http://localhost:5173/callback";
+const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const redirectUri = import.meta.env.VITE_REDIRECT_URI;
 const scope =
   "user-read-email user-read-playback-state user-read-private user-modify-playback-state user-read-currently-playing streaming"; // Adjust scopes as needed
 
 const LoginButton = () => {
   const authorizeSpotify = async () => {
+    if (!clientId || !redirectUri) {
+      console.error(
+        "Missing environment variables: VITE_SPOTIFY_CLIENT_ID or VITE_REDIRECT_URI"
+      );
+      alert("App configuration error. Please check environment variables.");
+      return;
+    }
+
     // Generate a 64-character code verifier
     const codeVerifier = generateRandomString(64);
     // Store code verifier in local storage
