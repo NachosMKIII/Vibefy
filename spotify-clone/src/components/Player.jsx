@@ -11,7 +11,7 @@ import {
   LogOut, // Added this for the logout icon! 💖
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";

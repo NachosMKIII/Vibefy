@@ -1,6 +1,6 @@
 //PlaylistManager.jsx
 import React, { useState, useEffect, useContext } from "react";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";

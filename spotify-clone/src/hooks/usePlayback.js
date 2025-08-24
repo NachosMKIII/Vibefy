@@ -1,7 +1,7 @@
 // usePlayback.js
 import { useContext } from "react";
 import { SpotifyContext } from "../context/SpotifyContext";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 
 export const usePlayback = () => {
   const { deviceId } = useContext(SpotifyContext);

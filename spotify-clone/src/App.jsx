@@ -6,7 +6,7 @@ import AlbumRow from "./components/AlbumRow";
 import AlbumRow2 from "./components/AlbumRow2";
 import LoginButton from "./components/LoginButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Callback from "./backend/Callback";
+import Callback from "./Auth/Callback";
 import Player from "./components/Player";
 import { SpotifyContext } from "./context/SpotifyContext";
 import { PlaylistContext } from "./context/PlaylistContext";

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import "./cozy-theme/album-row.css";
 import "./metal-rock-theme/album-row.css";
 import "./experimental-theme/album-row.css";

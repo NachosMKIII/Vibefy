@@ -4,7 +4,7 @@ import { BookHeadphones, CirclePlus } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { SpotifyContext } from "../context/SpotifyContext";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import { themeAlbums } from "./data/themeAlbums";
 import "./experimental-theme/sidebar.css";
 import "./cozy-theme/sidebar.css";

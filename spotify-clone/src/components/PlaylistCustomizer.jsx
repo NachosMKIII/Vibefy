@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import { themeAlbums } from "./data/themeAlbums";
 import { CirclePlay, Trash2, ArrowBigLeftDash } from "lucide-react";
 import "./cozy-theme/sidebar.css";

@@ -56,7 +56,6 @@ const LoginButton = () => {
 
     // Generate a 64-character code verifier
     const codeVerifier = generateRandomString(64);
-    // Store code verifier in local storage
     localStorage.setItem("code_verifier", codeVerifier);
 
     // Generate code challenge from verifier

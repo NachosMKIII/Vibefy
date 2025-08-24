@@ -1,6 +1,6 @@
 //TrackList.jsx
 import React, { useState, useEffect, useContext } from "react";
-import { useSpotifyApi } from "../backend/Auth";
+import { useSpotifyApi } from "../Auth/Auth";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { CirclePlay } from "lucide-react";
