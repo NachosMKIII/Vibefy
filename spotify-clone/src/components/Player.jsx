@@ -1,6 +1,5 @@
 //Player.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { assets } from "../assets/assets/assets";
 //lucide-react icons
 import {
   Shuffle,
