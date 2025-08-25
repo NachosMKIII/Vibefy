@@ -1,0 +1,41 @@
+/*player.css inside rock-metal-theme folder*/
+.player.rock-metal {
+  background: linear-gradient(to bottom right, #020617, #0f172a, #1e293b);
+  border: 1px solid #47556966;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-900: #164e63;
+}
+
+.player.rock-metal .playback-control.shuffle-on {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.shuffle-off {
+  color: white;
+}
+
+.player.rock-metal .playback-control.play-on {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.play-off {
+  color: white;
+}
+
+.player.rock-metal .playback-control.loop-off {
+  color: white;
+}
+.player.rock-metal .playback-control.loop-context {
+  color: var(--color-cyan-500);
+}
+.player.rock-metal .playback-control.loop-track {
+  color: var(--color-cyan-900);
+}
+.player.rock-metal .album-image {
+  border: 2px solid #1e293b;
+}
+.player.rock-metal .track {
+  color: #f1f5f9;
+}
+
+.player.rock-metal .artist {
+  color: #cbd5e1;
+}

@@ -33,9 +33,31 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+logs
+*.log
+lerna-debug.log*
+dist
+dist-ssr
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+.env.local
+.env.development
+.env.production
+build/
+temp/
