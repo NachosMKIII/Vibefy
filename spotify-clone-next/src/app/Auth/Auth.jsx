@@ -1,6 +1,7 @@
 //Auth.jsx
 "use client";
 import { useCallback } from "react";
+import { refreshAccessToken } from "@/lib/SpotifyUtils";
 
 export const useSpotifyApi = () => {
   const makeApiCall = useCallback(

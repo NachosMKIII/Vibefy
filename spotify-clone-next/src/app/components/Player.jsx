@@ -23,7 +23,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
   const { theme } = useContext(ThemeContext);
   const { deviceId, player } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
-  const navigate = useNavigate(); // Already here, good!
 
   // Local state for slider value and adjustment tracking
   const [sliderValue, setSliderValue] = useState(50);
