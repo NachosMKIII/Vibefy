@@ -5,8 +5,6 @@ import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
 import AlbumRow2 from "./components/AlbumRow2";
 import LoginButton from "./components/LoginButton";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Callback from "./Auth/Callback";
 import Player from "./components/Player";
 import { SpotifyContext } from "./context/SpotifyContext";
 import { PlaylistContext } from "./context/PlaylistContext";
@@ -15,7 +13,6 @@ import PlaylistList from "./components/PlaylistList";
 import PlaylistCustomizer from "./components/PlaylistCustomizer";
 import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
-import { refreshAccessToken } from "./functions/SpotifyUtils";
 
 const App = () => {
   const accessToken = localStorage.getItem("access_token");
@@ -135,7 +132,9 @@ const App = () => {
           const currentTime = Date.now();
           if (expirationTime && currentTime >= expirationTime - 60000) {
             try {
-              accessToken = await refreshAccessToken();
+              const response = await fetch("/api/refresh");
+              const data = await response.json();
+              accessToken = data.token;
             } catch (error) {
               console.error("Failed to refresh access token:", error);
             }

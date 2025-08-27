@@ -1,7 +1,6 @@
 //Player.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { assets } from "../assets/assets/assets";
 //lucide-react icons
 import {
   Shuffle,
@@ -9,9 +8,7 @@ import {
   StepForward,
   StepBack,
   Repeat2,
-  LogOut, // Added this for the logout icon! 💖
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useSpotifyApi } from "../Auth/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
 import { useContext } from "react";

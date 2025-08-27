@@ -1,5 +1,5 @@
-// src/app/spotifyUtils.jsx
-"use client";
+// src/lib/spotifyUtils.jsx
+"use server";
 import { cookies } from "next/headers";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;

@@ -1,16 +1,5 @@
 // LoginButton.jsx
 import React from "react";
-console.log("Environment variables:", import.meta.env);
-console.log("VITE_SPOTIFY_CLIENT_ID:", import.meta.env.VITE_SPOTIFY_CLIENT_ID);
-console.log(
-  "VITE_SPOTIFY_CLIENT_ID type:",
-  typeof import.meta.env.VITE_SPOTIFY_CLIENT_ID
-);
-console.log("VITE_REDIRECT_URI:", import.meta.env.VITE_REDIRECT_URI);
-console.log(
-  "VITE_REDIRECT_URI type:",
-  typeof import.meta.env.VITE_REDIRECT_URI
-);
 
 // Character set for code verifier as per PKCE spec
 const charset =
@@ -39,8 +28,8 @@ const sha256 = async (string) => {
 };
 
 // Spotify app credentials (replace with your own)
-const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_REDIRECT_URI;
+const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI;
 const scope =
   "user-read-email user-read-playback-state user-read-private user-modify-playback-state user-read-currently-playing streaming"; // Adjust scopes as needed
 
