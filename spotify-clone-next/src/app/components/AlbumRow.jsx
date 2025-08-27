@@ -1,4 +1,5 @@
 //AlbumRow.jsx
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";

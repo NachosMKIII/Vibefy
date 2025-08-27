@@ -1,4 +1,5 @@
 //App.jsx
+"use client";
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import AlbumRow from "./components/AlbumRow";
@@ -14,7 +15,7 @@ import PlaylistList from "./components/PlaylistList";
 import PlaylistCustomizer from "./components/PlaylistCustomizer";
 import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
-import { refreshAccessToken } from "./functions/spotifyUtils";
+import { refreshAccessToken } from "./functions/SpotifyUtils";
 
 const App = () => {
   const accessToken = localStorage.getItem("access_token");

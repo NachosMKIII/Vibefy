@@ -1,4 +1,5 @@
 //Player.jsx
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets/assets";
 //lucide-react icons

@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "./app/Main.jsx";
+import Main from "./Main.jsx";
 
 const page = () => {
   return <Main />;

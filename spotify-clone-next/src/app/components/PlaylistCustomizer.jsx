@@ -1,4 +1,5 @@
 // PlaylistCustomizer.jsx
+"use client";
 import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaylistContext } from "../context/PlaylistContext";

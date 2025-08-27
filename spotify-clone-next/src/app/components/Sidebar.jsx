@@ -1,4 +1,5 @@
 //Sidebar.jsx
+"use client";
 import React from "react";
 import { BookHeadphones, CirclePlus } from "lucide-react";
 import { useContext } from "react";

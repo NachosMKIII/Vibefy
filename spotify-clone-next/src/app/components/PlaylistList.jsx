@@ -1,4 +1,5 @@
 //PlaylistList.jsx
+"use client";
 import React, { useContext } from "react";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { ThemeContext } from "../context/ThemeContext";

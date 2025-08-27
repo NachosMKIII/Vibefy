@@ -1,16 +1,18 @@
-// spotifyUtils.jsx
+// src/app/spotifyUtils.jsx
+"use client";
+import { cookies } from "next/headers";
 
-console.log("spotifyUtils env variables:", import.meta.env);
-console.log(
-  "VITE_SPOTIFY_CLIENT_ID type:",
-  typeof import.meta.env.VITE_SPOTIFY_CLIENT_ID
-);
-const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 
 export const refreshAccessToken = async () => {
-  const refreshToken = localStorage.getItem("refresh_token");
+  const cookieStore = cookies();
+  const refreshToken = cookieStore.get("refresh_token")?.value;
   if (!refreshToken) {
     throw new Error("No refresh token available");
+  }
+
+  if (!clientId) {
+    throw new Error("Missing Spotify Client ID in environment variables");
   }
 
   const params = new URLSearchParams();
@@ -20,9 +22,7 @@ export const refreshAccessToken = async () => {
 
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: params,
   });
 
@@ -31,11 +31,17 @@ export const refreshAccessToken = async () => {
   }
 
   const data = await response.json();
-  localStorage.setItem("access_token", data.access_token);
+  cookieStore.set("access_token", data.access_token, {
+    httpOnly: true,
+    secure: true,
+    path: "/",
+  });
   if (data.refresh_token) {
-    localStorage.setItem("refresh_token", data.refresh_token);
+    cookieStore.set("refresh_token", data.refresh_token, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
   }
-  const expirationTime = Date.now() + data.expires_in * 1000;
-  localStorage.setItem("expiration_time", expirationTime);
   return data.access_token;
 };

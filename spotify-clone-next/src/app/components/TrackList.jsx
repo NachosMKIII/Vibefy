@@ -1,4 +1,5 @@
 //TrackList.jsx
+"use client";
 import React, { useState, useEffect, useContext } from "react";
 import { useSpotifyApi } from "../Auth/Auth";
 import { PlaylistContext } from "../context/PlaylistContext";
