@@ -1,5 +1,5 @@
-// src/app/App.jsx
-"use client"; // Add this to make it a Client Component! ✨
+// src/app/page.jsx
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
@@ -14,10 +14,9 @@ import PlaylistList from "./components/PlaylistList";
 import PlaylistCustomizer from "./components/PlaylistCustomizer";
 import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
-import { refreshAccessToken } from "@/lib/SpotifyUtils";
 
-const App = () => {
-  const accessToken = localStorage.getItem("access_token"); // This is fine now with "use client"
+const Page = () => {
+  const [accessToken, setAccessToken] = useState(null); // Store token in state
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
   const [player, setPlayer] = useState(null);
@@ -34,6 +33,22 @@ const App = () => {
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+
+  // Fetch token on mount
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const response = await fetch("/api/get-token");
+        const data = await response.json();
+        if (data.access_token) {
+          setAccessToken(data.access_token);
+        }
+      } catch (error) {
+        console.error("Error fetching token:", error);
+      }
+    };
+    fetchToken();
+  }, []);
 
   const addTrackToCurrent = (track) => {
     if (currentPlaylist) {
@@ -129,25 +144,24 @@ const App = () => {
       const player = new Spotify.Player({
         name: "My Web Player",
         getOAuthToken: async (callback) => {
-          let accessToken = localStorage.getItem("access_token");
-          const expirationTime = localStorage.getItem("expiration_time");
-          const currentTime = Date.now();
-          if (expirationTime && currentTime >= expirationTime - 60000) {
-            try {
-              const response = await fetch("/api/refresh");
-              const data = await response.json();
-              accessToken = data.token;
-              localStorage.setItem("access_token", data.token); // Keep localStorage for now
-            } catch (error) {
-              console.error("Failed to refresh access token:", error);
+          try {
+            const response = await fetch("/api/get-token");
+            const data = await response.json();
+            if (data.access_token) {
+              callback(data.access_token);
+            } else {
+              console.error("No token in get-token response:", data);
+              callback(null);
             }
+          } catch (error) {
+            console.error("Failed to fetch access token:", error);
+            callback(null);
           }
-          callback(accessToken);
         },
       });
 
       player.addListener("ready", ({ device_id }) => {
-        console.log("Player is ready with device ID:", device_id);
+        console.log("Player is ready with Device ID:", device_id);
         setDeviceId(device_id);
         setIsPlayerReady(true);
       });
@@ -160,11 +174,19 @@ const App = () => {
       player.addListener("initialization_error", ({ message }) => {
         console.error("Initialization Error:", message);
       });
+
       player.addListener("authentication_error", ({ message }) => {
         console.error("Authentication Error:", message);
       });
 
-      player.connect();
+      player.connect().then((success) => {
+        if (success) {
+          console.log("Player connected successfully");
+        } else {
+          console.error("Player failed to connect");
+        }
+      });
+
       setPlayer(player);
 
       return () => {
@@ -270,5 +292,4 @@ const App = () => {
     </ThemeContext.Provider>
   );
 };
-
-export default App;
+export default Page;

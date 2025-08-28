@@ -8,6 +8,7 @@ import {
   StepForward,
   StepBack,
   Repeat2,
+  Volume2Icon,
 } from "lucide-react";
 import { useSpotifyApi } from "../Auth/Auth";
 import { SpotifyContext } from "../context/SpotifyContext";
@@ -17,6 +18,7 @@ import "./metal-rock-theme/player.css";
 import "./experimental-theme/player.css";
 import "./cozy-theme/player.css";
 import Slider from "./sub-components/Slider";
+import { Volume2 } from "lucide-react";
 
 const Player = ({ playbackState, isLoggedIn }) => {
   // Added isLoggedIn prop here! 🥰
@@ -64,17 +66,21 @@ const Player = ({ playbackState, isLoggedIn }) => {
   }, [player]);
 
   // Logout handler - disconnect player, clear tokens, navigate home! ✨
-  const handleLogout = () => {
-    if (player) {
-      player.disconnect();
+  const handleLogout = async () => {
+    try {
+      if (player) {
+        player.disconnect();
+        console.log("Player disconnected");
+      }
+      await fetch("/api/logout", { method: "POST" });
+      window.alert(
+        "Logged out successfully! Remember to remove the app's access in your Spotify account."
+      );
+      window.location.href = "/"; // Redirect to home
+    } catch (error) {
+      console.error("Error during logout:", error);
+      window.alert("Failed to log out. Please try again.");
     }
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("expiration_time");
-    window.alert(
-      "Authentication info removed, remember to remove the app's access in your Spotify account"
-    );
-    window.location.reload();
   };
 
   // Check if there's no active playback or track
@@ -123,7 +129,7 @@ const Player = ({ playbackState, isLoggedIn }) => {
   // Extract track details from playbackState
   const isPlaying = !playbackState.paused;
   const currentTrack = playbackState?.track_window?.current_track || null;
-  const albumImage = currentTrack?.album.images[0]?.url || assets.default_image;
+  const albumImage = currentTrack?.album.images[0]?.url || null;
   const trackName = currentTrack?.name || "No track playing";
   const artistName =
     currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
@@ -314,9 +320,7 @@ const Player = ({ playbackState, isLoggedIn }) => {
         )}
       </div>
       <div className="items-center flex relative mt-2 gap-4">
-        {" "}
-        {/* Added gap for spacing! */}
-        <img className="w-4" src={assets.volume_icon} alt="Volume" />
+        <Volume2 className="w-5 relative left-4" alt="Volume" />
         <Slider
           min={0}
           max={100}
@@ -334,7 +338,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
           type="volume"
           theme={theme}
         />
-        {/* Added the logout button here - cute icon, conditional, styled to match! 🌟 */}
       </div>
     </div>
   );

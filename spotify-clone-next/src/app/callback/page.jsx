@@ -1,5 +1,6 @@
 // src/app/callback/page.jsx
 "use client";
+
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -26,14 +27,21 @@ export default function Callback() {
         .then((response) => {
           console.log("Token response status:", response.status);
           if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json().then((errorData) => {
+              console.error("Spotify error details:", errorData);
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            });
           }
           return response.json();
         })
         .then((data) => {
-          console.log("Tokens received successfully");
-          localStorage.removeItem("code_verifier");
-          window.location.href = "/";
+          console.log("Token response:", data);
+          if (data.success) {
+            localStorage.removeItem("code_verifier");
+            window.location.href = "/";
+          } else {
+            console.error("Failed to retrieve tokens:", data);
+          }
         })
         .catch((error) => {
           console.error("Error fetching token:", error);
