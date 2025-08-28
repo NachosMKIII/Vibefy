@@ -202,7 +202,7 @@ function AlbumCard({ album, theme, setSelectedAlbum }) {
     <div
       className={`main-album-row album-row mb-2 flex-shrink-0 w-40 h-60 rounded-2xl transition-transform mr-2  ${theme}`}
     >
-      <div className="relative mb-2  hover:scale-105 overflow-hidden transition-transform z-10">
+      <div className="relative mb-2  overflow-hidden z-10">
         <div className="spotify-mark backdrop-blur-xs h-8 rounded-tr rounded-tl overflow-hidden">
           <img
             className="h-7 relative left-[5px] py-1 overflow-hidden"
@@ -210,7 +210,7 @@ function AlbumCard({ album, theme, setSelectedAlbum }) {
           />
         </div>
         <img
-          className="object-cover rounded-br rounded-bl cursor-pointer w-40 h-40 z-20"
+          className="object-cover transition-transform hover:scale-105 rounded-br rounded-bl cursor-pointer w-40 h-40 z-20"
           src={albumImage}
           alt={`${album.name} cover`}
           onClick={handlePlay}
