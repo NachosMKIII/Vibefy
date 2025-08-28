@@ -14,3 +14,7 @@
   background: linear-gradient(to right, #eab308, #ea580c);
   color: #713f12;
 }
+.album-row.experimental .spotify-mark {
+  background: linear-gradient(to bottom right, #6b21a8ba, #9233eae0);
+  border: 2px solid #eab30833;
+}

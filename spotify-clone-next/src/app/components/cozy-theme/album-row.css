@@ -14,3 +14,7 @@
   background: linear-gradient(to right, #16a34a, #15803d);
   color: #052e16;
 }
+.album-row.cozy .spotify-mark {
+  background: linear-gradient(to bottom right, #16653466, #92400e66);
+  border: 2px solid #b4530933;
+}
