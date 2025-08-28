@@ -8,6 +8,7 @@ export async function POST(request) {
   const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI;
 
   if (!clientId || !redirectUri) {
+    console.error("Missing environment variables in /api/token");
     return NextResponse.json(
       { error: "Missing environment variables" },
       { status: 500 }
@@ -31,15 +32,15 @@ export async function POST(request) {
   const data = await response.json();
 
   if (data.access_token) {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set("access_token", data.access_token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       path: "/",
     });
     cookieStore.set("refresh_token", data.refresh_token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       path: "/",
     });
     cookieStore.set(
@@ -47,11 +48,13 @@ export async function POST(request) {
       (Date.now() + data.expires_in * 1000).toString(),
       {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         path: "/",
       }
     );
     return NextResponse.json({ success: true });
   }
+
+  console.error("Failed to retrieve tokens:", data);
   return NextResponse.json(data, { status: response.status });
 }
