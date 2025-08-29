@@ -1,11 +1,10 @@
-This is an application that uses the Spotify API
+This is an application that uses the Spotify API and playback SDK
 
-To access the playback feature(play a song) is necessary to log in with a spotify premium account.
+To really experience the app you need an Spotify premium account or you will hit an error when trying to access a lot of the features.
 
-For the app to function properly you need to a client ID and a callback route, create a Spotify App and replace the variables found in the
-route.js files inside
+To run the app properly you need to a client ID and a callback route, create a Spotify App and
+replace the variables found in the route.js files inside
 /api/get-token
-/api/logout
 /api/refresh
 /api/token
 

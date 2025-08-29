@@ -19,10 +19,14 @@ export async function GET() {
   const currentTime = Date.now();
   if (currentTime >= parseInt(expirationTime, 10) - 60000) {
     const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-    if (!clientId) {
-      console.error("Missing Spotify Client ID in environment variables");
+    const clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
+    if (!clientId || !clientSecret) {
+      console.error("Missing Spotify credentials in environment variables", {
+        hasClientId: !!clientId,
+        hasClientSecret: !!clientSecret,
+      });
       return NextResponse.json(
-        { error: "Missing Spotify Client ID in environment variables" },
+        { error: "Missing Spotify credentials in environment variables" },
         { status: 500 }
       );
     }
@@ -30,11 +34,15 @@ export async function GET() {
     const params = new URLSearchParams();
     params.append("grant_type", "refresh_token");
     params.append("refresh_token", refreshToken);
-    params.append("client_id", clientId);
 
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${Buffer.from(
+          `${clientId}:${clientSecret}`
+        ).toString("base64")}`,
+      },
       body: params,
     });
 
