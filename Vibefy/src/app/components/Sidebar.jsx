@@ -1,4 +1,4 @@
-//Sidebar.jsx
+// src/app/components/Sidebar.jsx
 "use client";
 import React from "react";
 import { BookHeadphones, CirclePlus } from "lucide-react";

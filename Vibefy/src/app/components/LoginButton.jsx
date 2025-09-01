@@ -1,4 +1,4 @@
-// LoginButton.jsx
+// src/app/components/LoginButton.jsx
 import React from "react";
 
 // Character set for code verifier as per PKCE spec

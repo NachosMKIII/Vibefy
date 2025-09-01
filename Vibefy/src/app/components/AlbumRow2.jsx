@@ -1,4 +1,4 @@
-//AlbumRow2.jsx
+// src/app/components/AlbumRow2.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";

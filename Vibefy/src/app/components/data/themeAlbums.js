@@ -1,4 +1,4 @@
-// themeAlbums.js
+// src/app/components/data/themeAlbums.js
 export const themeAlbums = {
   cozy: [
     "7DxmOS2dKJgTfLLRNOP4ch",

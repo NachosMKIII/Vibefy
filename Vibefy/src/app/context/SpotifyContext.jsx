@@ -1,4 +1,4 @@
-// SpotifyContext.jsx
+// src//app/context/SpotifyContext.jsx
 import { createContext } from "react";
 
 export const SpotifyContext = createContext({

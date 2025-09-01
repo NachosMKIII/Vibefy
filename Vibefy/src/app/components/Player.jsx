@@ -1,4 +1,4 @@
-//Player.jsx
+// src/app/components/Player.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 //lucide-react icons

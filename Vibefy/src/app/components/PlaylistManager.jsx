@@ -1,4 +1,4 @@
-//PlaylistManager.jsx
+// src/app/components/PlaylistManager.jsx
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import { useSpotifyApi } from "../Auth/Auth";

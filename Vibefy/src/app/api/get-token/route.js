@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const cookieStore = await cookies(); // Fetch cookies once
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token")?.value;
   const expirationTime = cookieStore.get("expiration_time")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
@@ -57,7 +57,7 @@ export async function GET() {
     const data = await response.json();
     cookieStore.set("access_token", data.access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Allow non-secure in dev
+      secure: process.env.NODE_ENV === "production",
       path: "/",
     });
     if (data.refresh_token) {

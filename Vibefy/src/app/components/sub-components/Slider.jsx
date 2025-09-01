@@ -1,4 +1,4 @@
-//Slider.jsx
+// src/app/components/sub-components/Slider.jsx
 import React from "react";
 
 const Slider = ({
