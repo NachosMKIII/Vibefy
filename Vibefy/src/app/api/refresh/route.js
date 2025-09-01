@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
     console.error("Missing Spotify credentials in environment variables", {
       hasClientId: !!clientId,
