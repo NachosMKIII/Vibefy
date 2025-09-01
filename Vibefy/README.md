@@ -11,7 +11,7 @@
 -Has a playlist functionality that is managed locally on localStorage.
 -the App has a lot of attention to detail, try messing around with it and see what you can find.
 
-## 3. App setup
+## 3. App setup:
 
 ## 4. running the app:
 
@@ -39,6 +39,8 @@ VITE uses the prefix `VITE_` and imports them by using import.meta.env. while fo
 
 # On the Spotify dashboard, add your email(The one of your premium account) to the users list(the list in development mode supports a max of 25 users) and add a redirect URI that matches the one in your REDIRECT_URI variable.
 
-# Install dependencies with "npm install" on the terminal.
+# Terminal
 
-# Run with "npm run dev" on the terminal.
+-cd Vibefy
+-npm install
+-npm run dev
