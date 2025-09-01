@@ -11,7 +11,11 @@
 -Has a playlist functionality that is managed locally on localStorage.
 -the App has a lot of attention to detail, try messing around with it and see what you can find.
 
-## 3. App setup:
+## 3. App setup (for beginners):
+
+-go to the repository: https://github.com/NachosMKIII/Vibefy
+-click on the green "<code>" button
+-(on the terminal) run: git clone https://github.com/NachosMKIII/Vibefy.git
 
 ## 4. running the app:
 
@@ -31,7 +35,7 @@
 
 process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
 process.env.NEXT_PUBLIC_REDIRECT_URI
-process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET
+process.env.SPOTIFY_CLIENT_SECRET
 
 # You can either replace them directly, change the name of each with your own, or create and .env file in the root and define the variables there, but be mindful that different frameworks have different ways of defining environment variables. e.g.
 
