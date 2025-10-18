@@ -69,7 +69,7 @@ const PlaylistList = ({ setSidebarView, startNewPlaylist }) => {
             {playlists.map((playlist) => (
               <li
                 key={playlist.id}
-                className="flex items-center ml-3 gap-2 mt-4 album-playlist cursor-pointer rounded max-w-64"
+                className="flex items-center ml-3 gap-2 mt-4 album-playlist cursor-pointer rounded max-w-66"
                 onClick={() => handleSelectPlaylist(playlist.id)}
               >
                 {playlist.tracks.length > 0 && (

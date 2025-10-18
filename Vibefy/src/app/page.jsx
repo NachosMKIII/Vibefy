@@ -25,20 +25,25 @@ const Page = () => {
   const [playbackState, setPlaybackState] = useState(null);
   const [player, setPlayer] = useState(null);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "cozy";
-  });
+  const [theme, setTheme] = useState("cozy");
   const [sidebarView, setSidebarView] = useState("default");
-  const [playlists, setPlaylists] = useState(() => {
-    const savedPlaylists = localStorage.getItem("playlists");
-    return savedPlaylists ? JSON.parse(savedPlaylists) : [];
-  });
+  const [playlists, setPlaylists] = useState([]);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  // Fetch token on mount
+  useEffect(() => {
+    const savedPlaylists = localStorage.getItem("playlists");
+    if (savedPlaylists) {
+      setPlaylists(JSON.parse(savedPlaylists));
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) setTheme(savedTheme);
+  }, []);
+
   useEffect(() => {
     const fetchToken = async () => {
       try {

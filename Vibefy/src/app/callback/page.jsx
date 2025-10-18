@@ -51,5 +51,7 @@ export default function Callback() {
     }
   }, [searchParams]);
 
-  return <div>Processing login...</div>;
+  return (
+    <div className="flex w-screen h-screen justify-center bg-neutral-900 items-center"></div>
+  );
 }
