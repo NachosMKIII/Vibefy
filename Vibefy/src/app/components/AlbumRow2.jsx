@@ -130,7 +130,7 @@ export default function AlbumRow2({
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             className={[
-              "p-2 relative right-[1130px] cursor-pointer rounded-full button1 transition-colors",
+              "p-2 relative right-[1125px] cursor-pointer rounded-full button1 transition-colors",
               !canScrollLeft && "opacity-50 cursor-not-allowed",
             ]
               .filter(Boolean)
@@ -143,7 +143,7 @@ export default function AlbumRow2({
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             className={[
-              "p-2 relative right-[1130px] cursor-pointer rounded-full button1 transition-colors",
+              "p-2 relative right-[1125px] cursor-pointer rounded-full button1 transition-colors",
               !canScrollRight && "opacity-50 cursor-not-allowed",
             ]
               .filter(Boolean)

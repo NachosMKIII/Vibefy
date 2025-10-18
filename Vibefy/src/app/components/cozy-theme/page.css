@@ -1,0 +1,7 @@
+.main-container.cozy .color-container {
+  background: linear-gradient(240deg, #451a03 20%, #020617 30%, #022c22 95%);
+}
+.main-container.cozy .bg-image {
+  opacity: 0.2;
+  filter: contrast(1.2);
+}

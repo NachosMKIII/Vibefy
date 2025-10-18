@@ -55,7 +55,7 @@ const Sidebar = ({ setSidebarView, startNewPlaylist }) => {
 
   return (
     <div
-      className={`main-sidebar sidebar w-[20%] h-[130%] mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
+      className={`main-sidebar relative sidebar w-[20%] h-[130%] rounded-tr-xl mr-5 p-2 flex-col gap-2 hidden lg:flex ${theme}`}
     >
       <div className="sidebar1 h-[80%] rounded mt-10">
         <div className="p-4 flex items-center justify-between">

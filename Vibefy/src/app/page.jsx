@@ -14,6 +14,10 @@ import PlaylistList from "./components/PlaylistList";
 import PlaylistCustomizer from "./components/PlaylistCustomizer";
 import TrackList from "./components/TrackList";
 import { ThemeContext } from "./context/ThemeContext";
+//CSS
+import "./components/cozy-theme/page.css";
+import "./components/metal-rock-theme/page.css";
+import "./components/experimental-theme/page.css";
 
 const Page = () => {
   const [accessToken, setAccessToken] = useState(null); // Store token in state
@@ -224,12 +228,18 @@ const Page = () => {
           }}
         >
           <div
-            className="h-screen w-screen overflow-hidden bg-center bg-cover bg-no-repeat"
-            style={{
-              backgroundImage: `url('/assets/images/theme-${theme}.png')`,
-            }}
+            className={`h-screen w-screen main-container overflow-hidden z-2 ${theme}`}
           >
-            <div className="h-[90%] flex">
+            <div
+              className={`absolute bg-image inset-0 -z-3 bg-cover bg-center`}
+              style={{
+                backgroundImage: `url('/assets/images/theme-${theme}.png')`,
+              }}
+            />
+            <div
+              className={`absolute color-container ${theme} inset-0 -z-4 bg-cover bg-center`}
+            />
+            <div className="h-[90%] z-1000 flex">
               {sidebarView === "default" ? (
                 <Sidebar
                   setSidebarView={setSidebarView}

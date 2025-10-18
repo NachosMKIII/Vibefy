@@ -106,7 +106,7 @@ const TrackList = ({ albumId, setSelectedAlbum }) => {
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setSelectedAlbum(null)}
-          className="px-4 py-2 button3 rounded"
+          className="px-4 py-2 button3 rounded cursor-pointer"
         >
           Back to Albums
         </button>

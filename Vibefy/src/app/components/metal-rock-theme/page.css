@@ -1,0 +1,7 @@
+.main-container.rock-metal .color-container {
+  background: linear-gradient(240deg, #083344 20%, #020617 30%, #172554 95%);
+}
+.main-container.rock-metal .bg-image {
+  opacity: 0.3;
+  filter: contrast(1.7);
+}

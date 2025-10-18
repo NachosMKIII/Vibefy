@@ -1,0 +1,7 @@
+.main-container.experimental .color-container {
+  background: linear-gradient(140deg, #422006 20%, #030712 50%, #3b0764 90%);
+}
+.main-container.experimental .bg-image {
+  opacity: 0.4;
+  filter: contrast(1.5);
+}

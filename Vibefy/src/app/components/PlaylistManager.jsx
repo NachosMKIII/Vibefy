@@ -213,7 +213,7 @@ const PlaylistManager = ({ setSidebarView }) => {
                       }
                     />
                     <span
-                      className="truncate max-w-[17ch] cursor-pointer"
+                      className="truncate ml-1 max-w-[17ch] cursor-pointer"
                       onClick={() =>
                         handlePlayTrackFromAlbum(track.albumUri, track.uri)
                       }
