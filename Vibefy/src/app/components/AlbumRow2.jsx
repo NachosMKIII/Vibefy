@@ -1,7 +1,7 @@
 // src/app/components/AlbumRow2.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { usePlayback } from "../hooks/usePlayback";
 import { useSpotifyApi } from "../Auth/Auth";
 import "./cozy-theme/album-row.css";
@@ -118,7 +118,11 @@ export default function AlbumRow2({
   }
 
   if (albums.length === 0) {
-    return <div>Loading albums...</div>;
+    return (
+      <LoaderCircle
+        className={`animate-spin h-30 w-30 mb-20 ${theme} loading`}
+      />
+    );
   }
 
   return (

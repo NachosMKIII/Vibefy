@@ -239,7 +239,7 @@ const Page = () => {
             <div
               className={`absolute color-container ${theme} inset-0 -z-4 bg-cover bg-center`}
             />
-            <div className="h-[90%] z-1000 flex">
+            <div className="h-[90%] flex">
               {sidebarView === "default" ? (
                 <Sidebar
                   setSidebarView={setSidebarView}
