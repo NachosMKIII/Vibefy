@@ -29,7 +29,7 @@ export async function POST(request) {
   });
 
   const data = await response.json();
-
+  //store returned tokens and expiration time in cookies
   if (data.access_token) {
     const cookieStore = cookies();
     cookieStore.set("access_token", data.access_token, {
@@ -51,8 +51,9 @@ export async function POST(request) {
         path: "/",
       }
     );
+    //response if everything worked
     return NextResponse.json({ success: true });
   }
-
+  //response if something went wrong
   return NextResponse.json(data, { status: response.status });
 }

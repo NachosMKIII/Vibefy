@@ -59,7 +59,7 @@ export default function AlbumRow2({
         "1RHa1VdX6lsLbeedgsV1cb",
       ];
     } else {
-      // Fallback to a default set (e.g., cozy)
+      // Fallback (cozy)
       albumIds = [
         "7DxmOS2dKJgTfLLRNOP4ch",
         "1K6TvnkvmnLKPhifmPb6N7",
@@ -72,7 +72,7 @@ export default function AlbumRow2({
         "2kz6FGzMkZUyGZPywlkcOu",
         "60EzsIzS77S9MWHT0Tm37s",
         "02gFZUaqAcQNtV6rmVIsN0",
-        "3oPVMDW85Fo8tXQWKhYIQO" /* ... default albums */,
+        "3oPVMDW85Fo8tXQWKhYIQO",
         ,
         ,
         ,

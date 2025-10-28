@@ -8,7 +8,6 @@ export const usePlayback = () => {
   const makeApiCall = useSpotifyApi();
 
   const playAlbum = async (albumId) => {
-    // Check if deviceId is available
     if (!deviceId) {
       console.error(
         "No device ID available. Please wait for the player to initialize."
@@ -30,7 +29,7 @@ export const usePlayback = () => {
       );
     } catch (error) {
       console.error("Error playing album:", error);
-      throw error; // Let the calling component handle the error if needed
+      throw error;
     }
   };
 

@@ -14,7 +14,6 @@ const Slider = ({
 }) => {
   const percentage = max > min ? ((value - min) / (max - min)) * 100 : 0;
 
-  // Define theme-specific colors
   let trackBg, progressBg, glowBg, thumbBg;
   if (theme === "cozy") {
     trackBg = "from-amber-900/50 to-green-900/50";

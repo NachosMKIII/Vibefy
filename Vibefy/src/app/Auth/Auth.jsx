@@ -4,6 +4,7 @@
 import { useCallback } from "react";
 
 export const useSpotifyApi = () => {
+  //this the hook that other components use to make requests to the Spotify API with their own url and options
   const makeApiCall = useCallback(async (url, options = {}) => {
     let accessToken;
     try {

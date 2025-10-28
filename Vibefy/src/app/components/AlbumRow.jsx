@@ -72,7 +72,7 @@ export default function AlbumRow({
         "1WwiyWxa40PKucRxIKlEVM",
       ];
     } else {
-      // Fallback to a default set (e.g., cozy)
+      // Fallback (cozy)
       albumIds = [
         "7DxmOS2dKJgTfLLRNOP4ch",
         "1K6TvnkvmnLKPhifmPb6N7",

@@ -208,8 +208,8 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
         <div className="hidden lg:flex flex-col">
           <div className="sidebar1 rounded hidden lg:flex flex-col">
             <ArrowBigLeftDash
-              onClick={handleBackToPlaylist} // Goes back to playlist tracks
-              className="mb-2 ml-3 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1"
+              onClick={handleBackToPlaylist}
+              className="mb-2 ml-2 mt-2 w-8 h-8 button1 rounded cursor-pointer p-1"
             />
             <h2 className="text-xl font-bold ml-2 mb-4">
               Add Tracks to {playlist.name}
@@ -349,12 +349,12 @@ const PlaylistCustomizer = ({ setSidebarView, playlist }) => {
               onClick={() => deletePlaylist(playlist.id)}
               className="w-8 h-8 my-2 cursor-pointer remove-button rounded-full p-1 ml-3"
             />
-            <h2 className="text-xl ml-1 font-bold mb-4">{playlist.name}</h2>
+            <h2 className="text-xl ml-3 font-bold mb-4">{playlist.name}</h2>
             <div
               className={`overflow-y-auto sidebar2b max-h-[430px] custom-scrollbar-${theme}`}
             >
               {playlist.tracks.length === 0 ? (
-                <p>No tracks in this playlist</p>
+                <p className="font-bold ml-3">No tracks in this playlist</p>
               ) : (
                 playlist.tracks.map((track, index) => (
                   <div

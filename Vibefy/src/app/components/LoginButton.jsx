@@ -1,11 +1,9 @@
 // src/app/components/LoginButton.jsx
 import React from "react";
 
-// Character set for code verifier as per PKCE spec
 const charset =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
 
-// Generate a random string of specified length
 const generateRandomString = (length) => {
   const randomValues = window.crypto.getRandomValues(new Uint8Array(length));
   return Array.from(
@@ -14,7 +12,6 @@ const generateRandomString = (length) => {
   ).join("");
 };
 
-// Compute SHA-256 hash and return base64-URL-encoded string
 const sha256 = async (string) => {
   const encoder = new TextEncoder();
   const data = encoder.encode(string);
@@ -43,17 +40,13 @@ const LoginButton = () => {
       return;
     }
 
-    // Generate a 64-character code verifier
     const codeVerifier = generateRandomString(64);
     localStorage.setItem("code_verifier", codeVerifier);
 
-    // Generate code challenge from verifier
     const codeChallenge = await sha256(codeVerifier);
 
-    // Generate a state parameter for CSRF protection
     const state = generateRandomString(16);
 
-    // Construct the authorization URL
     const authUrl =
       `https://accounts.spotify.com/authorize?` +
       `client_id=${clientId}&` +

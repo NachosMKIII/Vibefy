@@ -21,24 +21,16 @@ import Slider from "./sub-components/Slider";
 import { Volume2 } from "lucide-react";
 
 const Player = ({ playbackState, isLoggedIn }) => {
-  // Added isLoggedIn prop here! 🥰
   const { theme } = useContext(ThemeContext);
   const { deviceId, player } = useContext(SpotifyContext);
   const makeApiCall = useSpotifyApi();
-
-  // Local state for slider value and adjustment tracking
   const [sliderValue, setSliderValue] = useState(50);
   const [isAdjusting, setIsAdjusting] = useState(false);
-
-  // Use a ref to track isAdjusting for the event listener
   const isAdjustingRef = useRef(isAdjusting);
-
-  // Update the ref whenever isAdjusting changes
   useEffect(() => {
     isAdjustingRef.current = isAdjusting;
   }, [isAdjusting]);
 
-  // Listen for player state changes and update sliderValue if not adjusting
   useEffect(() => {
     if (player) {
       const handlePlayerStateChange = (state) => {
@@ -50,7 +42,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
 
       player.addListener("player_state_changed", handlePlayerStateChange);
 
-      // Get initial state when the component mounts
       player.getCurrentState().then((state) => {
         if (state && !isAdjustingRef.current) {
           console.log("Initial state volume:", state.volume);
@@ -58,14 +49,11 @@ const Player = ({ playbackState, isLoggedIn }) => {
         }
       });
 
-      // Cleanup: Remove the listener when the component unmounts
       return () => {
         player.removeListener("player_state_changed", handlePlayerStateChange);
       };
     }
   }, [player]);
-
-  // Logout handler - disconnect player, clear tokens, navigate home! ✨
   const handleLogout = async () => {
     try {
       if (player) {
@@ -76,14 +64,12 @@ const Player = ({ playbackState, isLoggedIn }) => {
       window.alert(
         "Logged out successfully! Remember to remove the app's access in your Spotify account."
       );
-      window.location.href = "/"; // Redirect to home
+      window.location.href = "/";
     } catch (error) {
       console.error("Error during logout:", error);
       window.alert("Failed to log out. Please try again.");
     }
   };
-
-  // Check if there's no active playback or track
   if (!playbackState || !playbackState.track_window?.current_track) {
     return (
       <div
@@ -125,8 +111,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
       </div>
     );
   }
-
-  // Extract track details from playbackState
   const isPlaying = !playbackState.paused;
   const currentTrack = playbackState?.track_window?.current_track || null;
   const albumImage = currentTrack?.album.images[0]?.url || null;
@@ -135,7 +119,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     currentTrack?.artists?.map((artist) => artist.name).join(", ") ||
     "No artist";
 
-  // Toggle play/pause
   const togglePlayPause = async () => {
     try {
       if (isPlaying) {
@@ -154,7 +137,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     }
   };
 
-  // Skip to next track
   const nextTrack = async () => {
     try {
       await makeApiCall(
@@ -166,7 +148,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     }
   };
 
-  // Go to previous track
   const prevTrack = async () => {
     try {
       await makeApiCall(
@@ -178,7 +159,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     }
   };
 
-  // Toggle shuffle
   const toggleShuffle = async () => {
     try {
       const newState = !playbackState.shuffle;
@@ -191,7 +171,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     }
   };
 
-  // Cycle repeat mode
   const cycleRepeatMode = async () => {
     try {
       const currentMode = playbackState.repeat_mode;
@@ -212,7 +191,6 @@ const Player = ({ playbackState, isLoggedIn }) => {
     }
   };
 
-  // Handle volume change
   const handleVolumeChange = async (event) => {
     const newVolume = parseInt(event.target.value, 10);
     console.log("Setting slider value to:", newVolume);

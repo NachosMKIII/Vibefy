@@ -72,14 +72,25 @@ const PlaylistList = ({ setSidebarView, startNewPlaylist }) => {
                 className="flex items-center ml-3 gap-2 mt-4 album-playlist cursor-pointer rounded max-w-66"
                 onClick={() => handleSelectPlaylist(playlist.id)}
               >
-                {playlist.tracks.length > 0 && (
-                  <img
-                    src={playlist.tracks[0].image || "fallback-image-url.jpg"}
-                    alt="Playlist cover"
-                    className="w-12 h-12 rounded"
-                  />
+                {playlist.tracks.length > 0 ? (
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={playlist.tracks[0].image || "fallback-image-url.jpg"}
+                      alt="Playlist cover"
+                      className="w-12 h-12 rounded"
+                    />
+                    <p className="font-medium">{playlist.name}</p>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={"./assets/images/no-songs.jpg"}
+                      alt="Playlist cover"
+                      className="w-12 h-12 rounded"
+                    />
+                    <p className="font-medium">{playlist.name}</p>
+                  </div>
                 )}
-                <p className="font-medium">{playlist.name}</p>
               </li>
             ))}
           </ul>

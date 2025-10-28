@@ -20,7 +20,7 @@ import "./components/metal-rock-theme/page.css";
 import "./components/experimental-theme/page.css";
 
 const Page = () => {
-  const [accessToken, setAccessToken] = useState(null); // Store token in state
+  const [accessToken, setAccessToken] = useState(null);
   const [deviceId, setDeviceId] = useState(null);
   const [playbackState, setPlaybackState] = useState(null);
   const [player, setPlayer] = useState(null);
