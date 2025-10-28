@@ -14,12 +14,12 @@
 # 3. App setup (for beginners):
 
 -go to the repository: https://github.com/NachosMKIII/Vibefy
--click on the green "<code>" button
+-click on the green "code" button
 -(on the terminal) run: git clone https://github.com/NachosMKIII/Vibefy.git
 
 # 4. running the app:
 
-## Since the spotify documentation was updated and since may 15/2025 only organizations can request an extended quote(i.e. setting the app to production mode) indie developers can not really launch an app that uses the spotify web playback SDK for people to access it, that is why the only way to see the app is running on your own or watching the demo video (youtube.com/IAMGOINGTOMAKEAVIDEOFORITLATER).
+## Since the spotify documentation was updated and since may 15/2025 only organizations can request an extended quote(i.e. setting the app to production mode) indie developers can not really launch an app that uses the spotify web playback SDK for people to access it, that is why the only way to see the app is running on your own or watching the demo video (https://www.youtube.com/watch?v=iDAVwUUYhbg).
 
 (More precisely there is a third option, i could deploy the app but then you would have to send me your email for me to add to the dashboard, which is really impractical and probably feels intrusive).
 
