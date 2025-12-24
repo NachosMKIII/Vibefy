@@ -37,9 +37,29 @@ process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
 process.env.NEXT_PUBLIC_REDIRECT_URI
 process.env.SPOTIFY_CLIENT_SECRET
 
-## You can either replace them directly, change the name of each with your own, or create and .env file in the root and define the variables there, but be mindful that different frameworks have different ways of defining environment variables. e.g.
+## You can either replace them directly, change the name of each with your own, or create and .env file in the root and define the variables there(the latter is recommended).
 
-VITE uses the prefix `VITE_` and imports them by using import.meta.env. while for Next.js you declare them with the prefix `NEXT_PUBLIC` (if you want to expose it to client side, otherwise there is no prefix) and import them with process.env
+## create a .env file with these variables
+
+NEXT_PUBLIC_YOUR_SPOTIFY_CLIENT_ID
+NEXT_PUBLIC_YOUR_REDIRECT_URI
+YOUR_SPOTIFY_CLIENT_SECRET
+
+# Spotify no longer allows for localhost or http urls(unless they are loopback adresses) so you need to use https locally, easiest way is using ngrok
+
+1. Install ngrok and add the authtoken
+
+2. Run ngrok http:PORT(e.g. 3000)
+
+it will give you something like https//something-ngrok-wrote
+
+3. On the spotify dashboard paste you URL and add "/callback" at the end
+
+4. paste the url as your REDIRECT_URI variable in your env file
+
+# Example of valid URL variable
+
+NEXT_PUBLIC_REDIRECT_URI=https://something-ngrok-wrote//callback
 
 ## On the Spotify dashboard, add your email(The one of your premium account) to the users list(the list in development mode supports a max of 25 users) and add a redirect URI that matches the one in your REDIRECT_URI variable.
 
