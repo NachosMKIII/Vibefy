@@ -59,7 +59,7 @@ it will give you something like https//something-ngrok-wrote
 
 # Example of valid URL variable
 
-NEXT_PUBLIC_REDIRECT_URI=https://something-ngrok-wrote//callback
+NEXT_PUBLIC_REDIRECT_URI=https://something-ngrok-wrote/callback
 
 ## On the Spotify dashboard, add your email(The one of your premium account) to the users list(the list in development mode supports a max of 25 users) and add a redirect URI that matches the one in your REDIRECT_URI variable.
 
