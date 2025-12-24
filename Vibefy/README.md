@@ -1,23 +1,23 @@
-# 1. Introduction
+### 1. Introduction
 
 ## This is an demonstrative project that uses the Spotify Web Playback SDK and API
 
 - This my first project, the one i used for learning the basics of software engineering(yes, i know that it is a bit much for a first project but that's because i thought it would be easier), like design and interaction with a backend.
 
-# 2. Features:
+### 2. Features:
 
 -It uses the spotify API for album and track info.
 -Has different themes with each one containing it's own selection of tracks.
 -Has a playlist functionality that is managed locally on localStorage.
 -the App has a lot of attention to detail, try messing around with it and see what you can find.
 
-# 3. App setup (for beginners):
+### 3. App setup (for beginners):
 
 -go to the repository: https://github.com/NachosMKIII/Vibefy
 -click on the green "code" button
 -(on the terminal) run: git clone https://github.com/NachosMKIII/Vibefy.git
 
-# 4. running the app:
+### 4. running the app:
 
 ## Since the spotify documentation was updated and since may 15/2025 only organizations can request an extended quote(i.e. setting the app to production mode) indie developers can not really launch an app that uses the spotify web playback SDK for people to access it, that is why the only way to see the app is running on your own or watching the demo video (https://www.youtube.com/watch?v=iDAVwUUYhbg).
 
